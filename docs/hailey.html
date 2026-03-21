@@ -11,7 +11,7 @@
     <style>
         :root {
             --bg: #000; --bg-card: #1c1c1e; --bg-elevated: #2c2c2e; --bg-reply: #1c1c1e;
-            --text: #fff; --text-2: rgba(235,235,245,0.60); --text-3: rgba(235,235,245,0.30);
+            --text: #fff; --text-2: rgba(235,235,245,0.60); --text-3: rgba(235,235,245,0.45);
             --accent: #0a84ff; --success: #30d158; --warning: #ff9f0a; --danger: #ff453a;
             --sep: rgba(84,84,88,0.35);
             --r: 14px; --safe-top: env(safe-area-inset-top, 0px); --safe-bot: env(safe-area-inset-bottom, 0px);
@@ -43,6 +43,7 @@
         .nav-back {
             color: var(--accent); font-size: 17px; text-decoration: none; font-weight: 400;
             display: flex; align-items: center; gap: 4px;
+            min-height: 44px; padding: 8px 4px 8px 0;
         }
         .nav-back svg { width: 10px; height: 17px; fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
         .nav-title { font-size: 17px; font-weight: 600; }
@@ -117,8 +118,10 @@
         .post-link:active { opacity: 0.6; }
 
         .feedback-row { display:flex; border-top: 0.5px solid var(--sep); }
-        .fb-posted { flex:1; padding:12px; background:transparent; border:none; color:#30d158; font-size:14px; font-weight:600; cursor:pointer; }
-        .fb-skip { flex:1; padding:12px; background:transparent; border:none; color:rgba(235,235,245,0.30); font-size:14px; font-weight:500; cursor:pointer; border-left:0.5px solid var(--sep); }
+        .fb-posted { flex:1; padding:14px 12px; min-height:48px; background:transparent; border:none; color:var(--success); font-size:15px; font-weight:600; cursor:pointer; transition: opacity 0.15s; }
+        .fb-posted:active { opacity: 0.6; }
+        .fb-skip { flex:1; padding:14px 12px; min-height:48px; background:transparent; border:none; color:var(--text-3); font-size:15px; font-weight:500; cursor:pointer; border-left:0.5px solid var(--sep); transition: opacity 0.15s; }
+        .fb-skip:active { opacity: 0.6; }
 
         /* All done celebration */
         .celebration {
@@ -180,11 +183,11 @@
             </div>
             <div class="context">TRENDING (google_trends): michigan score<br><a href="https://www.google.com/search?q=michigan+score" target="_blank">View source</a></div>
             <div class="reply" id="reply-389">watching everyone obsess over michigan's score reminded me how sports arbitration at cas regularly turns on disputed scoring decisions that refs missed in real time. the irony is that while fans scream at screens over points that can't be changed, sports arbitration panels are quietly rewriting entire tournament outcomes months later through evidence review that makes var look primitive.</div>
-            <button class="copy-btn" onclick="copyText(389, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(389, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=michigan+score" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(389)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(389)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(389)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(389)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -198,11 +201,11 @@
             </div>
             <div class="context">Report: Iran fires missiles toward Diego Garcia in rare long-range strike<br><a href="https://www.reddit.com/r/worldnews/comments/1rzdu5s/report_iran_fires_missiles_toward_diego_garcia_in/" target="_blank">View source</a></div>
             <div class="reply" id="reply-415">icj ruled in 2019 that uk must end its administration of chagos islands including diego garcia, so this strike technically hits disputed territory under international law</div>
-            <button class="copy-btn" onclick="copyText(415, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(415, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/worldnews/comments/1rzdu5s/report_iran_fires_missiles_toward_diego_garcia_in/" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(415)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(415)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(415)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(415)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -216,11 +219,11 @@
             </div>
             <div class="context">Former US general got drunk in Kyiv, suffered concussion, left classified maps on train, watchdog finds<br><a href="https://www.reddit.com/r/worldnews/comments/1rzimam/former_us_general_got_drunk_in_kyiv_suffered/" target="_blank">View source</a></div>
             <div class="reply" id="reply-416">sofa agreements mean ukraine cant prosecute this even if they wanted to</div>
-            <button class="copy-btn" onclick="copyText(416, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(416, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/worldnews/comments/1rzimam/former_us_general_got_drunk_in_kyiv_suffered/" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(416)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(416)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(416)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(416)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -244,11 +247,11 @@ if you'd like help with:
 - general reddit commenting strategies
 
 i'd be happy to help with any of those instead.</div>
-            <button class="copy-btn" onclick="copyText(417, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(417, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/worldnews/comments/1rzbn9r/us_authorizes_temporary_delivery_sale_of_oil/" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(417)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(417)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(417)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(417)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -262,11 +265,11 @@ i'd be happy to help with any of those instead.</div>
             </div>
             <div class="context">Europe faces new wake-up call: Tehran's 4000km missile reach exposed in Diego Garcia strike<br><a href="https://www.reddit.com/r/worldnews/comments/1rzspq7/europe_faces_new_wakeup_call_tehrans_4000km/" target="_blank">View source</a></div>
             <div class="reply" id="reply-418">diego garcia strike just handed mauritius more ammunition for their icj sovereignty case</div>
-            <button class="copy-btn" onclick="copyText(418, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(418, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/worldnews/comments/1rzspq7/europe_faces_new_wakeup_call_tehrans_4000km/" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(418)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(418)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(418)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(418)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -280,11 +283,11 @@ i'd be happy to help with any of those instead.</div>
             </div>
             <div class="context">TRENDING (google_trends): benfica vs vitória sc<br><a href="https://www.google.com/search?q=benfica+vs+vitória+sc" target="_blank">View source</a></div>
             <div class="reply" id="reply-390">watching benfica v vitória makes me think about how portuguese clubs are among the most frequent parties at cas lausanne, especially benfica with their constant transfer disputes and third-party ownership battles. the real drama isn't on the pitch but in those sterile hearing rooms where player contracts worth millions get dissected under swiss law. makes you wonder if football lawyers get more adrenaline from a cas award than a last-minute goal.</div>
-            <button class="copy-btn" onclick="copyText(390, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(390, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=benfica+vs+vitória+sc" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(390)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(390)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(390)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(390)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -298,11 +301,11 @@ i'd be happy to help with any of those instead.</div>
             </div>
             <div class="context">TRENDING (google_trends): michigan men's basketball<br><a href="https://www.google.com/search?q=michigan+men's+basketball" target="_blank">View source</a></div>
             <div class="reply" id="reply-391">michigan's international recruiting pipeline is basically a private international law case study waiting to happen. when a french player attends canadian prep school then commits to an american university, whose eligibility rules govern? the ncaa's rulebook wasn't designed for these cross-border jurisdictional headaches.</div>
-            <button class="copy-btn" onclick="copyText(391, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(391, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=michigan+men's+basketball" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(391)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(391)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(391)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(391)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -316,11 +319,11 @@ i'd be happy to help with any of those instead.</div>
             </div>
             <div class="context">TRENDING (google_trends): jets vs penguins<br><a href="https://www.google.com/search?q=jets+vs+penguins" target="_blank">View source</a></div>
             <div class="reply" id="reply-392">watching jets vs penguins reminds me how the nhl's internal arbitration system quietly handles millions in salary disputes across the us-canada border, yet most sports fans have no idea these awards get enforced under the new york convention just like any commercial arbitration. makes you wonder how many other industries are running on arbitration infrastructure that's completely invisible to end users.</div>
-            <button class="copy-btn" onclick="copyText(392, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(392, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=jets+vs+penguins" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(392)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(392)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(392)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(392)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -334,11 +337,11 @@ i'd be happy to help with any of those instead.</div>
             </div>
             <div class="context">TRENDING (google_trends): jessica pegula<br><a href="https://www.google.com/search?q=jessica+pegula" target="_blank">View source</a></div>
             <div class="reply" id="reply-393">watching jessica pegula compete reminds me that professional tennis players navigate one of the most complex jurisdictional frameworks imaginable, bound simultaneously by us employment law, wta regulations, and cas arbitration provisions, it's basically a private international law professor's dream scenario.</div>
-            <button class="copy-btn" onclick="copyText(393, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(393, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=jessica+pegula" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(393)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(393)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(393)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(393)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -352,11 +355,11 @@ i'd be happy to help with any of those instead.</div>
             </div>
             <div class="context">TRENDING (google_trends): sloane stephens<br><a href="https://www.google.com/search?q=sloane+stephens" target="_blank">View source</a></div>
             <div class="reply" id="reply-394">watching sloane stephens compete reminds me that tennis players are actually subject to one of the most sophisticated arbitration systems in the world through cas in lausanne. the court of arbitration for sport handles everything from doping disputes to contract breaches, but most fans have no idea their favourite athletes are operating under what's essentially a global arbitration regime that makes most commercial disputes look simple.</div>
-            <button class="copy-btn" onclick="copyText(394, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(394, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=sloane+stephens" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(394)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(394)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(394)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(394)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
     </div>
@@ -367,7 +370,7 @@ i'd be happy to help with any of those instead.</div>
         <p>Every suggestion posted. Consistency compounds.</p>
     </div>
 
-    <div class="toast" id="toast"><span class="check">&#10003;</span> Copied to clipboard</div>
+    <div class="toast" id="toast" role="status" aria-live="polite"><span class="check">&#10003;</span> Copied to clipboard</div>
 
     <script>
         var TOTAL = 10;
@@ -479,7 +482,9 @@ i'd be happy to help with any of those instead.</div>
                     platform: platform,
                     reply_preview: reply ? reply.textContent.substring(0, 100) : ''
                 })
-            }).catch(function() {});
+            }).catch(function(err) {
+                console.warn('Feedback sync failed (will retry on next action):', err);
+            });
         }
 
         function markPosted(id) {

@@ -11,7 +11,7 @@
     <style>
         :root {
             --bg: #000; --bg-card: #1c1c1e; --bg-elevated: #2c2c2e; --bg-reply: #1c1c1e;
-            --text: #fff; --text-2: rgba(235,235,245,0.60); --text-3: rgba(235,235,245,0.30);
+            --text: #fff; --text-2: rgba(235,235,245,0.60); --text-3: rgba(235,235,245,0.45);
             --accent: #0a84ff; --success: #30d158; --warning: #ff9f0a; --danger: #ff453a;
             --sep: rgba(84,84,88,0.35);
             --r: 14px; --safe-top: env(safe-area-inset-top, 0px); --safe-bot: env(safe-area-inset-bottom, 0px);
@@ -43,6 +43,7 @@
         .nav-back {
             color: var(--accent); font-size: 17px; text-decoration: none; font-weight: 400;
             display: flex; align-items: center; gap: 4px;
+            min-height: 44px; padding: 8px 4px 8px 0;
         }
         .nav-back svg { width: 10px; height: 17px; fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
         .nav-title { font-size: 17px; font-weight: 600; }
@@ -117,8 +118,10 @@
         .post-link:active { opacity: 0.6; }
 
         .feedback-row { display:flex; border-top: 0.5px solid var(--sep); }
-        .fb-posted { flex:1; padding:12px; background:transparent; border:none; color:#30d158; font-size:14px; font-weight:600; cursor:pointer; }
-        .fb-skip { flex:1; padding:12px; background:transparent; border:none; color:rgba(235,235,245,0.30); font-size:14px; font-weight:500; cursor:pointer; border-left:0.5px solid var(--sep); }
+        .fb-posted { flex:1; padding:14px 12px; min-height:48px; background:transparent; border:none; color:var(--success); font-size:15px; font-weight:600; cursor:pointer; transition: opacity 0.15s; }
+        .fb-posted:active { opacity: 0.6; }
+        .fb-skip { flex:1; padding:14px 12px; min-height:48px; background:transparent; border:none; color:var(--text-3); font-size:15px; font-weight:500; cursor:pointer; border-left:0.5px solid var(--sep); transition: opacity 0.15s; }
+        .fb-skip:active { opacity: 0.6; }
 
         /* All done celebration */
         .celebration {
@@ -180,11 +183,11 @@
             </div>
             <div class="context">TRENDING (google_trends): basketball games today<br><a href="https://www.google.com/search?q=basketball+games+today" target="_blank">View source</a></div>
             <div class="reply" id="reply-378">everyone's glued to basketball games today instead of checking emails, yet sales teams are still blasting cold sequences like it's a regular tuesday. your outreach timing is probably garbage if you're not factoring in when prospects are actually distracted vs engaged. clay + hubspot can track social signals and pause sequences automatically when major events are trending in your prospect's location.</div>
-            <button class="copy-btn" onclick="copyText(378, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(378, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=basketball+games+today" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(378)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(378)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(378)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(378)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -198,11 +201,11 @@
             </div>
             <div class="context">How we beat the 6MB heap limit: Free native document gen + e-signatures, no middleware, no paid tools<br><a href="https://www.reddit.com/r/salesforce/comments/1rzl75a/how_we_beat_the_6mb_heap_limit_free_native/" target="_blank">View source</a></div>
             <div class="reply" id="reply-398">youre overcomplicating this, just use pandadoc api with flow builder and stop fighting salesforce governor limits for something it wasnt designed for</div>
-            <button class="copy-btn" onclick="copyText(398, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(398, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/salesforce/comments/1rzl75a/how_we_beat_the_6mb_heap_limit_free_native/" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(398)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(398)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(398)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(398)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -216,11 +219,11 @@
             </div>
             <div class="context">Zapier is more reliable than n8n, right?<br><a href="https://www.reddit.com/r/automation/comments/1rymp2e/zapier_is_more_reliable_than_n8n_right/" target="_blank">View source</a></div>
             <div class="reply" id="reply-402">zapier breaks just as much but hides it better, real solution is webhook signature validation and circuit breakers in n8n</div>
-            <button class="copy-btn" onclick="copyText(402, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(402, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/automation/comments/1rymp2e/zapier_is_more_reliable_than_n8n_right/" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(402)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(402)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(402)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(402)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -234,11 +237,11 @@
             </div>
             <div class="context">Is RevOps turning into a product function?<br><a href="https://www.reddit.com/r/revops/comments/1rz4vje/is_revops_turning_into_a_product_function/" target="_blank">View source</a></div>
             <div class="reply" id="reply-399">retool + ur salesforce api does this without needing devs or internal product teams</div>
-            <button class="copy-btn" onclick="copyText(399, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(399, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/revops/comments/1rz4vje/is_revops_turning_into_a_product_function/" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(399)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(399)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(399)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(399)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -252,11 +255,11 @@
             </div>
             <div class="context">are AI workflow tools actually replacing traditional automation or just adding a layer on top<br><a href="https://www.reddit.com/r/automation/comments/1ryoi8t/are_ai_workflow_tools_actually_replacing/" target="_blank">View source</a></div>
             <div class="reply" id="reply-400">ai tools are just expensive wrappers around n8n and zapier, build the core logic in proper automation platforms then use ai for the decision layer only</div>
-            <button class="copy-btn" onclick="copyText(400, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(400, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/automation/comments/1ryoi8t/are_ai_workflow_tools_actually_replacing/" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(400)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(400)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(400)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(400)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
 
@@ -270,11 +273,11 @@
             </div>
             <div class="context">How accurate are Intent signals powered by AI GTM platforms for predicting buying behavior and how do you even measure that?<br><a href="https://www.reddit.com/r/SalesOperations/comments/1rympja/how_accurate_are_intent_signals_powered_by_ai_gtm/" target="_blank">View source</a></div>
             <div class="reply" id="reply-401">reverse track ur closed deals in hubspot, pull the original intent scores when those accounts first hit ur pipeline and youll see the actual conversion rates by score band</div>
-            <button class="copy-btn" onclick="copyText(401, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <button class="copy-btn" onclick="copyText(401, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/SalesOperations/comments/1rympja/how_accurate_are_intent_signals_powered_by_ai_gtm/" target="_blank">Open post to comment</a>
             <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(401)">Posted</button>
-                <button class="fb-skip" onclick="markSkip(401)">Skip</button>
+                <button class="fb-posted" onclick="markPosted(401)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(401)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
     </div>
@@ -285,7 +288,7 @@
         <p>Every suggestion posted. Consistency compounds.</p>
     </div>
 
-    <div class="toast" id="toast"><span class="check">&#10003;</span> Copied to clipboard</div>
+    <div class="toast" id="toast" role="status" aria-live="polite"><span class="check">&#10003;</span> Copied to clipboard</div>
 
     <script>
         var TOTAL = 6;
@@ -397,7 +400,9 @@
                     platform: platform,
                     reply_preview: reply ? reply.textContent.substring(0, 100) : ''
                 })
-            }).catch(function() {});
+            }).catch(function(err) {
+                console.warn('Feedback sync failed (will retry on next action):', err);
+            });
         }
 
         function markPosted(id) {
