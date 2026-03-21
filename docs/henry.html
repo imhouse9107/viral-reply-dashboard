@@ -68,6 +68,24 @@
         }
         .copy-btn:active { background: #1d4ed8; }
         .copy-btn.copied { background: #16a34a; }
+        .card.done { opacity: 0.4; }
+        .card.done .copy-btn { background: #16a34a; }
+        .done-badge {
+            display: none; color: #16a34a; font-size: 13px; font-weight: 700;
+        }
+        .card.done .done-badge { display: inline; }
+        .progress-bar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 4px; background: #1a1a1a;
+        }
+        .progress-fill {
+            height: 100%; background: #16a34a; transition: width 0.3s;
+        }
+        .progress-text {
+            position: fixed; top: 6px; right: 12px; z-index: 101;
+            font-size: 12px; font-weight: 700; color: #16a34a;
+            background: #0a0a0a; padding: 2px 8px; border-radius: 4px;
+        }
         .open-link {
             display: block; text-align: center; padding: 10px;
             color: #4a9eff; font-size: 13px; text-decoration: none;
@@ -83,190 +101,236 @@
     </style>
 </head>
 <body>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-text" id="progress-text"></div>
+
     <a class="back-btn" href="index.html">Switch person</a>
     <div class="header">
         <h1>Henry's Action List</h1>
-        <div class="meta">2026-03-21 | 13 suggestions</div>
+        <div class="meta">2026-03-21 | 14 suggestions</div>
     </div>
     
-        <div class="card size-xl fire">
+        <div class="card size-xl fire" id="card-375">
             <div class="card-header">
                 <span class="platform-badge trending-take">trending_take</span>
-                <span class="engagement"><strong>51304</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>51304</strong> engagement</span></span>
             </div>
-            <div class="post-context">TRENDING (reddit_popular): PeterExplainsTheJoke<br><a href="https://reddit.com/r/PeterExplainsTheJoke/comments/1rz6jb7/whats_the_reason/" target="_blank">Open post</a></div>
+            <div class="post-context">TRENDING (reddit_popular): PeterExplainsTheJoke<br><a href="https://reddit.com/r/PeterExplainsTheJoke/comments/1rz6jb7/whats_the_reason/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-375">the whole peterexplainsthejoke thing perfectly captures the biggest mistake in b2b sales. the moment you have to explain why your solution is valuable, youve already lost the deal. best enterprise sellers let prospects connect the dots themselves, ask the right questions, then shut up. explaining the joke kills the joke, explaining the value kills the sale.</div>
             <button class="copy-btn" onclick="copyText(375, this)">Copy</button>
             <a class="open-link" href="https://reddit.com/r/PeterExplainsTheJoke/comments/1rz6jb7/whats_the_reason/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-xl fire">
+        <div class="card size-xl fire" id="card-376">
             <div class="card-header">
                 <span class="platform-badge trending-take">trending_take</span>
-                <span class="engagement"><strong>47089</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>47089</strong> engagement</span></span>
             </div>
-            <div class="post-context">TRENDING (reddit_popular): MurderedByWords<br><a href="https://reddit.com/r/MurderedByWords/comments/1rz4aw9/arrogance_meets_instant_reality/" target="_blank">Open post</a></div>
+            <div class="post-context">TRENDING (reddit_popular): MurderedByWords<br><a href="https://reddit.com/r/MurderedByWords/comments/1rz4aw9/arrogance_meets_instant_reality/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-376">this is every cocky sales rep who walks into a discovery call thinking they've got it figured out, only to get absolutely eviscerated by a prospect who's done their homework. the best enterprise buyers are masters at this, they'll let you dig your own grave with assumptions then hit you with one question that exposes you know nothing about their business. arrogance is the fastest way to lose a 7-figure deal, humility wins enterprise sales every single time.</div>
             <button class="copy-btn" onclick="copyText(376, this)">Copy</button>
             <a class="open-link" href="https://reddit.com/r/MurderedByWords/comments/1rz4aw9/arrogance_meets_instant_reality/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-lg hot">
+        <div class="card size-lg hot" id="card-377">
             <div class="card-header">
                 <span class="platform-badge trending-take">trending_take</span>
-                <span class="engagement"><strong>38032</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>38032</strong> engagement</span></span>
             </div>
-            <div class="post-context">TRENDING (reddit_popular): news<br><a href="https://reddit.com/r/news/comments/1rzat37/elon_musk_misled_twitter_investors_ahead_of_44/" target="_blank">Open post</a></div>
+            <div class="post-context">TRENDING (reddit_popular): news<br><a href="https://reddit.com/r/news/comments/1rzat37/elon_musk_misled_twitter_investors_ahead_of_44/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-377">the scary part isnt the $44bn lie, its what happens next. every future deal elon touches now carries this baggage, and in enterprise b2b your reputation travels faster than your pitch deck. sophisticated buyers do reference calls on founders not just products, and this verdict just became exhibit a in every competitor's sales deck against anything musk-related.</div>
             <button class="copy-btn" onclick="copyText(377, this)">Copy</button>
             <a class="open-link" href="https://reddit.com/r/news/comments/1rzat37/elon_musk_misled_twitter_investors_ahead_of_44/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-407">
             <div class="card-header">
                 <span class="platform-badge trending-take">trending_take</span>
-                <span class="engagement"><strong>500</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>500</strong> engagement</span></span>
             </div>
-            <div class="post-context">TRENDING (google_trends): audi crooks<br><a href="https://trends.google.com/trending/rss?geo=US" target="_blank">Open post</a></div>
+            <div class="post-context">TRENDING (google_trends): audi crooks<br><a href="https://www.google.com/search?q=audi+crooks" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-407">while everyone's talking about audi crooks, your fleet vehicles are rolling around with zero endpoint protection. modern cars run linux, connect to corporate wifi, and sync with employee phones, but most it teams treat them like dumb metal boxes. if criminals can exploit keyless entry, imagine what they'll do when they realise your company cars are unmonitored endpoints with wheels.</div>
             <button class="copy-btn" onclick="copyText(407, this)">Copy</button>
-            <a class="open-link" href="https://trends.google.com/trending/rss?geo=US" target="_blank">Open post to comment</a>
+            <a class="open-link" href="https://www.google.com/search?q=audi+crooks" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-381">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>426</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>426</strong> engagement</span></span>
             </div>
-            <div class="post-context">Stryker cyber attack: Employees still unable to work more than a week after hack<br><a href="https://www.reddit.com/r/cybersecurity/comments/1rzaxhs/stryker_cyber_attack_employees_still_unable_to/" target="_blank">Open post</a></div>
+            <div class="post-context">Stryker cyber attack: Employees still unable to work more than a week after hack<br><a href="https://www.reddit.com/r/cybersecurity/comments/1rzaxhs/stryker_cyber_attack_employees_still_unable_to/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-381">week of downtime means no air gapped backups, everything was connected when it hit</div>
             <button class="copy-btn" onclick="copyText(381, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/cybersecurity/comments/1rzaxhs/stryker_cyber_attack_employees_still_unable_to/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-395">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>284</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>284</strong> engagement</span></span>
             </div>
-            <div class="post-context">Boom: Target for the year done before the end of Q1.<br><a href="https://www.reddit.com/r/sales/comments/1ry62jp/boom_target_for_the_year_done_before_the_end_of_q1/" target="_blank">Open post</a></div>
+            <div class="post-context">Boom: Target for the year done before the end of Q1.<br><a href="https://www.reddit.com/r/sales/comments/1ry62jp/boom_target_for_the_year_done_before_the_end_of_q1/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-395">hitting annual in q1 means ur quota just tripled for next year</div>
             <button class="copy-btn" onclick="copyText(395, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/sales/comments/1ry62jp/boom_target_for_the_year_done_before_the_end_of_q1/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-382">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>252</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>252</strong> engagement</span></span>
             </div>
-            <div class="post-context">Anyone else deliberately staying small and not chasing scale?<br><a href="https://www.reddit.com/r/smallbusiness/comments/1rz1ykh/anyone_else_deliberately_staying_small_and_not/" target="_blank">Open post</a></div>
+            <div class="post-context">Anyone else deliberately staying small and not chasing scale?<br><a href="https://www.reddit.com/r/smallbusiness/comments/1rz1ykh/anyone_else_deliberately_staying_small_and_not/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-382">staying small means u can run enterprise grade zero trust for 200 quid monthly instead of the 50k scaled companies pay</div>
             <button class="copy-btn" onclick="copyText(382, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/smallbusiness/comments/1rz1ykh/anyone_else_deliberately_staying_small_and_not/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-383">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>223</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>223</strong> engagement</span></span>
             </div>
-            <div class="post-context">FortiGraveyard<br><a href="https://www.reddit.com/r/fortinet/comments/1ryptj8/fortigraveyard/" target="_blank">Open post</a></div>
+            <div class="post-context">FortiGraveyard<br><a href="https://www.reddit.com/r/fortinet/comments/1ryptj8/fortigraveyard/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-383">fortinet kills more products than they support, switch to pfsense with suricata before they discontinue whatever ur running next</div>
             <button class="copy-btn" onclick="copyText(383, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/fortinet/comments/1ryptj8/fortigraveyard/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-408">
+            <div class="card-header">
+                <span class="platform-badge trending-take">trending_take</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>200</strong> engagement</span></span>
+            </div>
+            <div class="post-context">TRENDING (google_trends): giovanni simeone<br><a href="https://www.google.com/search?q=giovanni+simeone" target="_blank">View source</a></div>
+            <div class="reply-text" id="reply-408">whenever footballers trend, fake merch sites and ticket scams multiply overnight. most clubs now budget more for fan-facing cyber protection than small businesses spend on their entire security stack</div>
+            <button class="copy-btn" onclick="copyText(408, this)">Copy</button>
+            <a class="open-link" href="https://www.google.com/search?q=giovanni+simeone" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm " id="card-374">
             <div class="card-header">
                 <span class="platform-badge hackernews">hackernews</span>
-                <span class="engagement"><strong>57</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>57</strong> engagement</span></span>
             </div>
-            <div class="post-context">Launch HN: Captain (YC W26) – Automated RAG for Files<br><a href="https://news.ycombinator.com/item?id=47366011" target="_blank">Open post</a></div>
+            <div class="post-context">Launch HN: Captain (YC W26) – Automated RAG for Files<br><a href="https://news.ycombinator.com/item?id=47366011" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-374">the real bottleneck isnt indexing files, its that most companies have zero idea which files actually matter or who owns the data quality, so you end up with beautiful search over complete rubbish</div>
             <button class="copy-btn" onclick="copyText(374, this)">Copy</button>
             <a class="open-link" href="https://news.ycombinator.com/item?id=47366011" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-396">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>49</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>49</strong> engagement</span></span>
             </div>
-            <div class="post-context">Does sales just not match my personality? Am I burned out? Undiagnosed ADHD?<br><a href="https://www.reddit.com/r/sales/comments/1ryrj00/does_sales_just_not_match_my_personality_am_i/" target="_blank">Open post</a></div>
+            <div class="post-context">Does sales just not match my personality? Am I burned out? Undiagnosed ADHD?<br><a href="https://www.reddit.com/r/sales/comments/1ryrj00/does_sales_just_not_match_my_personality_am_i/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-396">after 20 years its not personality fit mate, youve outgrown your current role and need strategic work</div>
             <button class="copy-btn" onclick="copyText(396, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/sales/comments/1ryrj00/does_sales_just_not_match_my_personality_am_i/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-384">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>42</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>42</strong> engagement</span></span>
             </div>
-            <div class="post-context">Those that started their own MSP, what are some things you wish you knew or did sooner?<br><a href="https://www.reddit.com/r/msp/comments/1rz1lno/those_that_started_their_own_msp_what_are_some/" target="_blank">Open post</a></div>
+            <div class="post-context">Those that started their own MSP, what are some things you wish you knew or did sooner?<br><a href="https://www.reddit.com/r/msp/comments/1rz1lno/those_that_started_their_own_msp_what_are_some/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-384">automate your documentation from day one, connectwise or itglue will save u 10+ hours per client onboarding once ur past 20 clients</div>
             <button class="copy-btn" onclick="copyText(384, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/msp/comments/1rz1lno/those_that_started_their_own_msp_what_are_some/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-385">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>33</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>33</strong> engagement</span></span>
             </div>
-            <div class="post-context">Azure Outage?<br><a href="https://www.reddit.com/r/sysadmin/comments/1ryz7en/azure_outage/" target="_blank">Open post</a></div>
+            <div class="post-context">Azure Outage?<br><a href="https://www.reddit.com/r/sysadmin/comments/1ryz7en/azure_outage/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-385">serial console access gets u in when rdp craps out</div>
             <button class="copy-btn" onclick="copyText(385, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/sysadmin/comments/1ryz7en/azure_outage/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-397">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>28</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>28</strong> engagement</span></span>
             </div>
-            <div class="post-context">What percentage of reps actually hit OTE at your company?<br><a href="https://www.reddit.com/r/sales/comments/1rzbocv/what_percentage_of_reps_actually_hit_ote_at_your/" target="_blank">Open post</a></div>
+            <div class="post-context">What percentage of reps actually hit OTE at your company?<br><a href="https://www.reddit.com/r/sales/comments/1rzbocv/what_percentage_of_reps_actually_hit_ote_at_your/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-397">percentage means nothing without knowing if they changed territories or comp plan mid year</div>
             <button class="copy-btn" onclick="copyText(397, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/sales/comments/1rzbocv/what_percentage_of_reps_actually_hit_ote_at_your/" target="_blank">Open post to comment</a>
         </div>
     <div class="toast" id="toast">Copied</div>
     <script>
+        var TOTAL = 14;
+        var STORAGE_KEY = 'vrb_done_henry_2026-03-21';
+
+        function getDone() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+            catch(e) { return []; }
+        }
+        function saveDone(arr) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+        }
+        function updateProgress() {
+            var done = getDone();
+            var pct = TOTAL > 0 ? Math.round(done.length / TOTAL * 100) : 0;
+            document.getElementById('progress-fill').style.width = pct + '%';
+            document.getElementById('progress-text').textContent = done.length + '/' + TOTAL + ' done';
+            // Restore done state on cards
+            done.forEach(function(id) {
+                var card = document.getElementById('card-' + id);
+                if (card) card.classList.add('done');
+            });
+        }
+        function markDone(id) {
+            var done = getDone();
+            if (done.indexOf(id) === -1) {
+                done.push(id);
+                saveDone(done);
+            }
+            var card = document.getElementById('card-' + id);
+            if (card) card.classList.add('done');
+            updateProgress();
+        }
+
         function copyText(id, btn) {
             var text = document.getElementById('reply-' + id).innerText;
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(text).then(function() {
-                    showCopied(btn);
+                    showCopied(btn, id);
                 }).catch(function() {
-                    fallbackCopy(text, btn);
+                    fallbackCopy(text, btn, id);
                 });
             } else {
-                fallbackCopy(text, btn);
+                fallbackCopy(text, btn, id);
             }
         }
-        function fallbackCopy(text, btn) {
+        function fallbackCopy(text, btn, id) {
             var ta = document.createElement('textarea');
             ta.value = text;
             ta.style.position = 'fixed';
             ta.style.left = '-9999px';
             document.body.appendChild(ta);
             ta.select();
-            try { document.execCommand('copy'); showCopied(btn); }
+            try { document.execCommand('copy'); showCopied(btn, id); }
             catch(e) {}
             document.body.removeChild(ta);
         }
-        function showCopied(btn) {
+        function showCopied(btn, id) {
+            markDone(id);
             btn.textContent = 'Copied';
             btn.classList.add('copied');
             var toast = document.getElementById('toast');
             toast.classList.add('show');
             setTimeout(function() {
                 toast.classList.remove('show');
-                btn.textContent = 'Copy';
-                btn.classList.remove('copied');
             }, 1500);
         }
+        updateProgress();
     </script>
 </body>
 </html>

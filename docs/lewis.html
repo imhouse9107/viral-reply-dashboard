@@ -68,6 +68,24 @@
         }
         .copy-btn:active { background: #1d4ed8; }
         .copy-btn.copied { background: #16a34a; }
+        .card.done { opacity: 0.4; }
+        .card.done .copy-btn { background: #16a34a; }
+        .done-badge {
+            display: none; color: #16a34a; font-size: 13px; font-weight: 700;
+        }
+        .card.done .done-badge { display: inline; }
+        .progress-bar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 4px; background: #1a1a1a;
+        }
+        .progress-fill {
+            height: 100%; background: #16a34a; transition: width 0.3s;
+        }
+        .progress-text {
+            position: fixed; top: 6px; right: 12px; z-index: 101;
+            font-size: 12px; font-weight: 700; color: #16a34a;
+            background: #0a0a0a; padding: 2px 8px; border-radius: 4px;
+        }
         .open-link {
             display: block; text-align: center; padding: 10px;
             color: #4a9eff; font-size: 13px; text-decoration: none;
@@ -83,113 +101,148 @@
     </style>
 </head>
 <body>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-text" id="progress-text"></div>
+
     <a class="back-btn" href="index.html">Switch person</a>
     <div class="header">
         <h1>Lewis's Action List</h1>
         <div class="meta">2026-03-21 | 6 suggestions</div>
     </div>
     
-        <div class="card size-xl fire">
+        <div class="card size-xl fire" id="card-378">
             <div class="card-header">
                 <span class="platform-badge trending-take">trending_take</span>
-                <span class="engagement"><strong>2000</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>2000</strong> engagement</span></span>
             </div>
-            <div class="post-context">TRENDING (google_trends): basketball games today<br><a href="https://trends.google.com/trending/rss?geo=US" target="_blank">Open post</a></div>
+            <div class="post-context">TRENDING (google_trends): basketball games today<br><a href="https://www.google.com/search?q=basketball+games+today" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-378">everyone's glued to basketball games today instead of checking emails, yet sales teams are still blasting cold sequences like it's a regular tuesday. your outreach timing is probably garbage if you're not factoring in when prospects are actually distracted vs engaged. clay + hubspot can track social signals and pause sequences automatically when major events are trending in your prospect's location.</div>
             <button class="copy-btn" onclick="copyText(378, this)">Copy</button>
-            <a class="open-link" href="https://trends.google.com/trending/rss?geo=US" target="_blank">Open post to comment</a>
+            <a class="open-link" href="https://www.google.com/search?q=basketball+games+today" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-398">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>39</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>39</strong> engagement</span></span>
             </div>
-            <div class="post-context">How we beat the 6MB heap limit: Free native document gen + e-signatures, no middleware, no paid tools<br><a href="https://www.reddit.com/r/salesforce/comments/1rzl75a/how_we_beat_the_6mb_heap_limit_free_native/" target="_blank">Open post</a></div>
+            <div class="post-context">How we beat the 6MB heap limit: Free native document gen + e-signatures, no middleware, no paid tools<br><a href="https://www.reddit.com/r/salesforce/comments/1rzl75a/how_we_beat_the_6mb_heap_limit_free_native/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-398">youre overcomplicating this, just use pandadoc api with flow builder and stop fighting salesforce governor limits for something it wasnt designed for</div>
             <button class="copy-btn" onclick="copyText(398, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/salesforce/comments/1rzl75a/how_we_beat_the_6mb_heap_limit_free_native/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-402">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>16</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>16</strong> engagement</span></span>
             </div>
-            <div class="post-context">Zapier is more reliable than n8n, right?<br><a href="https://www.reddit.com/r/automation/comments/1rymp2e/zapier_is_more_reliable_than_n8n_right/" target="_blank">Open post</a></div>
+            <div class="post-context">Zapier is more reliable than n8n, right?<br><a href="https://www.reddit.com/r/automation/comments/1rymp2e/zapier_is_more_reliable_than_n8n_right/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-402">zapier breaks just as much but hides it better, real solution is webhook signature validation and circuit breakers in n8n</div>
             <button class="copy-btn" onclick="copyText(402, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/automation/comments/1rymp2e/zapier_is_more_reliable_than_n8n_right/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-399">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>15</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>15</strong> engagement</span></span>
             </div>
-            <div class="post-context">Is RevOps turning into a product function?<br><a href="https://www.reddit.com/r/revops/comments/1rz4vje/is_revops_turning_into_a_product_function/" target="_blank">Open post</a></div>
+            <div class="post-context">Is RevOps turning into a product function?<br><a href="https://www.reddit.com/r/revops/comments/1rz4vje/is_revops_turning_into_a_product_function/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-399">retool + ur salesforce api does this without needing devs or internal product teams</div>
             <button class="copy-btn" onclick="copyText(399, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/revops/comments/1rz4vje/is_revops_turning_into_a_product_function/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-400">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>15</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>15</strong> engagement</span></span>
             </div>
-            <div class="post-context">are AI workflow tools actually replacing traditional automation or just adding a layer on top<br><a href="https://www.reddit.com/r/automation/comments/1ryoi8t/are_ai_workflow_tools_actually_replacing/" target="_blank">Open post</a></div>
+            <div class="post-context">are AI workflow tools actually replacing traditional automation or just adding a layer on top<br><a href="https://www.reddit.com/r/automation/comments/1ryoi8t/are_ai_workflow_tools_actually_replacing/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-400">ai tools are just expensive wrappers around n8n and zapier, build the core logic in proper automation platforms then use ai for the decision layer only</div>
             <button class="copy-btn" onclick="copyText(400, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/automation/comments/1ryoi8t/are_ai_workflow_tools_actually_replacing/" target="_blank">Open post to comment</a>
         </div>
 
-        <div class="card size-sm ">
+        <div class="card size-sm " id="card-401">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
-                <span class="engagement"><strong>3</strong> engagement</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>3</strong> engagement</span></span>
             </div>
-            <div class="post-context">How accurate are Intent signals powered by AI GTM platforms for predicting buying behavior and how do you even measure that?<br><a href="https://www.reddit.com/r/SalesOperations/comments/1rympja/how_accurate_are_intent_signals_powered_by_ai_gtm/" target="_blank">Open post</a></div>
+            <div class="post-context">How accurate are Intent signals powered by AI GTM platforms for predicting buying behavior and how do you even measure that?<br><a href="https://www.reddit.com/r/SalesOperations/comments/1rympja/how_accurate_are_intent_signals_powered_by_ai_gtm/" target="_blank">View source</a></div>
             <div class="reply-text" id="reply-401">reverse track ur closed deals in hubspot, pull the original intent scores when those accounts first hit ur pipeline and youll see the actual conversion rates by score band</div>
             <button class="copy-btn" onclick="copyText(401, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/SalesOperations/comments/1rympja/how_accurate_are_intent_signals_powered_by_ai_gtm/" target="_blank">Open post to comment</a>
         </div>
     <div class="toast" id="toast">Copied</div>
     <script>
+        var TOTAL = 6;
+        var STORAGE_KEY = 'vrb_done_lewis_2026-03-21';
+
+        function getDone() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+            catch(e) { return []; }
+        }
+        function saveDone(arr) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+        }
+        function updateProgress() {
+            var done = getDone();
+            var pct = TOTAL > 0 ? Math.round(done.length / TOTAL * 100) : 0;
+            document.getElementById('progress-fill').style.width = pct + '%';
+            document.getElementById('progress-text').textContent = done.length + '/' + TOTAL + ' done';
+            // Restore done state on cards
+            done.forEach(function(id) {
+                var card = document.getElementById('card-' + id);
+                if (card) card.classList.add('done');
+            });
+        }
+        function markDone(id) {
+            var done = getDone();
+            if (done.indexOf(id) === -1) {
+                done.push(id);
+                saveDone(done);
+            }
+            var card = document.getElementById('card-' + id);
+            if (card) card.classList.add('done');
+            updateProgress();
+        }
+
         function copyText(id, btn) {
             var text = document.getElementById('reply-' + id).innerText;
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(text).then(function() {
-                    showCopied(btn);
+                    showCopied(btn, id);
                 }).catch(function() {
-                    fallbackCopy(text, btn);
+                    fallbackCopy(text, btn, id);
                 });
             } else {
-                fallbackCopy(text, btn);
+                fallbackCopy(text, btn, id);
             }
         }
-        function fallbackCopy(text, btn) {
+        function fallbackCopy(text, btn, id) {
             var ta = document.createElement('textarea');
             ta.value = text;
             ta.style.position = 'fixed';
             ta.style.left = '-9999px';
             document.body.appendChild(ta);
             ta.select();
-            try { document.execCommand('copy'); showCopied(btn); }
+            try { document.execCommand('copy'); showCopied(btn, id); }
             catch(e) {}
             document.body.removeChild(ta);
         }
-        function showCopied(btn) {
+        function showCopied(btn, id) {
+            markDone(id);
             btn.textContent = 'Copied';
             btn.classList.add('copied');
             var toast = document.getElementById('toast');
             toast.classList.add('show');
             setTimeout(function() {
                 toast.classList.remove('show');
-                btn.textContent = 'Copy';
-                btn.classList.remove('copied');
             }, 1500);
         }
+        updateProgress();
     </script>
 </body>
 </html>
