@@ -21,32 +21,44 @@
             padding-top: env(safe-area-inset-top, 40px);
         }
 
-        .login { text-align: center; max-width: 400px; width: 100%; }
-        .login h1 { font-size: 28px; margin-bottom: 8px; }
-        .login .subtitle { color: #888; font-size: 15px; margin-bottom: 40px; }
+        .screen { text-align: center; max-width: 400px; width: 100%; }
+        .screen h1 { font-size: 28px; margin-bottom: 8px; }
+        .screen .subtitle { color: #888; font-size: 15px; margin-bottom: 40px; }
+
         .pin-input { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; }
         .pin-input input {
-            width: 52px; height: 60px; text-align: center;
-            font-size: 24px; font-weight: 700;
-            background: #1a1a1a; border: 2px solid #333; border-radius: 12px;
+            width: 56px; height: 64px; text-align: center;
+            font-size: 26px; font-weight: 700;
+            background: #1a1a1a; border: 2px solid #333; border-radius: 14px;
             color: #fff; outline: none; -webkit-appearance: none;
         }
         .pin-input input:focus { border-color: #2563eb; }
-        .pin-error { color: #ef4444; font-size: 14px; margin-bottom: 16px; opacity: 0; transition: opacity 0.3s; }
+
+        .pin-error {
+            color: #ef4444; font-size: 14px; height: 20px;
+            opacity: 0; transition: opacity 0.3s;
+        }
         .pin-error.show { opacity: 1; }
 
-        .selector { text-align: center; max-width: 500px; width: 100%; display: none; }
-        .selector h1 { font-size: 24px; margin-bottom: 24px; }
-        .person-btn {
-            display: block; width: 100%;
-            background: #141414; border: 1px solid #222; border-radius: 16px;
-            padding: 24px 20px; margin: 12px 0;
-            color: #fff; text-decoration: none;
-            transition: background 0.15s, border-color 0.15s;
+        .welcome {
+            display: none; text-align: center; max-width: 400px; width: 100%;
         }
-        .person-btn:active { background: #1a1a1a; border-color: #2563eb; }
-        .person-btn .name { font-size: 20px; font-weight: 700; }
-        .person-btn .role { color: #888; font-size: 14px; margin-top: 4px; }
+        .welcome h1 { font-size: 28px; margin-bottom: 8px; }
+        .welcome .greeting { color: #888; font-size: 16px; margin-bottom: 32px; }
+        .go-btn {
+            display: block; width: 100%;
+            background: #2563eb; color: #fff;
+            padding: 18px 24px; border-radius: 14px;
+            font-size: 18px; font-weight: 700;
+            text-decoration: none; text-align: center;
+            transition: background 0.15s;
+        }
+        .go-btn:active { background: #1d4ed8; }
+
+        .logout-link {
+            color: #555; font-size: 13px; margin-top: 24px;
+            cursor: pointer; display: inline-block;
+        }
 
         .install-banner {
             position: fixed; bottom: 0; left: 0; right: 0;
@@ -56,23 +68,16 @@
             padding-bottom: env(safe-area-inset-bottom, 16px);
         }
         .install-banner p { font-size: 14px; color: #ccc; margin-bottom: 8px; }
-        .install-banner .steps { font-size: 13px; color: #888; }
+        .install-banner .steps { font-size: 13px; color: #888; margin: 0; }
         .install-banner .dismiss {
             position: absolute; top: 8px; right: 16px;
             background: none; border: none; color: #666; font-size: 22px; cursor: pointer;
         }
-
-        .logout-btn {
-            position: fixed; top: 16px; right: 16px;
-            background: #1a1a1a; border: 1px solid #333; border-radius: 8px;
-            padding: 6px 12px; color: #666; font-size: 12px;
-            cursor: pointer; display: none;
-            top: env(safe-area-inset-top, 16px);
-        }
     </style>
 </head>
 <body>
-    <div class="login" id="login">
+    <!-- Login -->
+    <div class="screen" id="login">
         <h1>Viral Reply Bot</h1>
         <p class="subtitle">Enter your PIN</p>
         <div class="pin-input">
@@ -84,24 +89,15 @@
         <p class="pin-error" id="pin-error">Wrong PIN. Try again.</p>
     </div>
 
-    <div class="selector" id="selector">
-        <h1>Who's posting today?</h1>
-        <a class="person-btn" href="henry.html">
-            <div class="name">Henry</div>
-            <div class="role">Alba Talent + CyberStar IT</div>
-        </a>
-        <a class="person-btn" href="scott.html">
-            <div class="name">Scott</div>
-            <div class="role">Alba Talent + CyberStar IT</div>
-        </a>
-        <a class="person-btn" href="lewis.html">
-            <div class="name">Lewis</div>
-            <div class="role">Alba Talent</div>
-        </a>
+    <!-- Welcome (after login, before redirect) -->
+    <div class="welcome" id="welcome">
+        <h1 id="welcome-name"></h1>
+        <p class="greeting">Your suggestions are ready.</p>
+        <a class="go-btn" id="go-btn" href="#">View Today's Suggestions</a>
+        <span class="logout-link" onclick="logout()">Log out</span>
     </div>
 
-    <button class="logout-btn" id="logout" onclick="logout()">Log out</button>
-
+    <!-- Install banner (iOS) -->
     <div class="install-banner" id="install-banner">
         <button class="dismiss" onclick="dismissInstall()">&times;</button>
         <p><strong>Add to your home screen</strong> for the full app experience</p>
@@ -109,28 +105,50 @@
     </div>
 
     <script>
-        var VALID_PINS = ['2026'];
-        var SESSION_KEY = 'vrb_session';
+        // Each person gets their own PIN → goes straight to their dashboard
+        var PIN_MAP = {
+            '2026': { name: 'Henry', page: 'henry.html' },
+            '1234': { name: 'Scott', page: 'scott.html' },
+            '5678': { name: 'Lewis', page: 'lewis.html' }
+        };
+
+        var SESSION_KEY = 'vrb_user';
 
         function checkSession() {
-            if (localStorage.getItem(SESSION_KEY)) showSelector();
+            var user = localStorage.getItem(SESSION_KEY);
+            if (user) {
+                try {
+                    var data = JSON.parse(user);
+                    showWelcome(data.name, data.page);
+                } catch(e) {
+                    localStorage.removeItem(SESSION_KEY);
+                }
+            }
         }
 
-        var inputs = [document.getElementById('p1'), document.getElementById('p2'), document.getElementById('p3'), document.getElementById('p4')];
+        var inputs = [
+            document.getElementById('p1'),
+            document.getElementById('p2'),
+            document.getElementById('p3'),
+            document.getElementById('p4')
+        ];
 
         inputs.forEach(function(input, i) {
             input.addEventListener('input', function() {
                 if (input.value.length === 1 && i < 3) inputs[i + 1].focus();
                 if (i === 3 && input.value.length === 1) {
                     var pin = inputs.map(function(el) { return el.value; }).join('');
-                    if (VALID_PINS.indexOf(pin) !== -1) {
-                        localStorage.setItem(SESSION_KEY, 'true');
-                        showSelector();
+                    var user = PIN_MAP[pin];
+                    if (user) {
+                        localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+                        showWelcome(user.name, user.page);
                     } else {
                         document.getElementById('pin-error').classList.add('show');
                         inputs.forEach(function(el) { el.value = ''; });
                         inputs[0].focus();
-                        setTimeout(function() { document.getElementById('pin-error').classList.remove('show'); }, 2000);
+                        setTimeout(function() {
+                            document.getElementById('pin-error').classList.remove('show');
+                        }, 2000);
                     }
                 }
             });
@@ -139,10 +157,13 @@
             });
         });
 
-        function showSelector() {
+        function showWelcome(name, page) {
             document.getElementById('login').style.display = 'none';
-            document.getElementById('selector').style.display = 'block';
-            document.getElementById('logout').style.display = 'block';
+            document.getElementById('welcome').style.display = 'block';
+            document.getElementById('welcome-name').textContent = 'Hey ' + name;
+            document.getElementById('go-btn').href = page;
+
+            // Show install banner on iOS if not already installed
             var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
             var isStandalone = window.navigator.standalone === true;
             if (isIos && !isStandalone && !localStorage.getItem('vrb_install_dismissed')) {
@@ -150,7 +171,11 @@
             }
         }
 
-        function logout() { localStorage.removeItem(SESSION_KEY); location.reload(); }
+        function logout() {
+            localStorage.removeItem(SESSION_KEY);
+            location.reload();
+        }
+
         function dismissInstall() {
             document.getElementById('install-banner').style.display = 'none';
             localStorage.setItem('vrb_install_dismissed', 'true');
