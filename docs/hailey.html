@@ -412,6 +412,30 @@ i'd be happy to help with any of those instead.</div>
             } else { fallbackCopy(text, btn, id); }
         }
 
+        function copyScript(elemId, btn) {
+            var text = document.getElementById(elemId).innerText;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() { showScriptCopied(btn); })
+                .catch(function() { fallbackCopyScript(text, btn); });
+            } else { fallbackCopyScript(text, btn); }
+        }
+
+        function fallbackCopyScript(text, btn) {
+            var ta = document.createElement('textarea'); ta.value = text;
+            ta.style.cssText = 'position:fixed;left:-9999px';
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); showScriptCopied(btn); } catch(e) {}
+            document.body.removeChild(ta);
+        }
+
+        function showScriptCopied(btn) {
+            btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Copied';
+            btn.classList.add('copied');
+            var toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 1800);
+        }
+
         function fallbackCopy(text, btn, id) {
             var ta = document.createElement('textarea'); ta.value = text;
             ta.style.cssText = 'position:fixed;left:-9999px';
