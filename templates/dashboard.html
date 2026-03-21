@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ person }} | {{ date }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #0a0a0a; color: #fff;
+            padding: 16px; padding-bottom: 80px;
+        }
+        .header {
+            text-align: center; padding: 16px 0 24px;
+        }
+        .header h1 { font-size: 22px; margin-bottom: 4px; }
+        .header .meta { color: #888; font-size: 14px; }
+        .empty { text-align: center; color: #666; padding: 60px 20px; font-size: 16px; }
+
+        .card {
+            background: #141414;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            border: 1px solid #222;
+        }
+        .card.hot { border-color: #f59e0b; }
+        .card.fire { border-color: #ef4444; }
+
+        .card-header {
+            padding: 12px 16px 8px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .platform-badge {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            padding: 3px 8px; border-radius: 6px;
+            background: #222; color: #aaa;
+        }
+        .platform-badge.reddit { background: #1a1207; color: #ff6600; }
+        .platform-badge.hackernews { background: #1a1207; color: #ff6600; }
+        .platform-badge.twitter { background: #0a1628; color: #1d9bf0; }
+        .platform-badge.trending_take { background: #120a1e; color: #a855f7; }
+        .platform-badge.daily_tweet { background: #0a1e14; color: #22c55e; }
+        .platform-badge.viral_spin { background: #1e0a14; color: #f43f5e; }
+        .platform-badge.linkedin { background: #0a1628; color: #0a66c2; }
+
+        .engagement {
+            font-size: 12px; color: #888;
+        }
+        .engagement strong { color: #f59e0b; }
+
+        .post-context {
+            padding: 0 16px 8px;
+            font-size: 13px; color: #666; line-height: 1.4;
+        }
+        .post-context a { color: #4a9eff; text-decoration: none; }
+
+        .reply-text {
+            padding: 12px 16px;
+            font-size: 15px; line-height: 1.5;
+            color: #e5e5e5;
+            background: #1a1a1a;
+            border-top: 1px solid #222;
+            user-select: all;
+            -webkit-user-select: all;
+        }
+
+        /* Virality-based sizing */
+        .card.size-xl .reply-text { font-size: 17px; padding: 16px 20px; }
+        .card.size-lg .reply-text { font-size: 16px; padding: 14px 18px; }
+        .card.size-md .reply-text { font-size: 15px; }
+        .card.size-sm .reply-text { font-size: 14px; color: #bbb; }
+
+        .card.size-xl { margin-bottom: 24px; }
+        .card.size-lg { margin-bottom: 20px; }
+        .card.size-sm { margin-bottom: 12px; }
+
+        .copy-btn {
+            display: block; width: 100%;
+            padding: 14px;
+            background: #2563eb; color: #fff;
+            border: none; font-size: 15px; font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .copy-btn:active { background: #1d4ed8; }
+        .copy-btn.copied { background: #16a34a; }
+
+        .open-link {
+            display: block; text-align: center;
+            padding: 10px; color: #4a9eff;
+            font-size: 13px; text-decoration: none;
+            border-top: 1px solid #222;
+        }
+
+        .section-label {
+            font-size: 13px; font-weight: 700; color: #555;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            padding: 20px 0 8px; border-bottom: 1px solid #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: #16a34a; color: #fff; padding: 12px 24px;
+            border-radius: 10px; font-weight: 600; font-size: 15px;
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
+            z-index: 1000;
+        }
+        .toast.show { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>{{ person }}'s Action List</h1>
+        <div class="meta">{{ date }} | {{ count }} suggestions</div>
+    </div>
+
+    {% if not suggestions %}
+    <div class="empty">No suggestions yet today. Check back after the bot runs.</div>
+    {% endif %}
+
+    {% set ns = namespace(last_type='') %}
+    {% for s in suggestions %}
+        {% set eng_pct = (s.engagement / max_engagement * 100) if max_engagement > 0 else 0 %}
+        {% set size = 'size-xl' if eng_pct > 75 else ('size-lg' if eng_pct > 50 else ('size-md' if eng_pct > 25 else 'size-sm')) %}
+        {% set heat = 'fire' if eng_pct > 75 else ('hot' if eng_pct > 50 else '') %}
+
+        {% set ct = s.content_type or s.platform %}
+        {% if ct != ns.last_type %}
+            {% set section_labels = {
+                'reply': 'Reply Suggestions',
+                'reddit': 'Reddit Replies',
+                'hackernews': 'Hacker News Replies',
+                'twitter': 'Twitter Replies',
+                'trending_take': 'Trending Takes',
+                'daily_tweet': 'Daily Tweets',
+                'viral_spin': 'Viral Spins',
+                'linkedin': 'LinkedIn'
+            } %}
+            <div class="section-label">{{ section_labels.get(ct, ct) }}</div>
+            {% set ns.last_type = ct %}
+        {% endif %}
+
+        <div class="card {{ size }} {{ heat }}">
+            <div class="card-header">
+                <span class="platform-badge {{ s.platform }}">{{ s.platform }}</span>
+                {% if s.engagement %}
+                <span class="engagement"><strong>{{ s.engagement }}</strong> engagement</span>
+                {% endif %}
+            </div>
+
+            {% if s.post_text %}
+            <div class="post-context">
+                {{ s.post_text[:150] }}{% if s.post_text|length > 150 %}...{% endif %}
+                {% if s.post_url %}
+                <br><a href="{{ s.post_url }}" target="_blank">Open post</a>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <div class="reply-text" id="reply-{{ s.id }}">{{ s.suggested_reply }}</div>
+
+            <button class="copy-btn" onclick="copyText({{ s.id }}, this)">
+                Copy
+            </button>
+
+            {% if s.post_url %}
+            <a class="open-link" href="{{ s.post_url }}" target="_blank">Open post to comment</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <div class="toast" id="toast">Copied</div>
+
+    <script>
+        function copyText(id, btn) {
+            const text = document.getElementById('reply-' + id).innerText;
+
+            // Try modern clipboard API first
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopied(btn);
+                }).catch(() => {
+                    fallbackCopy(text, btn);
+                });
+            } else {
+                fallbackCopy(text, btn);
+            }
+        }
+
+        function fallbackCopy(text, btn) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                showCopied(btn);
+            } catch(e) {
+                // Select the text visually as last resort
+                const range = document.createRange();
+                const el = btn.previousElementSibling;
+                range.selectNodeContents(el);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+            }
+            document.body.removeChild(ta);
+        }
+
+        function showCopied(btn) {
+            btn.textContent = 'Copied';
+            btn.classList.add('copied');
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                btn.textContent = 'Copy';
+                btn.classList.remove('copied');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
