@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lewis | 2026-03-21</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #0a0a0a; color: #fff;
+            padding: 16px; padding-bottom: 80px;
+        }
+        .header { text-align: center; padding: 16px 0 24px; }
+        .header h1 { font-size: 22px; margin-bottom: 4px; }
+        .header .meta { color: #888; font-size: 14px; }
+        .empty { text-align: center; color: #666; padding: 60px 20px; font-size: 16px; }
+        .card {
+            background: #141414; border-radius: 12px;
+            margin-bottom: 16px; overflow: hidden; border: 1px solid #222;
+        }
+        .card.hot { border-color: #f59e0b; }
+        .card.fire { border-color: #ef4444; }
+        .card-header {
+            padding: 12px 16px 8px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .platform-badge {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            padding: 3px 8px; border-radius: 6px; background: #222; color: #aaa;
+        }
+        .platform-badge.reddit { background: #1a1207; color: #ff6600; }
+        .platform-badge.hackernews { background: #1a1207; color: #ff6600; }
+        .platform-badge.twitter { background: #0a1628; color: #1d9bf0; }
+        .platform-badge.trending-take { background: #120a1e; color: #a855f7; }
+        .platform-badge.daily-tweet { background: #0a1e14; color: #22c55e; }
+        .platform-badge.viral-spin { background: #1e0a14; color: #f43f5e; }
+        .platform-badge.linkedin { background: #0a1628; color: #0a66c2; }
+        .engagement { font-size: 12px; color: #888; }
+        .engagement strong { color: #f59e0b; }
+        .post-context {
+            padding: 0 16px 8px; font-size: 13px; color: #666; line-height: 1.4;
+        }
+        .post-context a { color: #4a9eff; text-decoration: none; }
+        .reply-text {
+            padding: 12px 16px; font-size: 15px; line-height: 1.5;
+            color: #e5e5e5; background: #1a1a1a; border-top: 1px solid #222;
+        }
+        .card.size-xl .reply-text { font-size: 17px; padding: 16px 20px; }
+        .card.size-lg .reply-text { font-size: 16px; padding: 14px 18px; }
+        .card.size-sm .reply-text { font-size: 14px; color: #bbb; }
+        .card.size-xl { margin-bottom: 24px; }
+        .card.size-lg { margin-bottom: 20px; }
+        .card.size-sm { margin-bottom: 12px; }
+        .copy-btn {
+            display: block; width: 100%; padding: 14px;
+            background: #2563eb; color: #fff; border: none;
+            font-size: 15px; font-weight: 600; cursor: pointer;
+        }
+        .copy-btn:active { background: #1d4ed8; }
+        .copy-btn.copied { background: #16a34a; }
+        .open-link {
+            display: block; text-align: center; padding: 10px;
+            color: #4a9eff; font-size: 13px; text-decoration: none;
+            border-top: 1px solid #222;
+        }
+        .toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: #16a34a; color: #fff; padding: 12px 24px;
+            border-radius: 10px; font-weight: 600; font-size: 15px;
+            opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000;
+        }
+        .toast.show { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Lewis's Action List</h1>
+        <div class="meta">2026-03-21 | 6 suggestions</div>
+    </div>
+    
+        <div class="card size-xl fire">
+            <div class="card-header">
+                <span class="platform-badge trending-take">trending_take</span>
+                <span class="engagement"><strong>2000</strong> engagement</span>
+            </div>
+            <div class="post-context">TRENDING (google_trends): basketball games today<br><a href="https://trends.google.com/trending/rss?geo=US" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-378">everyone's glued to basketball games today instead of checking emails, yet sales teams are still blasting cold sequences like it's a regular tuesday. your outreach timing is probably garbage if you're not factoring in when prospects are actually distracted vs engaged. clay + hubspot can track social signals and pause sequences automatically when major events are trending in your prospect's location.</div>
+            <button class="copy-btn" onclick="copyText(378, this)">Copy</button>
+            <a class="open-link" href="https://trends.google.com/trending/rss?geo=US" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>39</strong> engagement</span>
+            </div>
+            <div class="post-context">How we beat the 6MB heap limit: Free native document gen + e-signatures, no middleware, no paid tools<br><a href="https://www.reddit.com/r/salesforce/comments/1rzl75a/how_we_beat_the_6mb_heap_limit_free_native/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-398">youre overcomplicating this, just use pandadoc api with flow builder and stop fighting salesforce governor limits for something it wasnt designed for</div>
+            <button class="copy-btn" onclick="copyText(398, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/salesforce/comments/1rzl75a/how_we_beat_the_6mb_heap_limit_free_native/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>16</strong> engagement</span>
+            </div>
+            <div class="post-context">Zapier is more reliable than n8n, right?<br><a href="https://www.reddit.com/r/automation/comments/1rymp2e/zapier_is_more_reliable_than_n8n_right/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-402">zapier breaks just as much but hides it better, real solution is webhook signature validation and circuit breakers in n8n</div>
+            <button class="copy-btn" onclick="copyText(402, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/automation/comments/1rymp2e/zapier_is_more_reliable_than_n8n_right/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>15</strong> engagement</span>
+            </div>
+            <div class="post-context">Is RevOps turning into a product function?<br><a href="https://www.reddit.com/r/revops/comments/1rz4vje/is_revops_turning_into_a_product_function/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-399">retool + ur salesforce api does this without needing devs or internal product teams</div>
+            <button class="copy-btn" onclick="copyText(399, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/revops/comments/1rz4vje/is_revops_turning_into_a_product_function/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>15</strong> engagement</span>
+            </div>
+            <div class="post-context">are AI workflow tools actually replacing traditional automation or just adding a layer on top<br><a href="https://www.reddit.com/r/automation/comments/1ryoi8t/are_ai_workflow_tools_actually_replacing/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-400">ai tools are just expensive wrappers around n8n and zapier, build the core logic in proper automation platforms then use ai for the decision layer only</div>
+            <button class="copy-btn" onclick="copyText(400, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/automation/comments/1ryoi8t/are_ai_workflow_tools_actually_replacing/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>3</strong> engagement</span>
+            </div>
+            <div class="post-context">How accurate are Intent signals powered by AI GTM platforms for predicting buying behavior and how do you even measure that?<br><a href="https://www.reddit.com/r/SalesOperations/comments/1rympja/how_accurate_are_intent_signals_powered_by_ai_gtm/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-401">reverse track ur closed deals in hubspot, pull the original intent scores when those accounts first hit ur pipeline and youll see the actual conversion rates by score band</div>
+            <button class="copy-btn" onclick="copyText(401, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/SalesOperations/comments/1rympja/how_accurate_are_intent_signals_powered_by_ai_gtm/" target="_blank">Open post to comment</a>
+        </div>
+    <div class="toast" id="toast">Copied</div>
+    <script>
+        function copyText(id, btn) {
+            var text = document.getElementById('reply-' + id).innerText;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopied(btn);
+                }).catch(function() {
+                    fallbackCopy(text, btn);
+                });
+            } else {
+                fallbackCopy(text, btn);
+            }
+        }
+        function fallbackCopy(text, btn) {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); showCopied(btn); }
+            catch(e) {}
+            document.body.removeChild(ta);
+        }
+        function showCopied(btn) {
+            btn.textContent = 'Copied';
+            btn.classList.add('copied');
+            var toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(function() {
+                toast.classList.remove('show');
+                btn.textContent = 'Copy';
+                btn.classList.remove('copied');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

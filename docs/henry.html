@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henry | 2026-03-21</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #0a0a0a; color: #fff;
+            padding: 16px; padding-bottom: 80px;
+        }
+        .header { text-align: center; padding: 16px 0 24px; }
+        .header h1 { font-size: 22px; margin-bottom: 4px; }
+        .header .meta { color: #888; font-size: 14px; }
+        .empty { text-align: center; color: #666; padding: 60px 20px; font-size: 16px; }
+        .card {
+            background: #141414; border-radius: 12px;
+            margin-bottom: 16px; overflow: hidden; border: 1px solid #222;
+        }
+        .card.hot { border-color: #f59e0b; }
+        .card.fire { border-color: #ef4444; }
+        .card-header {
+            padding: 12px 16px 8px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .platform-badge {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            padding: 3px 8px; border-radius: 6px; background: #222; color: #aaa;
+        }
+        .platform-badge.reddit { background: #1a1207; color: #ff6600; }
+        .platform-badge.hackernews { background: #1a1207; color: #ff6600; }
+        .platform-badge.twitter { background: #0a1628; color: #1d9bf0; }
+        .platform-badge.trending-take { background: #120a1e; color: #a855f7; }
+        .platform-badge.daily-tweet { background: #0a1e14; color: #22c55e; }
+        .platform-badge.viral-spin { background: #1e0a14; color: #f43f5e; }
+        .platform-badge.linkedin { background: #0a1628; color: #0a66c2; }
+        .engagement { font-size: 12px; color: #888; }
+        .engagement strong { color: #f59e0b; }
+        .post-context {
+            padding: 0 16px 8px; font-size: 13px; color: #666; line-height: 1.4;
+        }
+        .post-context a { color: #4a9eff; text-decoration: none; }
+        .reply-text {
+            padding: 12px 16px; font-size: 15px; line-height: 1.5;
+            color: #e5e5e5; background: #1a1a1a; border-top: 1px solid #222;
+        }
+        .card.size-xl .reply-text { font-size: 17px; padding: 16px 20px; }
+        .card.size-lg .reply-text { font-size: 16px; padding: 14px 18px; }
+        .card.size-sm .reply-text { font-size: 14px; color: #bbb; }
+        .card.size-xl { margin-bottom: 24px; }
+        .card.size-lg { margin-bottom: 20px; }
+        .card.size-sm { margin-bottom: 12px; }
+        .copy-btn {
+            display: block; width: 100%; padding: 14px;
+            background: #2563eb; color: #fff; border: none;
+            font-size: 15px; font-weight: 600; cursor: pointer;
+        }
+        .copy-btn:active { background: #1d4ed8; }
+        .copy-btn.copied { background: #16a34a; }
+        .open-link {
+            display: block; text-align: center; padding: 10px;
+            color: #4a9eff; font-size: 13px; text-decoration: none;
+            border-top: 1px solid #222;
+        }
+        .toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: #16a34a; color: #fff; padding: 12px 24px;
+            border-radius: 10px; font-weight: 600; font-size: 15px;
+            opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000;
+        }
+        .toast.show { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Henry's Action List</h1>
+        <div class="meta">2026-03-21 | 12 suggestions</div>
+    </div>
+    
+        <div class="card size-xl fire">
+            <div class="card-header">
+                <span class="platform-badge trending-take">trending_take</span>
+                <span class="engagement"><strong>51304</strong> engagement</span>
+            </div>
+            <div class="post-context">TRENDING (reddit_popular): PeterExplainsTheJoke<br><a href="https://reddit.com/r/PeterExplainsTheJoke/comments/1rz6jb7/whats_the_reason/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-375">the whole peterexplainsthejoke thing perfectly captures the biggest mistake in b2b sales. the moment you have to explain why your solution is valuable, youve already lost the deal. best enterprise sellers let prospects connect the dots themselves, ask the right questions, then shut up. explaining the joke kills the joke, explaining the value kills the sale.</div>
+            <button class="copy-btn" onclick="copyText(375, this)">Copy</button>
+            <a class="open-link" href="https://reddit.com/r/PeterExplainsTheJoke/comments/1rz6jb7/whats_the_reason/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-xl fire">
+            <div class="card-header">
+                <span class="platform-badge trending-take">trending_take</span>
+                <span class="engagement"><strong>47089</strong> engagement</span>
+            </div>
+            <div class="post-context">TRENDING (reddit_popular): MurderedByWords<br><a href="https://reddit.com/r/MurderedByWords/comments/1rz4aw9/arrogance_meets_instant_reality/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-376">this is every cocky sales rep who walks into a discovery call thinking they've got it figured out, only to get absolutely eviscerated by a prospect who's done their homework. the best enterprise buyers are masters at this, they'll let you dig your own grave with assumptions then hit you with one question that exposes you know nothing about their business. arrogance is the fastest way to lose a 7-figure deal, humility wins enterprise sales every single time.</div>
+            <button class="copy-btn" onclick="copyText(376, this)">Copy</button>
+            <a class="open-link" href="https://reddit.com/r/MurderedByWords/comments/1rz4aw9/arrogance_meets_instant_reality/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-lg hot">
+            <div class="card-header">
+                <span class="platform-badge trending-take">trending_take</span>
+                <span class="engagement"><strong>38032</strong> engagement</span>
+            </div>
+            <div class="post-context">TRENDING (reddit_popular): news<br><a href="https://reddit.com/r/news/comments/1rzat37/elon_musk_misled_twitter_investors_ahead_of_44/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-377">the scary part isnt the $44bn lie, its what happens next. every future deal elon touches now carries this baggage, and in enterprise b2b your reputation travels faster than your pitch deck. sophisticated buyers do reference calls on founders not just products, and this verdict just became exhibit a in every competitor's sales deck against anything musk-related.</div>
+            <button class="copy-btn" onclick="copyText(377, this)">Copy</button>
+            <a class="open-link" href="https://reddit.com/r/news/comments/1rzat37/elon_musk_misled_twitter_investors_ahead_of_44/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>426</strong> engagement</span>
+            </div>
+            <div class="post-context">Stryker cyber attack: Employees still unable to work more than a week after hack<br><a href="https://www.reddit.com/r/cybersecurity/comments/1rzaxhs/stryker_cyber_attack_employees_still_unable_to/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-381">week of downtime means no air gapped backups, everything was connected when it hit</div>
+            <button class="copy-btn" onclick="copyText(381, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/cybersecurity/comments/1rzaxhs/stryker_cyber_attack_employees_still_unable_to/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>284</strong> engagement</span>
+            </div>
+            <div class="post-context">Boom: Target for the year done before the end of Q1.<br><a href="https://www.reddit.com/r/sales/comments/1ry62jp/boom_target_for_the_year_done_before_the_end_of_q1/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-395">hitting annual in q1 means ur quota just tripled for next year</div>
+            <button class="copy-btn" onclick="copyText(395, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/sales/comments/1ry62jp/boom_target_for_the_year_done_before_the_end_of_q1/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>252</strong> engagement</span>
+            </div>
+            <div class="post-context">Anyone else deliberately staying small and not chasing scale?<br><a href="https://www.reddit.com/r/smallbusiness/comments/1rz1ykh/anyone_else_deliberately_staying_small_and_not/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-382">staying small means u can run enterprise grade zero trust for 200 quid monthly instead of the 50k scaled companies pay</div>
+            <button class="copy-btn" onclick="copyText(382, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/smallbusiness/comments/1rz1ykh/anyone_else_deliberately_staying_small_and_not/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>223</strong> engagement</span>
+            </div>
+            <div class="post-context">FortiGraveyard<br><a href="https://www.reddit.com/r/fortinet/comments/1ryptj8/fortigraveyard/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-383">fortinet kills more products than they support, switch to pfsense with suricata before they discontinue whatever ur running next</div>
+            <button class="copy-btn" onclick="copyText(383, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/fortinet/comments/1ryptj8/fortigraveyard/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge hackernews">hackernews</span>
+                <span class="engagement"><strong>57</strong> engagement</span>
+            </div>
+            <div class="post-context">Launch HN: Captain (YC W26) – Automated RAG for Files<br><a href="https://news.ycombinator.com/item?id=47366011" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-374">the real bottleneck isnt indexing files, its that most companies have zero idea which files actually matter or who owns the data quality, so you end up with beautiful search over complete rubbish</div>
+            <button class="copy-btn" onclick="copyText(374, this)">Copy</button>
+            <a class="open-link" href="https://news.ycombinator.com/item?id=47366011" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>49</strong> engagement</span>
+            </div>
+            <div class="post-context">Does sales just not match my personality? Am I burned out? Undiagnosed ADHD?<br><a href="https://www.reddit.com/r/sales/comments/1ryrj00/does_sales_just_not_match_my_personality_am_i/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-396">after 20 years its not personality fit mate, youve outgrown your current role and need strategic work</div>
+            <button class="copy-btn" onclick="copyText(396, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/sales/comments/1ryrj00/does_sales_just_not_match_my_personality_am_i/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>42</strong> engagement</span>
+            </div>
+            <div class="post-context">Those that started their own MSP, what are some things you wish you knew or did sooner?<br><a href="https://www.reddit.com/r/msp/comments/1rz1lno/those_that_started_their_own_msp_what_are_some/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-384">automate your documentation from day one, connectwise or itglue will save u 10+ hours per client onboarding once ur past 20 clients</div>
+            <button class="copy-btn" onclick="copyText(384, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/msp/comments/1rz1lno/those_that_started_their_own_msp_what_are_some/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>33</strong> engagement</span>
+            </div>
+            <div class="post-context">Azure Outage?<br><a href="https://www.reddit.com/r/sysadmin/comments/1ryz7en/azure_outage/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-385">serial console access gets u in when rdp craps out</div>
+            <button class="copy-btn" onclick="copyText(385, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/sysadmin/comments/1ryz7en/azure_outage/" target="_blank">Open post to comment</a>
+        </div>
+
+        <div class="card size-sm ">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span class="engagement"><strong>28</strong> engagement</span>
+            </div>
+            <div class="post-context">What percentage of reps actually hit OTE at your company?<br><a href="https://www.reddit.com/r/sales/comments/1rzbocv/what_percentage_of_reps_actually_hit_ote_at_your/" target="_blank">Open post</a></div>
+            <div class="reply-text" id="reply-397">percentage means nothing without knowing if they changed territories or comp plan mid year</div>
+            <button class="copy-btn" onclick="copyText(397, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/sales/comments/1rzbocv/what_percentage_of_reps_actually_hit_ote_at_your/" target="_blank">Open post to comment</a>
+        </div>
+    <div class="toast" id="toast">Copied</div>
+    <script>
+        function copyText(id, btn) {
+            var text = document.getElementById('reply-' + id).innerText;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCopied(btn);
+                }).catch(function() {
+                    fallbackCopy(text, btn);
+                });
+            } else {
+                fallbackCopy(text, btn);
+            }
+        }
+        function fallbackCopy(text, btn) {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); showCopied(btn); }
+            catch(e) {}
+            document.body.removeChild(ta);
+        }
+        function showCopied(btn) {
+            btn.textContent = 'Copied';
+            btn.classList.add('copied');
+            var toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(function() {
+                toast.classList.remove('show');
+                btn.textContent = 'Copy';
+                btn.classList.remove('copied');
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
