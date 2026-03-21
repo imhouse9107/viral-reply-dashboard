@@ -11,7 +11,7 @@
     <style>
         :root {
             --bg: #000; --bg-card: #1c1c1e; --bg-elevated: #2c2c2e; --bg-reply: #1c1c1e;
-            --text: #fff; --text-2: #8e8e93; --text-3: #636366;
+            --text: #fff; --text-2: rgba(235,235,245,0.60); --text-3: rgba(235,235,245,0.30);
             --accent: #0a84ff; --success: #30d158; --warning: #ff9f0a; --danger: #ff453a;
             --sep: rgba(84,84,88,0.35);
             --r: 14px; --safe-top: env(safe-area-inset-top, 0px); --safe-bot: env(safe-area-inset-bottom, 0px);
@@ -20,7 +20,10 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
             background: var(--bg); color: var(--text);
-            padding: 0 20px 100px; -webkit-font-smoothing: antialiased;
+            padding: 0 20px 100px;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            touch-action: manipulation;
         }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -29,8 +32,9 @@
             position: sticky; top: 0; z-index: 100;
             padding: 12px 0 14px;
             padding-top: calc(var(--safe-top) + 12px);
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            background: rgba(0,0,0,0.72);
+            backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 0.5px solid rgba(255,255,255,0.08);
             margin: 0 -20px; padding-left: 20px; padding-right: 20px;
         }
         .nav-top {
@@ -48,7 +52,7 @@
 
         /* Header */
         .header { padding: 20px 0 8px; }
-        .header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+        .header h1 { font-size: 28px; font-weight: 700; letter-spacing: 0.36px; }
         .header .date { color: var(--text-2); font-size: 15px; margin-top: 4px; }
         .empty { text-align: center; color: var(--text-3); padding: 80px 20px; font-size: 17px; }
 
@@ -90,7 +94,7 @@
         .context a { color: var(--accent); text-decoration: none; }
 
         .reply {
-            padding: 14px 16px; font-size: 16px; line-height: 1.55;
+            padding: 14px 16px; font-size: 17px; line-height: 1.5; letter-spacing: -0.41px;
             color: rgba(255,255,255,0.92); background: rgba(255,255,255,0.04);
             border-top: 0.5px solid var(--sep);
         }
@@ -101,9 +105,9 @@
             background: var(--accent); color: #fff; border: none;
             font-size: 16px; font-weight: 600; cursor: pointer;
             align-items: center; justify-content: center; gap: 8px;
-            transition: transform 0.15s ease, background 0.25s ease;
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out, background 0.25s ease;
         }
-        .copy-btn:active { transform: scale(0.97); }
+        .copy-btn:active { transform: scale(0.96); opacity: 0.85; transition: transform 0.1s ease-out, opacity 0.1s ease-out; }
         .copy-btn.copied { background: var(--success); }
         .copy-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
@@ -127,8 +131,8 @@
         /* Toast */
         .toast {
             position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
-            background: var(--bg-elevated);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            background: rgba(50,50,50,0.9);
+            backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
             color: var(--text); padding: 14px 24px;
             border-radius: 14px; font-weight: 600; font-size: 15px;
             opacity: 0; transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
