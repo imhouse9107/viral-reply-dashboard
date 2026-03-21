@@ -291,6 +291,8 @@
         var TOTAL = 6;
         var STORAGE_KEY = 'vrb_done_lewis_2026-03-21';
         var FEEDBACK_KEY = 'vrb_feedback_lewis_2026-03-21';
+        var PERSON = 'lewis';
+        var FEEDBACK_URL = localStorage.getItem('vrb_feedback_url') || '';
 
         function getDone() {
             try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
@@ -338,6 +340,7 @@
 
         function showCopied(btn, id) {
             markDone(id);
+            sendFeedback(id, 'copied');
             btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Copied';
             btn.classList.add('copied');
             var toast = document.getElementById('toast');
@@ -351,11 +354,34 @@
         }
         function saveFeedback(obj) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(obj)); }
 
+        function sendFeedback(id, action) {
+            if (!FEEDBACK_URL) return;
+            var reply = document.getElementById('reply-' + id);
+            var card = document.getElementById('card-' + id);
+            var platform = '';
+            if (card) {
+                var badge = card.querySelector('.badge');
+                if (badge) platform = badge.textContent.trim();
+            }
+            fetch(FEEDBACK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    person: PERSON,
+                    suggestion_id: id,
+                    action: action,
+                    platform: platform,
+                    reply_preview: reply ? reply.textContent.substring(0, 100) : ''
+                })
+            }).catch(function() {});
+        }
+
         function markPosted(id) {
             var fb = getFeedback();
             fb[id] = 'posted';
             saveFeedback(fb);
             markDone(id);
+            sendFeedback(id, 'posted');
         }
         function markSkip(id) {
             var fb = getFeedback();
@@ -364,6 +390,7 @@
             var card = document.getElementById('card-' + id);
             if (card) { card.style.display = 'none'; }
             updateProgress();
+            sendFeedback(id, 'skip');
         }
 
         // Restore feedback state on load
