@@ -74,17 +74,22 @@
             display: none; color: #16a34a; font-size: 13px; font-weight: 700;
         }
         .card.done .done-badge { display: inline; }
+        .progress-strip {
+            position: sticky; top: 0; z-index: 100;
+            background: #111; padding: 10px 16px 8px;
+            margin: -16px -16px 12px -16px;
+            padding-top: calc(env(safe-area-inset-top, 10px) + 10px);
+            display: flex; align-items: center; gap: 12px;
+        }
         .progress-bar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            height: 4px; background: #1a1a1a;
+            flex: 1; height: 6px; background: #333; border-radius: 3px; overflow: hidden;
         }
         .progress-fill {
-            height: 100%; background: #16a34a; transition: width 0.3s;
+            height: 100%; background: #16a34a; transition: width 0.3s; border-radius: 3px;
         }
         .progress-text {
-            position: fixed; top: 6px; right: 12px; z-index: 101;
-            font-size: 12px; font-weight: 700; color: #16a34a;
-            background: #0a0a0a; padding: 2px 8px; border-radius: 4px;
+            font-size: 13px; font-weight: 700; color: #16a34a;
+            white-space: nowrap;
         }
         .open-link {
             display: block; text-align: center; padding: 10px;
@@ -101,13 +106,15 @@
     </style>
 </head>
 <body>
-    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-    <div class="progress-text" id="progress-text"></div>
+    <div class="progress-strip">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-text" id="progress-text"></div>
+    </div>
 
     <a class="back-btn" href="index.html">Switch person</a>
     <div class="header">
         <h1>Henry's Action List</h1>
-        <div class="meta">2026-03-21 | 14 suggestions</div>
+        <div class="meta">2026-03-21 | 17 suggestions</div>
     </div>
     
         <div class="card size-xl fire" id="card-375">
@@ -209,6 +216,17 @@
             <a class="open-link" href="https://www.google.com/search?q=giovanni+simeone" target="_blank">Open post to comment</a>
         </div>
 
+        <div class="card size-sm " id="card-423">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>75</strong> engagement</span></span>
+            </div>
+            <div class="post-context">Trivy Security Scanner GitHub Actions Breached, 75 Tags Hijacked to Steal CI/CD Secrets<br><a href="https://www.reddit.com/r/cybersecurity/comments/1rz38mv/trivy_security_scanner_github_actions_breached_75/" target="_blank">View source</a></div>
+            <div class="reply-text" id="reply-423">this is why u should pin all github actions to commit hashes not tags, most ci/cd pipelines are wide open to supply chain attacks like this</div>
+            <button class="copy-btn" onclick="copyText(423, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/cybersecurity/comments/1rz38mv/trivy_security_scanner_github_actions_breached_75/" target="_blank">Open post to comment</a>
+        </div>
+
         <div class="card size-sm " id="card-374">
             <div class="card-header">
                 <span class="platform-badge hackernews">hackernews</span>
@@ -242,6 +260,17 @@
             <a class="open-link" href="https://www.reddit.com/r/msp/comments/1rz1lno/those_that_started_their_own_msp_what_are_some/" target="_blank">Open post to comment</a>
         </div>
 
+        <div class="card size-sm " id="card-422">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>41</strong> engagement</span></span>
+            </div>
+            <div class="post-context">Mild Rant - Email Filtering<br><a href="https://www.reddit.com/r/msp/comments/1ryxzrj/mild_rant_email_filtering/" target="_blank">View source</a></div>
+            <div class="reply-text" id="reply-422">thats exactly why you need to set up dmarc properly, spoofed emails from known contacts are the most dangerous ones</div>
+            <button class="copy-btn" onclick="copyText(422, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/msp/comments/1ryxzrj/mild_rant_email_filtering/" target="_blank">Open post to comment</a>
+        </div>
+
         <div class="card size-sm " id="card-385">
             <div class="card-header">
                 <span class="platform-badge reddit">reddit</span>
@@ -263,9 +292,20 @@
             <button class="copy-btn" onclick="copyText(397, this)">Copy</button>
             <a class="open-link" href="https://www.reddit.com/r/sales/comments/1rzbocv/what_percentage_of_reps_actually_hit_ote_at_your/" target="_blank">Open post to comment</a>
         </div>
+
+        <div class="card size-sm " id="card-424">
+            <div class="card-header">
+                <span class="platform-badge reddit">reddit</span>
+                <span><span class="done-badge">Posted</span> <span class="engagement"><strong>15</strong> engagement</span></span>
+            </div>
+            <div class="post-context">insurance client compliance requirements are suddenly way more demanding, what changed<br><a href="https://www.reddit.com/r/msp/comments/1ryom92/insurance_client_compliance_requirements_are/" target="_blank">View source</a></div>
+            <div class="reply-text" id="reply-424">e&amp;o carriers got hammered by ransomware claims last two years so now theyre pushing compliance liability back to you</div>
+            <button class="copy-btn" onclick="copyText(424, this)">Copy</button>
+            <a class="open-link" href="https://www.reddit.com/r/msp/comments/1ryom92/insurance_client_compliance_requirements_are/" target="_blank">Open post to comment</a>
+        </div>
     <div class="toast" id="toast">Copied</div>
     <script>
-        var TOTAL = 14;
+        var TOTAL = 17;
         var STORAGE_KEY = 'vrb_done_henry_2026-03-21';
 
         function getDone() {

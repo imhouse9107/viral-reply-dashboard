@@ -94,6 +94,8 @@
         <h1 id="welcome-name"></h1>
         <p class="greeting">Your suggestions are ready.</p>
         <a class="go-btn" id="go-btn" href="#">View Today's Suggestions</a>
+        <button class="go-btn" id="notify-btn" onclick="enableNotifications()" style="display:none; background:#16a34a; margin-top:12px; border:none; cursor:pointer;">Enable Daily Notifications</button>
+        <p id="notify-status" style="color:#16a34a; font-size:13px; margin-top:12px; display:none;">Notifications enabled</p>
         <span class="logout-link" onclick="logout()">Log out</span>
     </div>
 
@@ -157,11 +159,73 @@
             });
         });
 
+        var VAPID_PUBLIC = 'BCZlkQ7sM4MScJ0hiRDwoyHv4BnUJ1tZcB-PWNvmYmJVCAuydpJkWIdKgUMJpnXc8xj-7rj6aHlUxaZ_STQkTJg';
+
+        function urlBase64ToUint8Array(base64String) {
+            var padding = '='.repeat((4 - base64String.length % 4) % 4);
+            var base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+            var rawData = window.atob(base64);
+            var outputArray = new Uint8Array(rawData.length);
+            for (var i = 0; i < rawData.length; i++) outputArray[i] = rawData.charCodeAt(i);
+            return outputArray;
+        }
+
+        function enableNotifications() {
+            if (!('Notification' in window) || !('PushManager' in window)) {
+                alert('Push notifications are not supported on this device. Make sure you added the app to your home screen first.');
+                return;
+            }
+            Notification.requestPermission().then(function(permission) {
+                if (permission === 'granted') {
+                    subscribeToPush();
+                }
+            });
+        }
+
+        function subscribeToPush() {
+            navigator.serviceWorker.ready.then(function(reg) {
+                return reg.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC),
+                });
+            }).then(function(sub) {
+                // Save subscription to a GitHub Gist (readable by publish script)
+                var user = JSON.parse(localStorage.getItem(SESSION_KEY));
+                var subData = {
+                    person: user.name.toLowerCase(),
+                    subscription: sub.toJSON(),
+                    created: new Date().toISOString(),
+                };
+                // Store locally and show in console for manual setup
+                localStorage.setItem('vrb_push_sub', JSON.stringify(subData));
+                console.log('Push subscription (copy this):', JSON.stringify(subData));
+
+                document.getElementById('notify-btn').style.display = 'none';
+                document.getElementById('notify-status').style.display = 'block';
+
+                // Try to save to subscriptions endpoint
+                fetch('https://imhouse9107.github.io/viral-reply-dashboard/subscribe.html?sub=' + encodeURIComponent(JSON.stringify(subData)))
+                    .catch(function() {});
+            }).catch(function(err) {
+                console.error('Push subscription failed:', err);
+                alert('Could not enable notifications. Make sure you added the app to your home screen and try again.');
+            });
+        }
+
         function showWelcome(name, page) {
             document.getElementById('login').style.display = 'none';
             document.getElementById('welcome').style.display = 'block';
             document.getElementById('welcome-name').textContent = 'Hey ' + name;
             document.getElementById('go-btn').href = page;
+
+            // Show notification button if not already subscribed
+            if ('Notification' in window && 'PushManager' in window) {
+                if (Notification.permission === 'granted') {
+                    document.getElementById('notify-status').style.display = 'block';
+                } else if (Notification.permission !== 'denied') {
+                    document.getElementById('notify-btn').style.display = 'block';
+                }
+            }
 
             // Show install banner on iOS if not already installed
             var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
