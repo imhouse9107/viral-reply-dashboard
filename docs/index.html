@@ -1,16 +1,163 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Viral Reply Bot</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0a0a0a;color:#fff;padding:40px 20px}
-.container{max-width:500px;margin:0 auto;text-align:center}
-h1{font-size:24px;margin-bottom:30px}
-a{display:block;background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:20px;margin:12px 0;color:#fff;text-decoration:none;font-size:18px;font-weight:600}
-a:active{background:#2a2a2a}
-.sub{color:#888;font-size:14px;margin-top:4px;font-weight:400}
-</style></head><body><div class="container"><h1>Viral Reply Bot</h1>
-<a href="henry.html">Henry<div class="sub">Alba Talent + CyberStar IT</div></a>
-<a href="scott.html">Scott<div class="sub">Alba Talent + CyberStar IT</div></a>
-<a href="lewis.html">Lewis<div class="sub">Alba Talent</div></a>
-</div></body></html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Replies">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <title>Viral Reply Bot</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #0a0a0a; color: #fff;
+            min-height: 100vh; min-height: 100dvh;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px 20px;
+            padding-top: env(safe-area-inset-top, 40px);
+        }
+
+        .login { text-align: center; max-width: 400px; width: 100%; }
+        .login h1 { font-size: 28px; margin-bottom: 8px; }
+        .login .subtitle { color: #888; font-size: 15px; margin-bottom: 40px; }
+        .pin-input { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; }
+        .pin-input input {
+            width: 52px; height: 60px; text-align: center;
+            font-size: 24px; font-weight: 700;
+            background: #1a1a1a; border: 2px solid #333; border-radius: 12px;
+            color: #fff; outline: none; -webkit-appearance: none;
+        }
+        .pin-input input:focus { border-color: #2563eb; }
+        .pin-error { color: #ef4444; font-size: 14px; margin-bottom: 16px; opacity: 0; transition: opacity 0.3s; }
+        .pin-error.show { opacity: 1; }
+
+        .selector { text-align: center; max-width: 500px; width: 100%; display: none; }
+        .selector h1 { font-size: 24px; margin-bottom: 24px; }
+        .person-btn {
+            display: block; width: 100%;
+            background: #141414; border: 1px solid #222; border-radius: 16px;
+            padding: 24px 20px; margin: 12px 0;
+            color: #fff; text-decoration: none;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .person-btn:active { background: #1a1a1a; border-color: #2563eb; }
+        .person-btn .name { font-size: 20px; font-weight: 700; }
+        .person-btn .role { color: #888; font-size: 14px; margin-top: 4px; }
+
+        .install-banner {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: #1a1a1a; border-top: 1px solid #333;
+            padding: 16px 20px; text-align: center;
+            display: none; z-index: 100;
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+        .install-banner p { font-size: 14px; color: #ccc; margin-bottom: 8px; }
+        .install-banner .steps { font-size: 13px; color: #888; }
+        .install-banner .dismiss {
+            position: absolute; top: 8px; right: 16px;
+            background: none; border: none; color: #666; font-size: 22px; cursor: pointer;
+        }
+
+        .logout-btn {
+            position: fixed; top: 16px; right: 16px;
+            background: #1a1a1a; border: 1px solid #333; border-radius: 8px;
+            padding: 6px 12px; color: #666; font-size: 12px;
+            cursor: pointer; display: none;
+            top: env(safe-area-inset-top, 16px);
+        }
+    </style>
+</head>
+<body>
+    <div class="login" id="login">
+        <h1>Viral Reply Bot</h1>
+        <p class="subtitle">Enter your PIN</p>
+        <div class="pin-input">
+            <input type="tel" maxlength="1" id="p1" inputmode="numeric" autofocus>
+            <input type="tel" maxlength="1" id="p2" inputmode="numeric">
+            <input type="tel" maxlength="1" id="p3" inputmode="numeric">
+            <input type="tel" maxlength="1" id="p4" inputmode="numeric">
+        </div>
+        <p class="pin-error" id="pin-error">Wrong PIN. Try again.</p>
+    </div>
+
+    <div class="selector" id="selector">
+        <h1>Who's posting today?</h1>
+        <a class="person-btn" href="henry.html">
+            <div class="name">Henry</div>
+            <div class="role">Alba Talent + CyberStar IT</div>
+        </a>
+        <a class="person-btn" href="scott.html">
+            <div class="name">Scott</div>
+            <div class="role">Alba Talent + CyberStar IT</div>
+        </a>
+        <a class="person-btn" href="lewis.html">
+            <div class="name">Lewis</div>
+            <div class="role">Alba Talent</div>
+        </a>
+    </div>
+
+    <button class="logout-btn" id="logout" onclick="logout()">Log out</button>
+
+    <div class="install-banner" id="install-banner">
+        <button class="dismiss" onclick="dismissInstall()">&times;</button>
+        <p><strong>Add to your home screen</strong> for the full app experience</p>
+        <p class="steps">Tap <strong>Share</strong> then <strong>Add to Home Screen</strong></p>
+    </div>
+
+    <script>
+        var VALID_PINS = ['2026'];
+        var SESSION_KEY = 'vrb_session';
+
+        function checkSession() {
+            if (localStorage.getItem(SESSION_KEY)) showSelector();
+        }
+
+        var inputs = [document.getElementById('p1'), document.getElementById('p2'), document.getElementById('p3'), document.getElementById('p4')];
+
+        inputs.forEach(function(input, i) {
+            input.addEventListener('input', function() {
+                if (input.value.length === 1 && i < 3) inputs[i + 1].focus();
+                if (i === 3 && input.value.length === 1) {
+                    var pin = inputs.map(function(el) { return el.value; }).join('');
+                    if (VALID_PINS.indexOf(pin) !== -1) {
+                        localStorage.setItem(SESSION_KEY, 'true');
+                        showSelector();
+                    } else {
+                        document.getElementById('pin-error').classList.add('show');
+                        inputs.forEach(function(el) { el.value = ''; });
+                        inputs[0].focus();
+                        setTimeout(function() { document.getElementById('pin-error').classList.remove('show'); }, 2000);
+                    }
+                }
+            });
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && !input.value && i > 0) inputs[i - 1].focus();
+            });
+        });
+
+        function showSelector() {
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('selector').style.display = 'block';
+            document.getElementById('logout').style.display = 'block';
+            var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            var isStandalone = window.navigator.standalone === true;
+            if (isIos && !isStandalone && !localStorage.getItem('vrb_install_dismissed')) {
+                document.getElementById('install-banner').style.display = 'block';
+            }
+        }
+
+        function logout() { localStorage.removeItem(SESSION_KEY); location.reload(); }
+        function dismissInstall() {
+            document.getElementById('install-banner').style.display = 'none';
+            localStorage.setItem('vrb_install_dismissed', 'true');
+        }
+
+        if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+        checkSession();
+    </script>
+</body>
+</html>
