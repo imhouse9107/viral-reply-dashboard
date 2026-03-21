@@ -6,114 +6,165 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Replies">
-    <meta name="theme-color" content="#0a0a0a">
+    <meta name="theme-color" content="#000000">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
     <title>Viral Reply Bot</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #1c1c1e;
+            --bg-tertiary: #2c2c2e;
+            --bg-elevated: #3a3a3c;
+            --text-primary: #ffffff;
+            --text-secondary: #8e8e93;
+            --text-tertiary: #636366;
+            --accent: #0a84ff;
+            --accent-pressed: #0070e0;
+            --success: #30d158;
+            --danger: #ff453a;
+            --separator: rgba(84,84,88,0.35);
+            --radius-sm: 10px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 24px;
+            --safe-top: env(safe-area-inset-top, 0px);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #0a0a0a; color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+            background: var(--bg-primary); color: var(--text-primary);
             min-height: 100vh; min-height: 100dvh;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 40px 20px;
-            padding-top: env(safe-area-inset-top, 40px);
+            padding: 40px 24px;
+            padding-top: calc(var(--safe-top) + 40px);
+            -webkit-font-smoothing: antialiased;
         }
 
-        .screen { text-align: center; max-width: 400px; width: 100%; }
-        .screen h1 { font-size: 28px; margin-bottom: 8px; }
-        .screen .subtitle { color: #888; font-size: 15px; margin-bottom: 40px; }
+        /* Animations */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shake { 0%,100% { transform: translateX(0); } 20%,60% { transform: translateX(-8px); } 40%,80% { transform: translateX(8px); } }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .animate-in { animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .shake { animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
 
-        .pin-input { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; }
+        /* Login */
+        .screen { text-align: center; max-width: 380px; width: 100%; }
+        .screen h1 {
+            font-size: 34px; font-weight: 700; letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+        .screen .subtitle { color: var(--text-secondary); font-size: 17px; margin-bottom: 48px; font-weight: 400; }
+
+        .pin-input { display: flex; gap: 14px; justify-content: center; margin-bottom: 28px; }
         .pin-input input {
             width: 56px; height: 64px; text-align: center;
-            font-size: 26px; font-weight: 700;
-            background: #1a1a1a; border: 2px solid #333; border-radius: 14px;
-            color: #fff; outline: none; -webkit-appearance: none;
+            font-size: 28px; font-weight: 600; letter-spacing: -1px;
+            background: var(--bg-secondary); border: 2px solid transparent; border-radius: var(--radius-md);
+            color: var(--text-primary); outline: none; -webkit-appearance: none;
+            transition: border-color 0.2s ease, transform 0.15s ease, background 0.2s ease;
         }
-        .pin-input input:focus { border-color: #2563eb; }
+        .pin-input input:focus { border-color: var(--accent); background: var(--bg-tertiary); }
+        .pin-input input.filled { transform: scale(1.05); }
+        .pin-input input.shake { animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
 
         .pin-error {
-            color: #ef4444; font-size: 14px; height: 20px;
-            opacity: 0; transition: opacity 0.3s;
+            color: var(--danger); font-size: 15px; font-weight: 500; height: 22px;
+            opacity: 0; transition: opacity 0.25s ease;
         }
         .pin-error.show { opacity: 1; }
 
-        .welcome {
-            display: none; text-align: center; max-width: 400px; width: 100%;
-        }
-        .welcome h1 { font-size: 28px; margin-bottom: 8px; }
-        .welcome .greeting { color: #888; font-size: 16px; margin-bottom: 32px; }
-        .go-btn {
+        /* Welcome */
+        .welcome { display: none; text-align: center; max-width: 400px; width: 100%; }
+        .welcome h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+        .welcome .greeting { color: var(--text-secondary); font-size: 17px; margin-bottom: 36px; }
+
+        .action-btn {
             display: block; width: 100%;
-            background: #2563eb; color: #fff;
-            padding: 18px 24px; border-radius: 14px;
-            font-size: 18px; font-weight: 700;
-            text-decoration: none; text-align: center;
-            transition: background 0.15s;
+            padding: 18px 24px; border-radius: var(--radius-md);
+            font-size: 17px; font-weight: 600; letter-spacing: -0.2px;
+            text-decoration: none; text-align: center; border: none; cursor: pointer;
+            transition: transform 0.15s ease, opacity 0.15s ease;
         }
-        .go-btn:active { background: #1d4ed8; }
+        .action-btn:active { transform: scale(0.97); opacity: 0.85; }
+        .action-btn.primary { background: var(--accent); color: #fff; }
+        .action-btn.secondary { background: var(--success); color: #fff; margin-top: 12px; }
+
+        .notify-status {
+            display: none; margin-top: 16px;
+            font-size: 15px; color: var(--success); font-weight: 500;
+        }
+        .notify-status .checkmark { font-size: 18px; margin-right: 4px; }
 
         .logout-link {
-            color: #555; font-size: 13px; margin-top: 24px;
+            color: var(--text-tertiary); font-size: 15px; margin-top: 28px;
             cursor: pointer; display: inline-block;
+            transition: color 0.15s ease;
         }
+        .logout-link:active { color: var(--text-secondary); }
 
+        /* Install banner */
         .install-banner {
             position: fixed; bottom: 0; left: 0; right: 0;
-            background: #1a1a1a; border-top: 1px solid #333;
-            padding: 16px 20px; text-align: center;
+            background: var(--bg-secondary);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-top: 0.5px solid var(--separator);
+            padding: 20px 24px;
+            padding-bottom: calc(var(--safe-bottom) + 20px);
+            text-align: center;
             display: none; z-index: 100;
-            padding-bottom: env(safe-area-inset-bottom, 16px);
+            animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .install-banner p { font-size: 14px; color: #ccc; margin-bottom: 8px; }
-        .install-banner .steps { font-size: 13px; color: #888; margin: 0; }
+        .install-banner p { font-size: 15px; color: var(--text-primary); margin-bottom: 6px; font-weight: 600; }
+        .install-banner .steps { font-size: 13px; color: var(--text-secondary); margin: 0; font-weight: 400; }
         .install-banner .dismiss {
-            position: absolute; top: 8px; right: 16px;
-            background: none; border: none; color: #666; font-size: 22px; cursor: pointer;
+            position: absolute; top: 12px; right: 16px;
+            background: var(--bg-tertiary); border: none; color: var(--text-secondary);
+            width: 28px; height: 28px; border-radius: 14px;
+            font-size: 16px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
         }
     </style>
 </head>
 <body>
     <!-- Login -->
-    <div class="screen" id="login">
-        <h1>Viral Reply Bot</h1>
-        <p class="subtitle">Enter your PIN</p>
-        <div class="pin-input">
-            <input type="tel" maxlength="1" id="p1" inputmode="numeric" autofocus>
-            <input type="tel" maxlength="1" id="p2" inputmode="numeric">
-            <input type="tel" maxlength="1" id="p3" inputmode="numeric">
-            <input type="tel" maxlength="1" id="p4" inputmode="numeric">
+    <div class="screen animate-in" id="login">
+        <h1>Replies</h1>
+        <p class="subtitle">Enter your PIN to get started</p>
+        <div class="pin-input" id="pin-container">
+            <input type="tel" maxlength="1" id="p1" inputmode="numeric" autocomplete="off">
+            <input type="tel" maxlength="1" id="p2" inputmode="numeric" autocomplete="off">
+            <input type="tel" maxlength="1" id="p3" inputmode="numeric" autocomplete="off">
+            <input type="tel" maxlength="1" id="p4" inputmode="numeric" autocomplete="off">
         </div>
-        <p class="pin-error" id="pin-error">Wrong PIN. Try again.</p>
+        <p class="pin-error" id="pin-error">Incorrect PIN</p>
     </div>
 
-    <!-- Welcome (after login, before redirect) -->
+    <!-- Welcome -->
     <div class="welcome" id="welcome">
         <h1 id="welcome-name"></h1>
-        <p class="greeting">Your suggestions are ready.</p>
-        <a class="go-btn" id="go-btn" href="#">View Today's Suggestions</a>
-        <button class="go-btn" id="notify-btn" onclick="enableNotifications()" style="display:none; background:#16a34a; margin-top:12px; border:none; cursor:pointer;">Enable Daily Notifications</button>
-        <p id="notify-status" style="color:#16a34a; font-size:13px; margin-top:12px; display:none;">Notifications enabled</p>
-        <span class="logout-link" onclick="logout()">Log out</span>
+        <p class="greeting" id="welcome-greeting"></p>
+        <a class="action-btn primary" id="go-btn" href="#">View Today's Suggestions</a>
+        <button class="action-btn secondary" id="notify-btn" onclick="enableNotifications()" style="display:none">Turn On Notifications</button>
+        <p class="notify-status" id="notify-status"><span class="checkmark">&#10003;</span> Notifications on</p>
+        <span class="logout-link" onclick="logout()">Sign out</span>
     </div>
 
-    <!-- Install banner (iOS) -->
+    <!-- Install banner -->
     <div class="install-banner" id="install-banner">
-        <button class="dismiss" onclick="dismissInstall()">&times;</button>
-        <p><strong>Add to your home screen</strong> for the full app experience</p>
-        <p class="steps">Tap <strong>Share</strong> then <strong>Add to Home Screen</strong></p>
+        <button class="dismiss" onclick="dismissInstall()">&#10005;</button>
+        <p>Install this app</p>
+        <p class="steps">Tap Share, then "Add to Home Screen"</p>
     </div>
 
     <script>
-        // Each person gets their own PIN → goes straight to their dashboard
         var PIN_MAP = {
             '2026': { name: 'Henry', page: 'henry.html' },
             '1234': { name: 'Scott', page: 'scott.html' },
             '5678': { name: 'Lewis', page: 'lewis.html' }
         };
-
         var SESSION_KEY = 'vrb_user';
 
         function checkSession() {
@@ -121,130 +172,74 @@
             if (user) {
                 try {
                     var data = JSON.parse(user);
-                    showWelcome(data.name, data.page);
-                } catch(e) {
-                    localStorage.removeItem(SESSION_KEY);
-                }
+                    // Auto-redirect if already logged in
+                    window.location.href = data.page;
+                } catch(e) { localStorage.removeItem(SESSION_KEY); }
             }
+            // Focus first input after a short delay (lets animation finish)
+            setTimeout(function() { document.getElementById('p1').focus(); }, 300);
         }
 
-        var inputs = [
-            document.getElementById('p1'),
-            document.getElementById('p2'),
-            document.getElementById('p3'),
-            document.getElementById('p4')
-        ];
+        var inputs = [document.getElementById('p1'), document.getElementById('p2'), document.getElementById('p3'), document.getElementById('p4')];
 
         inputs.forEach(function(input, i) {
             input.addEventListener('input', function() {
+                if (input.value) input.classList.add('filled');
+                else input.classList.remove('filled');
                 if (input.value.length === 1 && i < 3) inputs[i + 1].focus();
                 if (i === 3 && input.value.length === 1) {
                     var pin = inputs.map(function(el) { return el.value; }).join('');
                     var user = PIN_MAP[pin];
                     if (user) {
                         localStorage.setItem(SESSION_KEY, JSON.stringify(user));
-                        showWelcome(user.name, user.page);
+                        // Auto-request notification permission silently
+                        if ('Notification' in window && Notification.permission === 'default') {
+                            Notification.requestPermission().then(function(p) {
+                                if (p === 'granted') subscribeToPush();
+                            });
+                        }
+                        // Redirect straight to dashboard
+                        window.location.href = user.page;
                     } else {
                         document.getElementById('pin-error').classList.add('show');
-                        inputs.forEach(function(el) { el.value = ''; });
+                        document.getElementById('pin-container').classList.add('shake');
+                        inputs.forEach(function(el) { el.value = ''; el.classList.remove('filled'); });
                         inputs[0].focus();
                         setTimeout(function() {
                             document.getElementById('pin-error').classList.remove('show');
+                            document.getElementById('pin-container').classList.remove('shake');
                         }, 2000);
                     }
                 }
             });
             input.addEventListener('keydown', function(e) {
-                if (e.key === 'Backspace' && !input.value && i > 0) inputs[i - 1].focus();
+                if (e.key === 'Backspace') {
+                    if (!input.value && i > 0) { inputs[i - 1].focus(); inputs[i - 1].value = ''; inputs[i - 1].classList.remove('filled'); }
+                    else { input.value = ''; input.classList.remove('filled'); }
+                }
             });
         });
 
         var VAPID_PUBLIC = 'BCZlkQ7sM4MScJ0hiRDwoyHv4BnUJ1tZcB-PWNvmYmJVCAuydpJkWIdKgUMJpnXc8xj-7rj6aHlUxaZ_STQkTJg';
-
-        function urlBase64ToUint8Array(base64String) {
-            var padding = '='.repeat((4 - base64String.length % 4) % 4);
-            var base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-            var rawData = window.atob(base64);
-            var outputArray = new Uint8Array(rawData.length);
-            for (var i = 0; i < rawData.length; i++) outputArray[i] = rawData.charCodeAt(i);
-            return outputArray;
+        function urlBase64ToUint8Array(b) {
+            var p = '='.repeat((4 - b.length % 4) % 4), s = (b + p).replace(/-/g, '+').replace(/_/g, '/'), r = atob(s), a = new Uint8Array(r.length);
+            for (var i = 0; i < r.length; i++) a[i] = r.charCodeAt(i); return a;
         }
-
         function enableNotifications() {
-            if (!('Notification' in window) || !('PushManager' in window)) {
-                alert('Push notifications are not supported on this device. Make sure you added the app to your home screen first.');
-                return;
-            }
-            Notification.requestPermission().then(function(permission) {
-                if (permission === 'granted') {
-                    subscribeToPush();
-                }
-            });
+            if (!('Notification' in window) || !('PushManager' in window)) return;
+            Notification.requestPermission().then(function(p) { if (p === 'granted') subscribeToPush(); });
         }
-
         function subscribeToPush() {
             navigator.serviceWorker.ready.then(function(reg) {
-                return reg.pushManager.subscribe({
-                    userVisibleOnly: true,
-                    applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC),
-                });
+                return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC) });
             }).then(function(sub) {
-                // Save subscription to a GitHub Gist (readable by publish script)
-                var user = JSON.parse(localStorage.getItem(SESSION_KEY));
-                var subData = {
-                    person: user.name.toLowerCase(),
-                    subscription: sub.toJSON(),
-                    created: new Date().toISOString(),
-                };
-                // Store locally and show in console for manual setup
-                localStorage.setItem('vrb_push_sub', JSON.stringify(subData));
-                console.log('Push subscription (copy this):', JSON.stringify(subData));
-
-                document.getElementById('notify-btn').style.display = 'none';
-                document.getElementById('notify-status').style.display = 'block';
-
-                // Try to save to subscriptions endpoint
-                fetch('https://imhouse9107.github.io/viral-reply-dashboard/subscribe.html?sub=' + encodeURIComponent(JSON.stringify(subData)))
-                    .catch(function() {});
-            }).catch(function(err) {
-                console.error('Push subscription failed:', err);
-                alert('Could not enable notifications. Make sure you added the app to your home screen and try again.');
-            });
+                var user = JSON.parse(localStorage.getItem(SESSION_KEY) || '{}');
+                localStorage.setItem('vrb_push_sub', JSON.stringify({ person: (user.name || '').toLowerCase(), subscription: sub.toJSON() }));
+            }).catch(function() {});
         }
 
-        function showWelcome(name, page) {
-            document.getElementById('login').style.display = 'none';
-            document.getElementById('welcome').style.display = 'block';
-            document.getElementById('welcome-name').textContent = 'Hey ' + name;
-            document.getElementById('go-btn').href = page;
-
-            // Show notification button if not already subscribed
-            if ('Notification' in window && 'PushManager' in window) {
-                if (Notification.permission === 'granted') {
-                    document.getElementById('notify-status').style.display = 'block';
-                } else if (Notification.permission !== 'denied') {
-                    document.getElementById('notify-btn').style.display = 'block';
-                }
-            }
-
-            // Show install banner on iOS if not already installed
-            var isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            var isStandalone = window.navigator.standalone === true;
-            if (isIos && !isStandalone && !localStorage.getItem('vrb_install_dismissed')) {
-                document.getElementById('install-banner').style.display = 'block';
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem(SESSION_KEY);
-            location.reload();
-        }
-
-        function dismissInstall() {
-            document.getElementById('install-banner').style.display = 'none';
-            localStorage.setItem('vrb_install_dismissed', 'true');
-        }
-
+        function logout() { localStorage.removeItem(SESSION_KEY); location.reload(); }
+        function dismissInstall() { document.getElementById('install-banner').style.display = 'none'; localStorage.setItem('vrb_install_dismissed', 'true'); }
         if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
         checkSession();
     </script>
