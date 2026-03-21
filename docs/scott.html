@@ -63,10 +63,7 @@
             transition: opacity 0.4s ease, transform 0.4s ease;
             animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
-        .card:nth-child(2) { animation-delay: 0.05s; }
-        .card:nth-child(3) { animation-delay: 0.1s; }
-        .card:nth-child(4) { animation-delay: 0.15s; }
-        .card:nth-child(5) { animation-delay: 0.2s; }
+        /* Animation delays applied inline per card */
         .card.fire { box-shadow: 0 0 0 1px var(--danger), 0 4px 24px rgba(255,69,58,0.15); }
         .card.hot { box-shadow: 0 0 0 1px var(--warning), 0 4px 24px rgba(255,159,10,0.1); }
         .card.done { opacity: 0.35; transform: scale(0.98); }
@@ -119,6 +116,10 @@
         }
         .post-link:active { opacity: 0.6; }
 
+        .feedback-row { display:flex; border-top: 0.5px solid var(--sep); }
+        .fb-posted { flex:1; padding:12px; background:transparent; border:none; color:#30d158; font-size:14px; font-weight:600; cursor:pointer; }
+        .fb-skip { flex:1; padding:12px; background:transparent; border:none; color:rgba(235,235,245,0.30); font-size:14px; font-weight:500; cursor:pointer; border-left:0.5px solid var(--sep); }
+
         /* All done celebration */
         .celebration {
             display: none; text-align: center; padding: 48px 20px;
@@ -164,7 +165,12 @@
 
     <div id="cards-container">
     
-        <div class="card size-xl fire" id="card-386">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Comment on These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
+    </div>
+
+        <div class="card size-xl fire" id="card-386" style="">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -176,9 +182,13 @@
             <div class="reply" id="reply-386">mate, watching everyone frantically refresh dodgy sports sites for the michigan score is giving me flashbacks to cleaning malware off client machines. those &quot;free live score&quot; sites are literally malware distribution networks dressed up as sports content. your desperation for real-time scores is exactly what attackers count on when they pump fake streaming sites full of ransomware.</div>
             <button class="copy-btn" onclick="copyText(386, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=michigan+score" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(386)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(386)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-419">
+        <div class="card size-sm " id="card-419" style="animation-delay:0.05s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -190,9 +200,13 @@
             <div class="reply" id="reply-419">people say naomi osaka is 'too quiet' for tennis but she's won 4 grand slams. same energy as prospects telling me introverts can't sell. the best closers i know listen 80% of the time, loud ones just close their own objections.</div>
             <button class="copy-btn" onclick="copyText(419, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=naomi+osaka" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(419)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(419)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-387">
+        <div class="card size-sm " id="card-387" style="animation-delay:0.1s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -204,9 +218,13 @@
             <div class="reply" id="reply-387">watching osasuna vs girona on some dodgy streaming site? those free football streams are absolute malware goldmines mate. half the punters i help are dealing with banking trojans because they clicked through three pop-ups just to watch la liga. get a proper vpn and stick to legitimate platforms, your bank account will thank you later.</div>
             <button class="copy-btn" onclick="copyText(387, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=osasuna+-+girona" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(387)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(387)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-388">
+        <div class="card size-sm " id="card-388" style="animation-delay:0.15000000000000002s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -218,9 +236,13 @@
             <div class="reply" id="reply-388">big football matches like this are prime time for ransomware gangs to hit clubs when they cant afford downtime. dortmund and hamburg will both have their it teams on high alert tonight because taking down ticketing or broadcast systems during a match is worth millions to attackers. seen too many clubs get caught with basic backup strategies that crumble when the pressure is on.</div>
             <button class="copy-btn" onclick="copyText(388, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=dortmund+vs+hamburg" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(388)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(388)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-410">
+        <div class="card size-sm " id="card-410" style="animation-delay:0.2s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -232,9 +254,13 @@
             <div class="reply" id="reply-410">week long outages scream air gapped backup failure, veeam with immutable snapshots wouldve had them back up in hours not days</div>
             <button class="copy-btn" onclick="copyText(410, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1rzaxhs/stryker_cyber_attack_employees_still_unable_to/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(410)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(410)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-432">
+        <div class="card size-sm " id="card-432" style="animation-delay:0.25s;">
             <div class="card-top">
                 <span class="badge hackernews">hackernews</span>
                 <div class="meta-right">
@@ -246,9 +272,13 @@
             <div class="reply" id="reply-432">running party games like this exposes your home network to every guest device connecting, proper network segmentation with a guest vlan costs about £60 for a decent managed switch and saves you from someone's dodgy android joining your main network where your nas and work laptop live</div>
             <button class="copy-btn" onclick="copyText(432, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://news.ycombinator.com/item?id=46344573" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(432)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(432)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-379">
+        <div class="card size-sm " id="card-379" style="animation-delay:0.30000000000000004s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -260,9 +290,13 @@
             <div class="reply" id="reply-379">the reason ur crushing it faster the second time isnt just experience, its that u already burnt the bridges with the wrong customers so u only attract the profitable ones now</div>
             <button class="copy-btn" onclick="copyText(379, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/Entrepreneur/comments/1rzgsug/i_built_a_mobile_iv_therapy_company_from_0_to_2m/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(379)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(379)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-409">
+        <div class="card size-sm " id="card-409" style="animation-delay:0.35000000000000003s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -274,9 +308,13 @@
             <div class="reply" id="reply-409">security roles pay 20-30% more than general it but most places still lowball because they dont understand the risk</div>
             <button class="copy-btn" onclick="copyText(409, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/sysadmin/comments/1ryr9gu/salaries_europe_only_it_2026/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(409)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(409)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-425">
+        <div class="card size-sm " id="card-425" style="animation-delay:0.4s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -288,9 +326,13 @@
             <div class="reply" id="reply-425">connectwise control handles uac elevation properly and runs about £8 per tech per month, way better than the quick assist pain</div>
             <button class="copy-btn" onclick="copyText(425, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/sysadmin/comments/1ryzrdi/what_are_you_using_to_remote_control_computers/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(425)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(425)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-403">
+        <div class="card size-sm " id="card-403" style="animation-delay:0.45s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -302,9 +344,13 @@
             <div class="reply" id="reply-403">congrats, now spend april building next years pipeline while everyone else is chasing q1</div>
             <button class="copy-btn" onclick="copyText(403, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/sales/comments/1ry62jp/boom_target_for_the_year_done_before_the_end_of_q1/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(403)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(403)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-411">
+        <div class="card size-sm " id="card-411" style="animation-delay:0.5s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -316,9 +362,13 @@
             <div class="reply" id="reply-411">circle home plus blocks everything at router level, gets all the tracking rubbish too</div>
             <button class="copy-btn" onclick="copyText(411, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1rz9z4u/pinterest_ceo_governments_should_ban_social_media/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(411)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(411)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-412">
+        <div class="card size-sm " id="card-412" style="animation-delay:0.55s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -330,9 +380,13 @@
             <div class="reply" id="reply-412">fortinet licensing will bankrupt u before ransomware does, palo alto pa-220 does the job for half the ongoing cost</div>
             <button class="copy-btn" onclick="copyText(412, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/fortinet/comments/1ryptj8/fortigraveyard/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(412)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(412)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-420">
+        <div class="card size-sm " id="card-420" style="animation-delay:0.6000000000000001s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -344,9 +398,13 @@
             <div class="reply" id="reply-420">portos made people drive hours just for a pastry by doing the opposite of what every business tries to do, they made themselves harder to get instead of easier. while everyone else is chasing prospects across 47 touchpoints, the real money is in becoming the thing people will literally queue around the block for. scarcity beats availability every single time.</div>
             <button class="copy-btn" onclick="copyText(420, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=portos" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(420)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(420)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-421">
+        <div class="card size-sm " id="card-421" style="animation-delay:0.65s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -358,9 +416,13 @@
             <div class="reply" id="reply-421">the iphone is the ultimate status play, people finance £1200 phones but haggle over £200 software. apple cracked making price irrelevant when the identity upgrade is clear. your prospects arent buying your product, theyre buying who they become when they use it.</div>
             <button class="copy-btn" onclick="copyText(421, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.google.com/search?q=apple+iphone" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(421)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(421)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-433">
+        <div class="card size-sm " id="card-433" style="animation-delay:0.7000000000000001s;">
             <div class="card-top">
                 <span class="badge hackernews">hackernews</span>
                 <div class="meta-right">
@@ -372,9 +434,13 @@
             <div class="reply" id="reply-433">wireguard solves the massive latency problem with legacy vpn concentrators but most companies still run fortinet ssl vpns that add 200ms round trip and kill productivity, switch to something like this and your remote workers stop complaining about slow apps</div>
             <button class="copy-btn" onclick="copyText(433, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://news.ycombinator.com/item?id=41173330" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(433)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(433)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-406">
+        <div class="card size-sm " id="card-406" style="animation-delay:0.75s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -386,9 +452,13 @@
             <div class="reply" id="reply-406">high earners dont have a sales process, they map the buyers process and just walk alongside it</div>
             <button class="copy-btn" onclick="copyText(406, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/salestechniques/comments/1ruxxn8/high_earners_whats_a_typical_sales_process_like/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(406)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(406)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-404">
+        <div class="card size-sm " id="card-404" style="animation-delay:0.8s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -400,9 +470,13 @@
             <div class="reply" id="reply-404">call center sales is actually perfect training for enterprise b2b, youve already handled 100x more objections than most account execs ever will</div>
             <button class="copy-btn" onclick="copyText(404, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/careerguidance/comments/1rzpilq/how_were_you_able_to_land_a_high_salary_job_of/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(404)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(404)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-405">
+        <div class="card size-sm " id="card-405" style="animation-delay:0.8500000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -414,9 +488,13 @@
             <div class="reply" id="reply-405">forget careers, rich people buy problems solved not hours worked, find a £10m company's biggest headache and become the person who fixes it</div>
             <button class="copy-btn" onclick="copyText(405, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/careerguidance/comments/1rz4z0m/what_are_the_best_careers_today_to_achieve_upward/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(405)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(405)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-429">
+        <div class="card size-sm " id="card-429" style="animation-delay:0.9s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -428,9 +506,13 @@
             <div class="reply" id="reply-429">pin actions to sha hashes not tags, saves u from this supply chain mess</div>
             <button class="copy-btn" onclick="copyText(429, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1rz38mv/trivy_security_scanner_github_actions_breached_75/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(429)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(429)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-431">
+        <div class="card size-sm " id="card-431" style="animation-delay:0.9500000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -442,9 +524,13 @@
             <div class="reply" id="reply-431">link security baseline at domain level then user prefs at ou level sorts everything</div>
             <button class="copy-btn" onclick="copyText(431, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/sysadmin/comments/1rzmfk3/gpo_structure_best_practices_and_pitfalls_and/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(431)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(431)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-426">
+        <div class="card size-sm " id="card-426" style="animation-delay:1.0s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -456,9 +542,13 @@
             <div class="reply" id="reply-426">stop chasing clients before ur own security stack is bulletproof, seen too many new msps get breached in year one</div>
             <button class="copy-btn" onclick="copyText(426, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/msp/comments/1rz1lno/those_that_started_their_own_msp_what_are_some/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(426)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(426)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-414">
+        <div class="card size-sm " id="card-414" style="animation-delay:1.05s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -470,9 +560,13 @@
             <div class="reply" id="reply-414">quarterly threat reports showing blocked emails from known contacts sorts this attitude right out</div>
             <button class="copy-btn" onclick="copyText(414, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/msp/comments/1ryxzrj/mild_rant_email_filtering/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(414)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(414)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-380">
+        <div class="card size-sm " id="card-380" style="animation-delay:1.1s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -484,9 +578,13 @@
             <div class="reply" id="reply-380">sales teaches u to read people faster than a psychology degree and every conversation makes u better at life</div>
             <button class="copy-btn" onclick="copyText(380, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/sales/comments/1rzia8a/what_makes_you_want_to_be_a_salesperson/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(380)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(380)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-427">
+        <div class="card size-sm " id="card-427" style="animation-delay:1.1500000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -498,9 +596,13 @@
             <div class="reply" id="reply-427">partners are jumping to watchguard and sonicwall because fortinet keeps adding fees while their support quality has gone downhill since 2024</div>
             <button class="copy-btn" onclick="copyText(427, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/fortinet/comments/1rz63ye/fortinet_partner_new_quote_fees_and_emea_order/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(427)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(427)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-413">
+        <div class="card size-sm " id="card-413" style="animation-delay:1.2000000000000002s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -512,9 +614,13 @@
             <div class="reply" id="reply-413">both rce vulns in tools that sit on every msp network, this is why u isolate management vlans and never expose unifi controllers to wan</div>
             <button class="copy-btn" onclick="copyText(413, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/msp/comments/1ryi6bf/first_unifi_with_a_100_cve_now_screenconnect_90/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(413)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(413)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-428">
+        <div class="card size-sm " id="card-428" style="animation-delay:1.25s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -526,9 +632,13 @@
             <div class="reply" id="reply-428">youll need intune not just entra, entra handles identity but intune does the actual app wrapping and remote wipe for soc 2</div>
             <button class="copy-btn" onclick="copyText(428, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/msp/comments/1rz138r/dealing_with_mobile_phones/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(428)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(428)">Skip</button>
+            </div>
         </div>
 
-        <div class="card size-sm " id="card-430">
+        <div class="card size-sm " id="card-430" style="animation-delay:1.3s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -540,6 +650,10 @@
             <div class="reply" id="reply-430">cyber insurance market completely shifted after the big claims spike, carriers now audit your vendors harder than your own stack</div>
             <button class="copy-btn" onclick="copyText(430, this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
             <a class="post-link" href="https://www.reddit.com/r/msp/comments/1ryom92/insurance_client_compliance_requirements_are/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(430)">Posted</button>
+                <button class="fb-skip" onclick="markSkip(430)">Skip</button>
+            </div>
         </div>
     </div>
 
@@ -554,6 +668,7 @@
     <script>
         var TOTAL = 27;
         var STORAGE_KEY = 'vrb_done_scott_2026-03-21';
+        var FEEDBACK_KEY = 'vrb_feedback_scott_2026-03-21';
 
         function getDone() {
             try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
@@ -607,6 +722,39 @@
             toast.classList.add('show');
             setTimeout(function() { toast.classList.remove('show'); }, 1800);
         }
+
+        function getFeedback() {
+            try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{}'); }
+            catch(e) { return {}; }
+        }
+        function saveFeedback(obj) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(obj)); }
+
+        function markPosted(id) {
+            var fb = getFeedback();
+            fb[id] = 'posted';
+            saveFeedback(fb);
+            markDone(id);
+        }
+        function markSkip(id) {
+            var fb = getFeedback();
+            fb[id] = 'skip';
+            saveFeedback(fb);
+            var card = document.getElementById('card-' + id);
+            if (card) { card.style.display = 'none'; }
+            updateProgress();
+        }
+
+        // Restore feedback state on load
+        (function() {
+            var fb = getFeedback();
+            for (var id in fb) {
+                if (fb[id] === 'posted') { markDone(parseInt(id)); }
+                else if (fb[id] === 'skip') {
+                    var card = document.getElementById('card-' + id);
+                    if (card) { card.style.display = 'none'; }
+                }
+            }
+        })();
 
         updateProgress();
     </script>
