@@ -186,7 +186,7 @@
                 <svg viewBox="0 0 10 17"><polyline points="9 1 1 8.5 9 16"/></svg> Back
             </a>
             <span class="nav-title">Lewis</span>
-            <span class="nav-done" id="progress-text">0/8</span>
+            <span class="nav-done" id="progress-text">0/9</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
@@ -305,7 +305,26 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-733" data-category="reddit" style="animation-delay:0.35000000000000003s;">
+        <div class="card size-sm " id="card-740" data-category="reddit" style="animation-delay:0.35000000000000003s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>18</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Audited our automation stack last month. Found $280/month in workflows nobody remembered setting up.
+Genuine question before I share this when did you...<br><a href="https://www.reddit.com/r/automation/comments/1s1g4g7/audited_our_automation_stack_last_month_found/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-740">280 quid is nothing compared to the salesforce licenses ur still paying for people who left 18 months ago</div>
+            <button class="copy-btn" onclick="copyText(740, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/automation/comments/1s1g4g7/audited_our_automation_stack_last_month_found/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(740)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(740)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-733" data-category="reddit" style="animation-delay:0.4s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -440,7 +459,7 @@
             }
         }
 
-        var TOTAL = 8;
+        var TOTAL = 9;
         var STORAGE_KEY = 'vrb_done_lewis_2026-03-23';
         var FEEDBACK_KEY = 'vrb_feedback_lewis_2026-03-23';
         var PERSON = 'lewis';
