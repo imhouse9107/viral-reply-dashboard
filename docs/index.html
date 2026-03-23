@@ -144,14 +144,12 @@
         <p class="pin-error" id="pin-error" role="alert" aria-live="assertive">Incorrect PIN</p>
     </div>
 
-    <!-- Welcome -->
-    <div class="welcome" id="welcome">
-        <h1 id="welcome-name"></h1>
-        <p class="greeting" id="welcome-greeting"></p>
-        <a class="action-btn primary" id="go-btn" href="#">View Today's Suggestions</a>
-        <button class="action-btn secondary" id="notify-btn" onclick="enableNotifications()" style="display:none">Turn On Notifications</button>
-        <p class="notify-status" id="notify-status"><span class="checkmark">&#10003;</span> Notifications on</p>
-        <span class="logout-link" onclick="logout()">Sign out</span>
+    <!-- Home Screen (shown when logged in) -->
+    <div class="home" id="home" style="display:none; max-width:500px; width:100%; text-align:center;">
+        <h1 id="home-name" style="font-size:34px;font-weight:700;letter-spacing:-0.5px;margin-bottom:24px;"></h1>
+        <a class="action-btn primary" id="today-btn" href="#" style="margin-bottom:24px;">Today's Suggestions</a>
+        <div id="history-list" style="text-align:left;"></div>
+        <span class="logout-link" onclick="logout()" style="margin-top:28px;">Sign out</span>
     </div>
 
     <!-- Install banner -->
@@ -170,13 +168,34 @@
         };
         var SESSION_KEY = 'vrb_user';
 
+        function showHome(name, page) {
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('home').style.display = 'block';
+            document.getElementById('home-name').textContent = 'Hey ' + name;
+            document.getElementById('today-btn').href = page;
+
+            // Generate last 7 days of history links
+            var person = page.replace('.html', '');
+            var historyEl = document.getElementById('history-list');
+            var html = '<p style="color:var(--text-tertiary);font-size:13px;text-transform:uppercase;letter-spacing:1px;margin:20px 0 12px;font-weight:600;">Previous Days</p>';
+            var today = new Date();
+            for (var i = 1; i <= 7; i++) {
+                var d = new Date(today);
+                d.setDate(d.getDate() - i);
+                var dateStr = d.toISOString().split('T')[0];
+                var dayName = d.toLocaleDateString('en-GB', {weekday: 'short', day: 'numeric', month: 'short'});
+                html += '<a href="' + person + '-' + dateStr + '.html" style="display:block;padding:14px 16px;background:var(--bg-secondary);border-radius:12px;margin:8px 0;color:var(--text-primary);text-decoration:none;font-size:16px;">' + dayName + '</a>';
+            }
+            historyEl.innerHTML = html;
+        }
+
         function checkSession() {
             var user = localStorage.getItem(SESSION_KEY);
             if (user) {
                 try {
                     var data = JSON.parse(user);
-                    // Auto-redirect if already logged in
-                    window.location.href = data.page;
+                    showHome(data.name, data.page);
+                    return;
                 } catch(e) { localStorage.removeItem(SESSION_KEY); }
             }
             // Focus first input after a short delay (lets animation finish)
@@ -201,8 +220,8 @@
                                 if (p === 'granted') subscribeToPush();
                             });
                         }
-                        // Redirect straight to dashboard
-                        window.location.href = user.page;
+                        // Show home screen with today + history
+                        showHome(user.name, user.page);
                     } else {
                         document.getElementById('pin-error').classList.add('show');
                         document.getElementById('pin-container').classList.add('shake');
@@ -237,8 +256,24 @@
                 return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC) });
             }).then(function(sub) {
                 var user = JSON.parse(localStorage.getItem(SESSION_KEY) || '{}');
-                localStorage.setItem('vrb_push_sub', JSON.stringify({ person: (user.name || '').toLowerCase(), subscription: sub.toJSON() }));
-            }).catch(function() {});
+                var subData = {
+                    person: (user.name || '').toLowerCase(),
+                    suggestion_id: 0,
+                    action: 'push_subscription',
+                    platform: 'web_push',
+                    reply_preview: JSON.stringify(sub.toJSON())
+                };
+                localStorage.setItem('vrb_push_sub', JSON.stringify(sub.toJSON()));
+
+                // POST subscription to Google Sheet
+                fetch('https://script.google.com/macros/s/AKfycbzC5tDacKAi8JcU_aUsdOapCTMooV_krz1H2dtxHORL3egj1uWhj2FmlwzXduWsIEKm/exec', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(subData)
+                }).catch(function() {});
+            }).catch(function(err) {
+                console.error('Push subscription failed:', err);
+            });
         }
 
         function logout() { localStorage.removeItem(SESSION_KEY); location.reload(); }
