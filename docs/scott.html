@@ -147,6 +147,14 @@
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
         .toast .check { color: var(--success); }
+        .countdown {
+            text-align: center;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: var(--text-2);
+            border-bottom: 0.5px solid var(--sep);
+        }
+        .countdown strong { color: var(--accent); }
     </style>
 </head>
 <body>
@@ -156,10 +164,12 @@
                 <svg viewBox="0 0 10 17"><polyline points="9 1 1 8.5 9 16"/></svg> Back
             </a>
             <span class="nav-title">Scott</span>
-            <span class="nav-done" id="progress-text">0/0</span>
+            <span class="nav-done" id="progress-text">0/27</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
+
+    <div class="countdown" id="countdown"></div>
 
     <div class="header">
         <h1>Today's Suggestions</h1>
@@ -167,7 +177,502 @@
     </div>
 
     <div id="cards-container">
-    <div class="empty">No suggestions yet today. Check back after the bot runs.</div>
+    
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Post These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to your feed</div>
+    </div>
+
+        <div class="card size-sm " id="card-654" style="animation-delay:0.65s;">
+            <div class="card-top">
+                <span class="badge daily-tweet">daily tweet</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>80</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Daily tweet #1 inspired by trending content</div>
+            <div class="reply" id="reply-654">prospects reply when you mention their recent hire or competitor move. not when you mention your case studies or company awards</div>
+            <button class="copy-btn" onclick="copyText(654, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(654)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(654)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Comment on These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
+    </div>
+
+        <div class="card size-xl fire" id="card-672" style="">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>96457</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (reddit_popular): SipsTea<br><a href="https://reddit.com/r/SipsTea/comments/1s0q0x0/scenes_from_a_dermatologist_conference_in_hawaii/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-672">love how dermatologists spend fortunes protecting skin from uv damage then happily join &quot;conference_guest_wifi&quot; to share patient photos and research data. those hotel networks in hawaii are about as secure as factor 2 sunscreen, and every ransomware crew knows medical conferences are prime hunting grounds.</div>
+            <button class="copy-btn" onclick="copyText(672, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://reddit.com/r/SipsTea/comments/1s0q0x0/scenes_from_a_dermatologist_conference_in_hawaii/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(672)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(672)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-xl fire" id="card-673" style="animation-delay:0.05s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>75718</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (reddit_popular): pics<br><a href="https://reddit.com/r/pics/comments/1s0ofg6/insane_gas_prices_thanks_trump/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-673">mate posting pics of those crazy pump prices? check your receipts first, half of them show partial card numbers, exact timestamps and your regular fuel stop location. seen too many people basically hand criminals their daily routine and payment habits on a silver platter just to vent about politics.</div>
+            <button class="copy-btn" onclick="copyText(673, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://reddit.com/r/pics/comments/1s0ofg6/insane_gas_prices_thanks_trump/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(673)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(673)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-xl fire" id="card-674" style="animation-delay:0.1s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>73877</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (reddit_popular): space<br><a href="https://reddit.com/r/space/comments/1s0xpbe/my_space_potatoes_grown_aboard_the_iss/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-674">mate, growing potatoes in space is mad impressive, but what really gets me is the it resilience behind it. nasa can't exactly send a field engineer up to the iss when their monitoring systems fail, so everything has triple redundancy and air-gapped backups. meanwhile most businesses i work with are running critical operations on single points of failure and thinking &quot;oh we'll just restart the server&quot; is a valid disaster recovery plan.</div>
+            <button class="copy-btn" onclick="copyText(674, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://reddit.com/r/space/comments/1s0xpbe/my_space_potatoes_grown_aboard_the_iss/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(674)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(674)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-lg hot" id="card-653" style="animation-delay:0.15000000000000002s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>48423</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (reddit_popular): interesting<br><a href="https://reddit.com/r/interesting/comments/1s0wp7f/a_teacher_showed_up_at_school_with_playstation_5/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-653">this teacher just cracked the code every closer should steal. he didnt try to make kids care about the industrial revolution, he took what they already loved and built the bridge himself. most reps try to force prospects to care about their product instead of translating their product into what the prospect already cares about. meet them where they live, not where you want them to be.</div>
+            <button class="copy-btn" onclick="copyText(653, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://reddit.com/r/interesting/comments/1s0wp7f/a_teacher_showed_up_at_school_with_playstation_5/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(653)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(653)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-md " id="card-675" style="animation-delay:0.2s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>38524</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (reddit_popular): mildlyinfuriating<br><a href="https://reddit.com/r/mildlyinfuriating/comments/1s0n9al/local_gas_station_removed_price_tags_and_replaced/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-675">that gas station just turned checking fuel prices into a data harvesting operation. every time you scan that barcode, theyre logging your location, device info, and buying patterns. bet their app has zero proper encryption and when it gets breached next year, your personal data ends up on the dark web alongside your daily commute route.</div>
+            <button class="copy-btn" onclick="copyText(675, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://reddit.com/r/mildlyinfuriating/comments/1s0n9al/local_gas_station_removed_price_tags_and_replaced/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(675)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(675)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-666" style="animation-delay:0.25s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>696</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">New Apple Hack: Up to 270M iPhones Vulnerable to ‘DarkSword’ Exploit<br><a href="https://www.reddit.com/r/cybersecurity/comments/1s0fa69/new_apple_hack_up_to_270m_iphones_vulnerable_to/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-666">darksword exploit screams fake news, real vulns get boring cvs numbers not dramatic names like this</div>
+            <button class="copy-btn" onclick="copyText(666, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1s0fa69/new_apple_hack_up_to_270m_iphones_vulnerable_to/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(666)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(666)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-722" style="animation-delay:0.30000000000000004s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>371</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">I think I’m done with SOC work. The 2 AM false positives are destroying my mental health!!!<br><a href="https://www.reddit.com/r/cybersecurity/comments/1s0xjoh/i_think_im_done_with_soc_work_the_2_am_false/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-722">your splunk rules are tuned for volume not accuracy, switch to behaviour baselines and youll cut false positives by 80%</div>
+            <button class="copy-btn" onclick="copyText(722, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1s0xjoh/i_think_im_done_with_soc_work_the_2_am_false/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(722)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(722)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-667" style="animation-delay:0.35000000000000003s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>223</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Two employees lost their macbooks during offboarding<br><a href="https://www.reddit.com/r/sysadmin/comments/1s11ssi/two_employees_lost_their_macbooks_during/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-667">mate ur offboarding process is broken if people can just walk off with company macs, get jamf or intune set up so u can remote wipe those devices before the data ends up on the dark web</div>
+            <button class="copy-btn" onclick="copyText(667, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/sysadmin/comments/1s11ssi/two_employees_lost_their_macbooks_during/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(667)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(667)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-669" style="animation-delay:0.4s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>208</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Chuck e cheese kiosk is signed in as administrator with no password prompt<br><a href="https://www.reddit.com/r/cybersecurity/comments/1s13zii/chuck_e_cheese_kiosk_is_signed_in_as/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-669">kiosk lockdown software like sitekiosk or porteus kiosk costs 50 quid and prevents exactly this rubbish</div>
+            <button class="copy-btn" onclick="copyText(669, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1s13zii/chuck_e_cheese_kiosk_is_signed_in_as/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(669)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(669)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-729" style="animation-delay:0.45s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>110</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">How do you tell a client their $5k app idea costs $50k without losing them?<br><a href="https://www.reddit.com/r/smallbusiness/comments/1s17ffi/how_do_you_tell_a_client_their_5k_app_idea_costs/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-729">clients never budget for proper security and thats where ur 10x cost multiplier comes from, pen testing alone is 15k minimum for anything handling user data</div>
+            <button class="copy-btn" onclick="copyText(729, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/smallbusiness/comments/1s17ffi/how_do_you_tell_a_client_their_5k_app_idea_costs/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(729)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(729)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-670" style="animation-delay:0.5s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>99</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Crunchyroll Breach: Malware Targets Supply Chain to Exfiltrate 100GB of Data<br><a href="https://www.reddit.com/r/cybersecurity/comments/1s13u81/crunchyroll_breach_malware_targets_supply_chain/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-670">most companies never audit their outsourcing partners security posture and this is exactly why</div>
+            <button class="copy-btn" onclick="copyText(670, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1s13u81/crunchyroll_breach_malware_targets_supply_chain/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(670)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(670)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-723" style="animation-delay:0.55s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>93</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Documentation System<br><a href="https://www.reddit.com/r/sysadmin/comments/1s0nqc6/documentation_system/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-723">bookstack is exactly what ur after, proper confluence alternative thats actually free</div>
+            <button class="copy-btn" onclick="copyText(723, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/sysadmin/comments/1s0nqc6/documentation_system/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(723)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(723)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-682" style="animation-delay:0.6000000000000001s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>88</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">What is your biggest career regret so far?<br><a href="https://www.reddit.com/r/careerguidance/comments/1s0ni0n/what_is_your_biggest_career_regret_so_far/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-682">the degree wasnt the mistake, believing it would do the selling for u was</div>
+            <button class="copy-btn" onclick="copyText(682, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/careerguidance/comments/1s0ni0n/what_is_your_biggest_career_regret_so_far/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(682)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(682)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-683" style="animation-delay:0.7000000000000001s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>66</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Crowdfunded $20K, shipped a top charting app, ran out of money before I could add a buy button. 5 years later I have 17K users but almost no revenue<br><a href="https://www.reddit.com/r/Entrepreneur/comments/1s0yxr9/crowdfunded_20k_shipped_a_top_charting_app_ran/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-683">mate you've accidentally built the perfect testing ground, 17k users who love your product but never been asked to pay means you can test any price point without bias</div>
+            <button class="copy-btn" onclick="copyText(683, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/Entrepreneur/comments/1s0yxr9/crowdfunded_20k_shipped_a_top_charting_app_ran/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(683)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(683)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-712" style="animation-delay:0.75s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>46</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">GPO's everyones favorite...<br><a href="https://www.reddit.com/r/sysadmin/comments/1s15dys/gpos_everyones_favorite/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-712">no gpos means anyone can install anything and ur basically running a consumer network with enterprise kit, start with software restriction policies and applocker before u get hit</div>
+            <button class="copy-btn" onclick="copyText(712, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/sysadmin/comments/1s15dys/gpos_everyones_favorite/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(712)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(712)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-668" style="animation-delay:0.8s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>44</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Dell to Lenovo?<br><a href="https://www.reddit.com/r/sysadmin/comments/1s10pif/dell_to_lenovo/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-668">thinkpad t14 gen 4 with 3 year onsite warranty sorts your doa issues, lenovo business support actually picks up the phone unlike dell</div>
+            <button class="copy-btn" onclick="copyText(668, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/sysadmin/comments/1s10pif/dell_to_lenovo/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(668)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(668)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-717" style="animation-delay:0.8500000000000001s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>40</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Aqua Security's GitHub Organization was compromised by TeamPCP<br><a href="https://www.reddit.com/r/cybersecurity/comments/1s18t30/aqua_securitys_github_organization_was/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-717">perfect example of why ur container registry should block unsigned images, cosign verification wouldve caught this</div>
+            <button class="copy-btn" onclick="copyText(717, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1s18t30/aqua_securitys_github_organization_was/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(717)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(717)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-681" style="animation-delay:0.9s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>39</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">what do you think is the optimal career for good pay but also work life balance with good job security?<br><a href="https://www.reddit.com/r/careerguidance/comments/1s0zpn2/what_do_you_think_is_the_optimal_career_for_good/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-681">sales engineering pays 120k+ and once ur good u can work 3 days a week because companies need u more than u need them</div>
+            <button class="copy-btn" onclick="copyText(681, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/careerguidance/comments/1s0zpn2/what_do_you_think_is_the_optimal_career_for_good/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(681)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(681)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-714" style="animation-delay:0.9500000000000001s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>33</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Those of you in TPRM roles, are you checking your vendors against the Delve auditor list?<br><a href="https://www.reddit.com/r/cybersecurity/comments/1s0sfqz/those_of_you_in_tprm_roles_are_you_checking_your/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-714">this is why u verify certs directly with the issuing body not pdfs from vendors</div>
+            <button class="copy-btn" onclick="copyText(714, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1s0sfqz/those_of_you_in_tprm_roles_are_you_checking_your/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(714)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(714)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-715" style="animation-delay:1.0s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>16</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Disaster Remediation Scope<br><a href="https://www.reddit.com/r/msp/comments/1s05zvv/disaster_remediation_scope/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-715">incident response should always be separate retainer, most msps get burned treating ransomware recovery as bau</div>
+            <button class="copy-btn" onclick="copyText(715, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/msp/comments/1s05zvv/disaster_remediation_scope/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(715)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(715)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-725" style="animation-delay:1.05s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>15</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Automated DMARC report analysis<br><a href="https://www.reddit.com/r/sysadmin/comments/1s0zidh/automated_dmarc_report_analysis/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-725">dmarcly free tier handles up to 50k emails monthly and their dashboard actually makes sense unlike the xml soup most providers give u</div>
+            <button class="copy-btn" onclick="copyText(725, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/sysadmin/comments/1s0zidh/automated_dmarc_report_analysis/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(725)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(725)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-716" style="animation-delay:1.1s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>13</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Trying to start my first cyber cert where should I begin?<br><a href="https://www.reddit.com/r/cybersecurity/comments/1s0o64u/trying_to_start_my_first_cyber_cert_where_should/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-716">cysa plus first, actual threat hunting skills that socs are crying out for right now</div>
+            <button class="copy-btn" onclick="copyText(716, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1s0o64u/trying_to_start_my_first_cyber_cert_where_should/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(716)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(716)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-684" style="animation-delay:1.1500000000000001s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>12</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Best tool stack and workflow for outbound cold email?<br><a href="https://www.reddit.com/r/Entrepreneur/comments/1s09xev/best_tool_stack_and_workflow_for_outbound_cold/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-684">best stack is one domain, one tool, 100 perfect emails not 2000 mediocre ones</div>
+            <button class="copy-btn" onclick="copyText(684, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/Entrepreneur/comments/1s09xev/best_tool_stack_and_workflow_for_outbound_cold/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(684)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(684)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-671" style="animation-delay:1.2000000000000002s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>10</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">AutoCAD and Sharepoint/Onedrive File Sync - Growing Pains<br><a href="https://www.reddit.com/r/msp/comments/1s145rj/autocad_and_sharepointonedrive_file_sync_growing/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-671">sharepoint sync is rubbish for cad files, you need something like autodesk vault or even just a proper file server with oplocks that actually work</div>
+            <button class="copy-btn" onclick="copyText(671, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/msp/comments/1s145rj/autocad_and_sharepointonedrive_file_sync_growing/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(671)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(671)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-724" style="animation-delay:1.25s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>5</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Networking issues advice<br><a href="https://www.reddit.com/r/networking/comments/1s1bzrx/networking_issues_advice/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-724">bin the daisy chain and get proper stacked switches with redundant uplinks, youre one cable failure away from half ur offices going dark</div>
+            <button class="copy-btn" onclick="copyText(724, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/networking/comments/1s1bzrx/networking_issues_advice/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(724)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(724)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-713" style="animation-delay:1.3s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>4</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">I made a stealthy JITD shellcode loader that I want to share with you<br><a href="https://www.reddit.com/r/cybersecurity/comments/1s1a04x/i_made_a_stealthy_jitd_shellcode_loader_that_i/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-713">jit decryption is clever but most modern edr will still catch u on the api calls during execution, try unhooking ntdll before ur shellcode runs</div>
+            <button class="copy-btn" onclick="copyText(713, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/cybersecurity/comments/1s1a04x/i_made_a_stealthy_jitd_shellcode_loader_that_i/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(713)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(713)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
     </div>
 
     <div class="celebration" id="celebration">
@@ -179,7 +684,7 @@
     <div class="toast" id="toast" role="status" aria-live="polite"><span class="check">&#10003;</span> Copied to clipboard</div>
 
     <script>
-        var TOTAL = 0;
+        var TOTAL = 27;
         var STORAGE_KEY = 'vrb_done_scott_2026-03-23';
         var FEEDBACK_KEY = 'vrb_feedback_scott_2026-03-23';
         var PERSON = 'scott';
@@ -323,6 +828,38 @@
         })();
 
         updateProgress();
+
+        var SCHEDULE = [
+            {hour: 8, min: 0, label: 'Reddit comments ready'},
+            {hour: 9, min: 15, label: 'Post on LinkedIn'},
+            {hour: 10, min: 0, label: 'Film script ready'},
+            {hour: 12, min: 0, label: 'Tweet'},
+            {hour: 14, min: 30, label: 'Post on LinkedIn'},
+            {hour: 17, min: 0, label: 'Tweet'},
+        ];
+        function updateCountdown() {
+            var now = new Date();
+            var h = now.getHours(), m = now.getMinutes();
+            var next = null;
+            for (var i = 0; i < SCHEDULE.length; i++) {
+                if (h < SCHEDULE[i].hour || (h === SCHEDULE[i].hour && m < SCHEDULE[i].min)) {
+                    next = SCHEDULE[i]; break;
+                }
+            }
+            var el = document.getElementById('countdown');
+            if (!el) return;
+            if (!next) {
+                el.innerHTML = 'All done for today. Fresh suggestions tomorrow at 8am.';
+            } else {
+                var mins = (next.hour - h) * 60 + (next.min - m);
+                var hh = Math.floor(mins / 60);
+                var mm = mins % 60;
+                var timeStr = hh > 0 ? hh + 'h ' + mm + 'm' : mm + 'm';
+                el.innerHTML = 'Next: <strong>' + next.label + '</strong> in ' + timeStr;
+            }
+        }
+        setInterval(updateCountdown, 60000);
+        updateCountdown();
     </script>
 </body>
 </html>

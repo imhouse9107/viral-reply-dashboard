@@ -147,6 +147,14 @@
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
         .toast .check { color: var(--success); }
+        .countdown {
+            text-align: center;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: var(--text-2);
+            border-bottom: 0.5px solid var(--sep);
+        }
+        .countdown strong { color: var(--accent); }
     </style>
 </head>
 <body>
@@ -156,10 +164,12 @@
                 <svg viewBox="0 0 10 17"><polyline points="9 1 1 8.5 9 16"/></svg> Back
             </a>
             <span class="nav-title">Hailey</span>
-            <span class="nav-done" id="progress-text">0/0</span>
+            <span class="nav-done" id="progress-text">0/6</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
+
+    <div class="countdown" id="countdown"></div>
 
     <div class="header">
         <h1>Today's Suggestions</h1>
@@ -167,7 +177,126 @@
     </div>
 
     <div id="cards-container">
-    <div class="empty">No suggestions yet today. Check back after the bot runs.</div>
+    
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Post These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to your feed</div>
+    </div>
+
+        <div class="card size-xl fire" id="card-728" style="">
+            <div class="card-top">
+                <span class="badge daily-tweet">daily tweet</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>14989</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Daily tweet #1 inspired by trending content</div>
+            <div class="reply" id="reply-728">theres no court on the moon but lunar mining contracts need dispute resolution. space arbitration is about to boom</div>
+            <button class="copy-btn" onclick="copyText(728, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(728)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(728)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Comment on These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
+    </div>
+
+        <div class="card size-sm " id="card-676" style="animation-delay:0.05s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>200</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): k pop<br><a href="https://www.google.com/search?q=k+pop" target="_blank">View source</a></div>
+            <div class="reply" id="reply-676">the global k-pop machine runs on some seriously sophisticated international commercial arbitration. when hybe or sm entertainment sign distribution deals across dozens of countries, they're not just thinking about streaming numbers, they're building dispute resolution clauses that can handle everything from ip licensing conflicts to revenue splits across multiple legal systems. the real infrastructure behind the hallyu wave isn't just social media algorithms, it's carefully drafted arbitration agreements that let korean companies expand globally without getting stuck in endless court battles in foreign jurisdictions.</div>
+            <button class="copy-btn" onclick="copyText(676, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=k+pop" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(676)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(676)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-677" style="animation-delay:0.1s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>200</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): deep learning<br><a href="https://www.google.com/search?q=deep+learning" target="_blank">View source</a></div>
+            <div class="reply" id="reply-677">every major ai company is about to learn why international arbitration exists. training data disputes crossing multiple jurisdictions, with billion dollar stakes and no clear legal precedent. sounds like exactly the kind of complex commercial dispute that ends up in an icc hearing room rather than national courts.</div>
+            <button class="copy-btn" onclick="copyText(677, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=deep+learning" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(677)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(677)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-678" style="animation-delay:0.15000000000000002s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>200</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): space exploration<br><a href="https://www.google.com/search?q=space+exploration" target="_blank">View source</a></div>
+            <div class="reply" id="reply-678">watching everyone get excited about space exploration while knowing that the outer space treaty from 1967 has basically no meaningful dispute resolution mechanism for when things go wrong. we're sending billionaires to mars but still relying on 'consultation' and 'negotiation' when satellites crash into each other or someone claims an asteroid. the next big arbitration boom isn't going to be energy or tech, it's going to be space.</div>
+            <button class="copy-btn" onclick="copyText(678, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=space+exploration" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(678)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(678)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-679" style="animation-delay:0.2s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>200</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): electric vehicles<br><a href="https://www.google.com/search?q=electric+vehicles" target="_blank">View source</a></div>
+            <div class="reply" id="reply-679">every gigafactory deal is an arbitration case waiting to happen. governments compete with massive ev incentives, then politics change and the subsidies disappear. the investors head straight for investment treaty arbitration, claiming legitimate expectations were breached.</div>
+            <button class="copy-btn" onclick="copyText(679, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=electric+vehicles" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(679)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(679)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-680" style="animation-delay:0.25s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>200</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): climate change<br><a href="https://www.google.com/search?q=climate+change" target="_blank">View source</a></div>
+            <div class="reply" id="reply-680">the climate transition is creating the biggest arbitration boom nobody talks about. every time a government bans coal plants or blocks oil projects, foreign investors are filing icsid claims for billions in compensation under old investment treaties. the legal system designed to protect cross border investment is now the main obstacle to climate action, and tribunals are stuck deciding whether saving the planet counts as legitimate regulation or disguised expropriation.
+
+has anyone actually calculated how much climate policy is going to cost in arbitration awards alone?</div>
+            <button class="copy-btn" onclick="copyText(680, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=climate+change" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(680)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(680)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
     </div>
 
     <div class="celebration" id="celebration">
@@ -179,7 +308,7 @@
     <div class="toast" id="toast" role="status" aria-live="polite"><span class="check">&#10003;</span> Copied to clipboard</div>
 
     <script>
-        var TOTAL = 0;
+        var TOTAL = 6;
         var STORAGE_KEY = 'vrb_done_hailey_2026-03-23';
         var FEEDBACK_KEY = 'vrb_feedback_hailey_2026-03-23';
         var PERSON = 'hailey';
@@ -323,6 +452,38 @@
         })();
 
         updateProgress();
+
+        var SCHEDULE = [
+            {hour: 8, min: 0, label: 'Reddit comments ready'},
+            {hour: 9, min: 15, label: 'Post on LinkedIn'},
+            {hour: 10, min: 0, label: 'Film script ready'},
+            {hour: 12, min: 0, label: 'Tweet'},
+            {hour: 14, min: 30, label: 'Post on LinkedIn'},
+            {hour: 17, min: 0, label: 'Tweet'},
+        ];
+        function updateCountdown() {
+            var now = new Date();
+            var h = now.getHours(), m = now.getMinutes();
+            var next = null;
+            for (var i = 0; i < SCHEDULE.length; i++) {
+                if (h < SCHEDULE[i].hour || (h === SCHEDULE[i].hour && m < SCHEDULE[i].min)) {
+                    next = SCHEDULE[i]; break;
+                }
+            }
+            var el = document.getElementById('countdown');
+            if (!el) return;
+            if (!next) {
+                el.innerHTML = 'All done for today. Fresh suggestions tomorrow at 8am.';
+            } else {
+                var mins = (next.hour - h) * 60 + (next.min - m);
+                var hh = Math.floor(mins / 60);
+                var mm = mins % 60;
+                var timeStr = hh > 0 ? hh + 'h ' + mm + 'm' : mm + 'm';
+                el.innerHTML = 'Next: <strong>' + next.label + '</strong> in ' + timeStr;
+            }
+        }
+        setInterval(updateCountdown, 60000);
+        updateCountdown();
     </script>
 </body>
 </html>

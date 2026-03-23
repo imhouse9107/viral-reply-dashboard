@@ -147,6 +147,14 @@
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
         .toast .check { color: var(--success); }
+        .countdown {
+            text-align: center;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: var(--text-2);
+            border-bottom: 0.5px solid var(--sep);
+        }
+        .countdown strong { color: var(--accent); }
     </style>
 </head>
 <body>
@@ -156,10 +164,12 @@
                 <svg viewBox="0 0 10 17"><polyline points="9 1 1 8.5 9 16"/></svg> Back
             </a>
             <span class="nav-title">Lewis</span>
-            <span class="nav-done" id="progress-text">0/0</span>
+            <span class="nav-done" id="progress-text">0/5</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
+
+    <div class="countdown" id="countdown"></div>
 
     <div class="header">
         <h1>Today's Suggestions</h1>
@@ -168,6 +178,100 @@
 
     <div id="cards-container">
     
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Comment on These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
+    </div>
+
+        <div class="card size-xl fire" id="card-648" style="">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>5000</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): fuyao glass america fire<br><a href="https://www.google.com/search?q=fuyao+glass+america+fire" target="_blank">View source</a></div>
+            <div class="reply" id="reply-648">when a major glass supplier burns down, every auto manufacturer sourcing from them becomes a red-hot lead for competitors within 48 hours. smart teams already have clay monitoring supplier crisis events with automated apollo sequences triggering to affected companies' procurement teams. while everyone else is reading the news, the pros are already in their inbox with alternatives.</div>
+            <button class="copy-btn" onclick="copyText(648, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=fuyao+glass+america+fire" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(648)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(648)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-xl fire" id="card-649" style="animation-delay:0.05s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>5000</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): gold price<br><a href="https://www.google.com/search?q=gold+price" target="_blank">View source</a></div>
+            <div class="reply" id="reply-649">most companies are running the same lead scoring and nurture sequences whether gold is at £1500 or £2000, which is mental. when gold spikes like this it signals risk-off sentiment, so your enterprise prospects are tightening budgets and extending decision cycles. smart operators are already updating their hubspot lead scoring to weight financial stability higher and triggering different outreach sequences in apollo for economic uncertainty periods.</div>
+            <button class="copy-btn" onclick="copyText(649, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=gold+price" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(649)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(649)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-md " id="card-650" style="animation-delay:0.1s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>2000</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): gold price today<br><a href="https://www.google.com/search?q=gold+price+today" target="_blank">View source</a></div>
+            <div class="reply" id="reply-650">gold prices spiking means your b2b prospects are tightening budgets and extending decision cycles, but most sales teams are flying blind to these macro signals. smart move, set up a clay workflow that pulls economic data and automatically adjusts your hubspot deal probability scores and follow-up sequences when volatility hits. your forecasting accuracy will thank you later.</div>
+            <button class="copy-btn" onclick="copyText(650, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=gold+price+today" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(650)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(650)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-651" style="animation-delay:0.15000000000000002s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>500</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): hospital<br><a href="https://www.google.com/search?q=hospital" target="_blank">View source</a></div>
+            <div class="reply" id="reply-651">mate, if youre selling to hospitals you probably have the most broken crm on earth. hospital procurement involves like 12 different stakeholders across 6 departments and takes 18 months minimum. yet everyone just dumps leads into hubspot and wonders why nothing converts. you need proper multi-thread tracking in clay, sequence different personas in apollo, and actually map the buying committee before you even think about outreach. most medtech sales teams are flying blind when they should be running attribution models that would make saas companies jealous.</div>
+            <button class="copy-btn" onclick="copyText(651, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=hospital" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(651)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(651)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-652" style="animation-delay:0.2s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>200</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): 上证指数<br><a href="https://www.google.com/search?q=上证指数" target="_blank">View source</a></div>
+            <div class="reply" id="reply-652">while everyone's watching the shanghai composite tank, smart revenue teams are already updating their lead scoring models in hubspot to weight chinese prospects differently. if you're not pulling economic indicators into your crm workflows through something like clay or n8n, you're basically flying blind when market conditions shift. most teams still think lead scoring is just firmographics and behaviour, but the best ops people layer in real-time market data to trigger different sequences when volatility spikes.</div>
+            <button class="copy-btn" onclick="copyText(652, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=上证指数" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(652)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(652)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
     <div style="padding:20px 0 8px;margin-top:8px;">
         <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Film These</div>
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Today's video scripts based on trending topics</div>
@@ -209,7 +313,7 @@
     <div class="toast" id="toast" role="status" aria-live="polite"><span class="check">&#10003;</span> Copied to clipboard</div>
 
     <script>
-        var TOTAL = 0;
+        var TOTAL = 5;
         var STORAGE_KEY = 'vrb_done_lewis_2026-03-23';
         var FEEDBACK_KEY = 'vrb_feedback_lewis_2026-03-23';
         var PERSON = 'lewis';
@@ -353,6 +457,38 @@
         })();
 
         updateProgress();
+
+        var SCHEDULE = [
+            {hour: 8, min: 0, label: 'Reddit comments ready'},
+            {hour: 9, min: 15, label: 'Post on LinkedIn'},
+            {hour: 10, min: 0, label: 'Film script ready'},
+            {hour: 12, min: 0, label: 'Tweet'},
+            {hour: 14, min: 30, label: 'Post on LinkedIn'},
+            {hour: 17, min: 0, label: 'Tweet'},
+        ];
+        function updateCountdown() {
+            var now = new Date();
+            var h = now.getHours(), m = now.getMinutes();
+            var next = null;
+            for (var i = 0; i < SCHEDULE.length; i++) {
+                if (h < SCHEDULE[i].hour || (h === SCHEDULE[i].hour && m < SCHEDULE[i].min)) {
+                    next = SCHEDULE[i]; break;
+                }
+            }
+            var el = document.getElementById('countdown');
+            if (!el) return;
+            if (!next) {
+                el.innerHTML = 'All done for today. Fresh suggestions tomorrow at 8am.';
+            } else {
+                var mins = (next.hour - h) * 60 + (next.min - m);
+                var hh = Math.floor(mins / 60);
+                var mm = mins % 60;
+                var timeStr = hh > 0 ? hh + 'h ' + mm + 'm' : mm + 'm';
+                el.innerHTML = 'Next: <strong>' + next.label + '</strong> in ' + timeStr;
+            }
+        }
+        setInterval(updateCountdown, 60000);
+        updateCountdown();
     </script>
 </body>
 </html>
