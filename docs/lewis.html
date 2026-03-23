@@ -163,6 +163,20 @@
             color: var(--text-3); font-size: 15px;
         }
         .locked-notice strong { color: var(--text-2); }
+
+        .filter-tabs {
+            display: flex; gap: 6px; padding: 12px 0; overflow-x: auto;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .filter-tabs::-webkit-scrollbar { display: none; }
+        .tab {
+            padding: 8px 16px; border-radius: 20px; border: none;
+            background: var(--bg-elevated); color: var(--text-2);
+            font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .tab.active { background: var(--accent); color: #fff; }
+        .tab:active { opacity: 0.7; }
     </style>
 </head>
 <body>
@@ -172,12 +186,21 @@
                 <svg viewBox="0 0 10 17"><polyline points="9 1 1 8.5 9 16"/></svg> Back
             </a>
             <span class="nav-title">Lewis</span>
-            <span class="nav-done" id="progress-text">0/6</span>
+            <span class="nav-done" id="progress-text">0/8</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
 
     <div class="countdown" id="countdown"></div>
+
+    <div class="filter-tabs">
+        <button class="tab active" onclick="filterCards('all', this)">All</button>
+        <button class="tab" onclick="filterCards('linkedin', this)">LinkedIn</button>
+        <button class="tab" onclick="filterCards('twitter', this)">Twitter</button>
+        <button class="tab" onclick="filterCards('reddit', this)">Reddit</button>
+        <button class="tab" onclick="filterCards('hackernews', this)">HN</button>
+        <button class="tab" onclick="filterCards('scripts', this)">Scripts</button>
+    </div>
 
     <div class="header">
         <h1>Today's Suggestions</h1>
@@ -192,7 +215,7 @@
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
     </div>
 
-        <div class="card size-xl fire" id="card-648" style="">
+        <div class="card size-xl fire" id="card-648" data-category="trending_take" style="">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -210,7 +233,7 @@
             </div>
         </div>
 
-        <div class="card size-xl fire" id="card-649" style="animation-delay:0.05s;">
+        <div class="card size-xl fire" id="card-649" data-category="trending_take" style="animation-delay:0.05s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -228,7 +251,7 @@
             </div>
         </div>
 
-        <div class="card size-md " id="card-650" style="animation-delay:0.1s;">
+        <div class="card size-md " id="card-650" data-category="trending_take" style="animation-delay:0.1s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -246,7 +269,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-651" style="animation-delay:0.15000000000000002s;">
+        <div class="card size-sm " id="card-651" data-category="trending_take" style="animation-delay:0.15000000000000002s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -264,7 +287,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-652" style="animation-delay:0.2s;">
+        <div class="card size-sm " id="card-652" data-category="trending_take" style="animation-delay:0.2s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -282,7 +305,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-733" style="animation-delay:0.25s;">
+        <div class="card size-sm " id="card-733" data-category="reddit" style="animation-delay:0.35000000000000003s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -299,12 +322,62 @@
                 <button class="fb-skip" onclick="markSkip(733)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
+</div>
+
+    <div class="timed-section" data-reveal="9">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Post on LinkedIn</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to your LinkedIn feed</div>
+    </div>
+
+        <div class="card size-sm " id="card-734" data-category="twitter" style="animation-delay:0.25s;">
+            <div class="card-top">
+                <span class="badge daily-tweet">daily tweet</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>34</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Daily tweet #1 inspired by trending content</div>
+            <div class="reply" id="reply-734">sales teams collect saas tools like pokemon cards then wonder why nothing actually works together. hubspot for simple, salesforce if you hate yourself, clay for data, apollo for sequences. thats it. stop building frankenstein stacks</div>
+            <button class="copy-btn" onclick="copyText(734, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(734)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(734)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+</div>
+
+    <div class="timed-section" data-reveal="12">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Tweet These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to Twitter</div>
+    </div>
+
+        <div class="card size-sm " id="card-735" data-category="twitter" style="animation-delay:0.30000000000000004s;">
+            <div class="card-top">
+                <span class="badge daily-tweet">daily tweet</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>23</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Daily tweet #2 inspired by trending content</div>
+            <div class="reply" id="reply-735">sales manager builds 47 step hubspot workflow that assigns leads by company size industry and zodiac sign. first lead has a typo in email. entire thing breaks. you built the death star when you needed a bicycle mate</div>
+            <button class="copy-btn" onclick="copyText(735, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(735)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(735)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
 </div><div class="timed-section" data-reveal="10">
     <div style="padding:20px 0 8px;margin-top:8px;">
         <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Film These</div>
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Today's video scripts based on trending topics</div>
     </div>
-        <div class="card" style="">
+        <div class="card" data-category="scripts" style="">
             <div class="card-top">
                 <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
             </div>
@@ -313,7 +386,7 @@
             <button class="copy-btn" onclick="copyScript('script-6', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
         </div>
 
-        <div class="card" style="animation-delay:0.05s;">
+        <div class="card" data-category="scripts" style="animation-delay:0.05s;">
             <div class="card-top">
                 <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
             </div>
@@ -322,7 +395,7 @@
             <button class="copy-btn" onclick="copyScript('script-7', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
         </div>
 
-        <div class="card" style="animation-delay:0.1s;">
+        <div class="card" data-category="scripts" style="animation-delay:0.1s;">
             <div class="card-top">
                 <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
             </div>
@@ -341,7 +414,33 @@
     <div class="toast" id="toast" role="status" aria-live="polite"><span class="check">&#10003;</span> Copied to clipboard</div>
 
     <script>
-        var TOTAL = 6;
+        function filterCards(category, btn) {
+            var tabs = document.querySelectorAll('.tab');
+            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+            btn.classList.add('active');
+
+            var cards = document.querySelectorAll('.card');
+            for (var i = 0; i < cards.length; i++) {
+                var cat = cards[i].getAttribute('data-category') || '';
+                if (category === 'all' || cat.indexOf(category) !== -1) {
+                    cards[i].style.display = '';
+                } else {
+                    cards[i].style.display = 'none';
+                }
+            }
+
+            var sections = document.querySelectorAll('.timed-section');
+            for (var i = 0; i < sections.length; i++) {
+                var visibleCards = sections[i].querySelectorAll('.card:not([style*="display: none"])');
+                if (category === 'all' || visibleCards.length > 0) {
+                    sections[i].style.display = '';
+                } else {
+                    sections[i].style.display = 'none';
+                }
+            }
+        }
+
+        var TOTAL = 8;
         var STORAGE_KEY = 'vrb_done_lewis_2026-03-23';
         var FEEDBACK_KEY = 'vrb_feedback_lewis_2026-03-23';
         var PERSON = 'lewis';

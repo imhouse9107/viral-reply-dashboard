@@ -163,6 +163,20 @@
             color: var(--text-3); font-size: 15px;
         }
         .locked-notice strong { color: var(--text-2); }
+
+        .filter-tabs {
+            display: flex; gap: 6px; padding: 12px 0; overflow-x: auto;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .filter-tabs::-webkit-scrollbar { display: none; }
+        .tab {
+            padding: 8px 16px; border-radius: 20px; border: none;
+            background: var(--bg-elevated); color: var(--text-2);
+            font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .tab.active { background: var(--accent); color: #fff; }
+        .tab:active { opacity: 0.7; }
     </style>
 </head>
 <body>
@@ -179,6 +193,15 @@
 
     <div class="countdown" id="countdown"></div>
 
+    <div class="filter-tabs">
+        <button class="tab active" onclick="filterCards('all', this)">All</button>
+        <button class="tab" onclick="filterCards('linkedin', this)">LinkedIn</button>
+        <button class="tab" onclick="filterCards('twitter', this)">Twitter</button>
+        <button class="tab" onclick="filterCards('reddit', this)">Reddit</button>
+        <button class="tab" onclick="filterCards('hackernews', this)">HN</button>
+        <button class="tab" onclick="filterCards('scripts', this)">Scripts</button>
+    </div>
+
     <div class="header">
         <h1>Today's Suggestions</h1>
         <div class="date">2026-03-23</div>
@@ -192,7 +215,7 @@
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
     </div>
 
-        <div class="card size-sm " id="card-676" style="animation-delay:0.05s;">
+        <div class="card size-sm " id="card-676" data-category="trending_take" style="animation-delay:0.05s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -210,7 +233,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-677" style="animation-delay:0.1s;">
+        <div class="card size-sm " id="card-677" data-category="trending_take" style="animation-delay:0.1s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -228,7 +251,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-678" style="animation-delay:0.15000000000000002s;">
+        <div class="card size-sm " id="card-678" data-category="trending_take" style="animation-delay:0.15000000000000002s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -246,7 +269,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-679" style="animation-delay:0.2s;">
+        <div class="card size-sm " id="card-679" data-category="trending_take" style="animation-delay:0.2s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -264,7 +287,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-680" style="animation-delay:0.25s;">
+        <div class="card size-sm " id="card-680" data-category="trending_take" style="animation-delay:0.25s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -291,7 +314,7 @@ has anyone actually calculated how much climate policy is going to cost in arbit
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to your LinkedIn feed</div>
     </div>
 
-        <div class="card size-xl fire" id="card-728" style="">
+        <div class="card size-xl fire" id="card-728" data-category="twitter" style="">
             <div class="card-top">
                 <span class="badge daily-tweet">daily tweet</span>
                 <div class="meta-right">
@@ -328,6 +351,32 @@ has anyone actually calculated how much climate policy is going to cost in arbit
     <div class="toast" id="toast" role="status" aria-live="polite"><span class="check">&#10003;</span> Copied to clipboard</div>
 
     <script>
+        function filterCards(category, btn) {
+            var tabs = document.querySelectorAll('.tab');
+            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+            btn.classList.add('active');
+
+            var cards = document.querySelectorAll('.card');
+            for (var i = 0; i < cards.length; i++) {
+                var cat = cards[i].getAttribute('data-category') || '';
+                if (category === 'all' || cat.indexOf(category) !== -1) {
+                    cards[i].style.display = '';
+                } else {
+                    cards[i].style.display = 'none';
+                }
+            }
+
+            var sections = document.querySelectorAll('.timed-section');
+            for (var i = 0; i < sections.length; i++) {
+                var visibleCards = sections[i].querySelectorAll('.card:not([style*="display: none"])');
+                if (category === 'all' || visibleCards.length > 0) {
+                    sections[i].style.display = '';
+                } else {
+                    sections[i].style.display = 'none';
+                }
+            }
+        }
+
         var TOTAL = 6;
         var STORAGE_KEY = 'vrb_done_hailey_2026-03-23';
         var FEEDBACK_KEY = 'vrb_feedback_hailey_2026-03-23';

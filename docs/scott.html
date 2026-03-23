@@ -163,6 +163,20 @@
             color: var(--text-3); font-size: 15px;
         }
         .locked-notice strong { color: var(--text-2); }
+
+        .filter-tabs {
+            display: flex; gap: 6px; padding: 12px 0; overflow-x: auto;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .filter-tabs::-webkit-scrollbar { display: none; }
+        .tab {
+            padding: 8px 16px; border-radius: 20px; border: none;
+            background: var(--bg-elevated); color: var(--text-2);
+            font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .tab.active { background: var(--accent); color: #fff; }
+        .tab:active { opacity: 0.7; }
     </style>
 </head>
 <body>
@@ -179,6 +193,15 @@
 
     <div class="countdown" id="countdown"></div>
 
+    <div class="filter-tabs">
+        <button class="tab active" onclick="filterCards('all', this)">All</button>
+        <button class="tab" onclick="filterCards('linkedin', this)">LinkedIn</button>
+        <button class="tab" onclick="filterCards('twitter', this)">Twitter</button>
+        <button class="tab" onclick="filterCards('reddit', this)">Reddit</button>
+        <button class="tab" onclick="filterCards('hackernews', this)">HN</button>
+        <button class="tab" onclick="filterCards('scripts', this)">Scripts</button>
+    </div>
+
     <div class="header">
         <h1>Today's Suggestions</h1>
         <div class="date">2026-03-23</div>
@@ -192,7 +215,7 @@
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
     </div>
 
-        <div class="card size-xl fire" id="card-672" style="">
+        <div class="card size-xl fire" id="card-672" data-category="trending_take" style="">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -210,7 +233,7 @@
             </div>
         </div>
 
-        <div class="card size-xl fire" id="card-673" style="animation-delay:0.05s;">
+        <div class="card size-xl fire" id="card-673" data-category="trending_take" style="animation-delay:0.05s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -228,7 +251,7 @@
             </div>
         </div>
 
-        <div class="card size-xl fire" id="card-674" style="animation-delay:0.1s;">
+        <div class="card size-xl fire" id="card-674" data-category="trending_take" style="animation-delay:0.1s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -246,7 +269,7 @@
             </div>
         </div>
 
-        <div class="card size-lg hot" id="card-653" style="animation-delay:0.15000000000000002s;">
+        <div class="card size-lg hot" id="card-653" data-category="trending_take" style="animation-delay:0.15000000000000002s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -264,7 +287,7 @@
             </div>
         </div>
 
-        <div class="card size-md " id="card-675" style="animation-delay:0.2s;">
+        <div class="card size-md " id="card-675" data-category="trending_take" style="animation-delay:0.2s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -282,7 +305,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-666" style="animation-delay:0.25s;">
+        <div class="card size-sm " id="card-666" data-category="reddit" style="animation-delay:0.25s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -300,7 +323,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-722" style="animation-delay:0.30000000000000004s;">
+        <div class="card size-sm " id="card-722" data-category="reddit" style="animation-delay:0.30000000000000004s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -318,7 +341,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-667" style="animation-delay:0.35000000000000003s;">
+        <div class="card size-sm " id="card-667" data-category="reddit" style="animation-delay:0.35000000000000003s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -336,7 +359,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-669" style="animation-delay:0.4s;">
+        <div class="card size-sm " id="card-669" data-category="reddit" style="animation-delay:0.4s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -354,7 +377,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-729" style="animation-delay:0.45s;">
+        <div class="card size-sm " id="card-729" data-category="reddit" style="animation-delay:0.45s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -372,7 +395,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-670" style="animation-delay:0.5s;">
+        <div class="card size-sm " id="card-670" data-category="reddit" style="animation-delay:0.5s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -390,7 +413,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-723" style="animation-delay:0.55s;">
+        <div class="card size-sm " id="card-723" data-category="reddit" style="animation-delay:0.55s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -408,7 +431,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-682" style="animation-delay:0.6000000000000001s;">
+        <div class="card size-sm " id="card-682" data-category="reddit" style="animation-delay:0.6000000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -426,7 +449,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-683" style="animation-delay:0.7000000000000001s;">
+        <div class="card size-sm " id="card-683" data-category="reddit" style="animation-delay:0.7000000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -444,7 +467,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-712" style="animation-delay:0.75s;">
+        <div class="card size-sm " id="card-712" data-category="reddit" style="animation-delay:0.75s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -462,7 +485,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-668" style="animation-delay:0.8s;">
+        <div class="card size-sm " id="card-668" data-category="reddit" style="animation-delay:0.8s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -480,7 +503,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-717" style="animation-delay:0.8500000000000001s;">
+        <div class="card size-sm " id="card-717" data-category="reddit" style="animation-delay:0.8500000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -498,7 +521,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-681" style="animation-delay:0.9s;">
+        <div class="card size-sm " id="card-681" data-category="reddit" style="animation-delay:0.9s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -516,7 +539,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-714" style="animation-delay:0.9500000000000001s;">
+        <div class="card size-sm " id="card-714" data-category="reddit" style="animation-delay:0.9500000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -534,7 +557,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-715" style="animation-delay:1.0s;">
+        <div class="card size-sm " id="card-715" data-category="reddit" style="animation-delay:1.0s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -552,7 +575,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-725" style="animation-delay:1.05s;">
+        <div class="card size-sm " id="card-725" data-category="reddit" style="animation-delay:1.05s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -570,7 +593,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-716" style="animation-delay:1.1s;">
+        <div class="card size-sm " id="card-716" data-category="reddit" style="animation-delay:1.1s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -588,7 +611,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-684" style="animation-delay:1.1500000000000001s;">
+        <div class="card size-sm " id="card-684" data-category="reddit" style="animation-delay:1.1500000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -606,7 +629,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-671" style="animation-delay:1.2000000000000002s;">
+        <div class="card size-sm " id="card-671" data-category="reddit" style="animation-delay:1.2000000000000002s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -624,7 +647,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-731" style="animation-delay:1.25s;">
+        <div class="card size-sm " id="card-731" data-category="reddit" style="animation-delay:1.25s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -642,7 +665,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-724" style="animation-delay:1.3s;">
+        <div class="card size-sm " id="card-724" data-category="reddit" style="animation-delay:1.3s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -660,7 +683,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-713" style="animation-delay:1.35s;">
+        <div class="card size-sm " id="card-713" data-category="reddit" style="animation-delay:1.35s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -685,7 +708,7 @@
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to your LinkedIn feed</div>
     </div>
 
-        <div class="card size-sm " id="card-654" style="animation-delay:0.65s;">
+        <div class="card size-sm " id="card-654" data-category="twitter" style="animation-delay:0.65s;">
             <div class="card-top">
                 <span class="badge daily-tweet">daily tweet</span>
                 <div class="meta-right">
@@ -722,6 +745,32 @@
     <div class="toast" id="toast" role="status" aria-live="polite"><span class="check">&#10003;</span> Copied to clipboard</div>
 
     <script>
+        function filterCards(category, btn) {
+            var tabs = document.querySelectorAll('.tab');
+            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+            btn.classList.add('active');
+
+            var cards = document.querySelectorAll('.card');
+            for (var i = 0; i < cards.length; i++) {
+                var cat = cards[i].getAttribute('data-category') || '';
+                if (category === 'all' || cat.indexOf(category) !== -1) {
+                    cards[i].style.display = '';
+                } else {
+                    cards[i].style.display = 'none';
+                }
+            }
+
+            var sections = document.querySelectorAll('.timed-section');
+            for (var i = 0; i < sections.length; i++) {
+                var visibleCards = sections[i].querySelectorAll('.card:not([style*="display: none"])');
+                if (category === 'all' || visibleCards.length > 0) {
+                    sections[i].style.display = '';
+                } else {
+                    sections[i].style.display = 'none';
+                }
+            }
+        }
+
         var TOTAL = 28;
         var STORAGE_KEY = 'vrb_done_scott_2026-03-23';
         var FEEDBACK_KEY = 'vrb_feedback_scott_2026-03-23';

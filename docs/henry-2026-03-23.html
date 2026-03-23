@@ -163,6 +163,20 @@
             color: var(--text-3); font-size: 15px;
         }
         .locked-notice strong { color: var(--text-2); }
+
+        .filter-tabs {
+            display: flex; gap: 6px; padding: 12px 0; overflow-x: auto;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .filter-tabs::-webkit-scrollbar { display: none; }
+        .tab {
+            padding: 8px 16px; border-radius: 20px; border: none;
+            background: var(--bg-elevated); color: var(--text-2);
+            font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .tab.active { background: var(--accent); color: #fff; }
+        .tab:active { opacity: 0.7; }
     </style>
 </head>
 <body>
@@ -172,12 +186,21 @@
                 <svg viewBox="0 0 10 17"><polyline points="9 1 1 8.5 9 16"/></svg> Back
             </a>
             <span class="nav-title">Henry</span>
-            <span class="nav-done" id="progress-text">0/52</span>
+            <span class="nav-done" id="progress-text">0/56</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
 
     <div class="countdown" id="countdown"></div>
+
+    <div class="filter-tabs">
+        <button class="tab active" onclick="filterCards('all', this)">All</button>
+        <button class="tab" onclick="filterCards('linkedin', this)">LinkedIn</button>
+        <button class="tab" onclick="filterCards('twitter', this)">Twitter</button>
+        <button class="tab" onclick="filterCards('reddit', this)">Reddit</button>
+        <button class="tab" onclick="filterCards('hackernews', this)">HN</button>
+        <button class="tab" onclick="filterCards('scripts', this)">Scripts</button>
+    </div>
 
     <div class="header">
         <h1>Today's Suggestions</h1>
@@ -192,7 +215,7 @@
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
     </div>
 
-        <div class="card size-xl fire" id="card-642" style="">
+        <div class="card size-xl fire" id="card-642" data-category="trending_take" style="">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -210,7 +233,7 @@
             </div>
         </div>
 
-        <div class="card size-xl fire" id="card-643" style="animation-delay:0.05s;">
+        <div class="card size-xl fire" id="card-643" data-category="trending_take" style="animation-delay:0.05s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -228,7 +251,7 @@
             </div>
         </div>
 
-        <div class="card size-md " id="card-644" style="animation-delay:0.1s;">
+        <div class="card size-md " id="card-644" data-category="trending_take" style="animation-delay:0.1s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -246,7 +269,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-645" style="animation-delay:0.15000000000000002s;">
+        <div class="card size-sm " id="card-645" data-category="trending_take" style="animation-delay:0.15000000000000002s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -264,7 +287,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-659" style="animation-delay:0.2s;">
+        <div class="card size-sm " id="card-659" data-category="trending_take" style="animation-delay:0.2s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -282,7 +305,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-655" style="animation-delay:0.25s;">
+        <div class="card size-sm " id="card-655" data-category="reddit" style="animation-delay:0.25s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -300,7 +323,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-657" style="animation-delay:0.30000000000000004s;">
+        <div class="card size-sm " id="card-657" data-category="reddit" style="animation-delay:0.30000000000000004s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -318,7 +341,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-688" style="animation-delay:0.35000000000000003s;">
+        <div class="card size-sm " id="card-688" data-category="reddit" style="animation-delay:0.35000000000000003s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -336,7 +359,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-646" style="animation-delay:0.4s;">
+        <div class="card size-sm " id="card-646" data-category="trending_take" style="animation-delay:0.4s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -354,7 +377,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-647" style="animation-delay:0.45s;">
+        <div class="card size-sm " id="card-647" data-category="trending_take" style="animation-delay:0.45s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -372,7 +395,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-660" style="animation-delay:0.5s;">
+        <div class="card size-sm " id="card-660" data-category="trending_take" style="animation-delay:0.5s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -390,7 +413,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-661" style="animation-delay:0.55s;">
+        <div class="card size-sm " id="card-661" data-category="trending_take" style="animation-delay:0.55s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -408,7 +431,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-662" style="animation-delay:0.6000000000000001s;">
+        <div class="card size-sm " id="card-662" data-category="trending_take" style="animation-delay:0.6000000000000001s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -426,7 +449,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-663" style="animation-delay:0.65s;">
+        <div class="card size-sm " id="card-663" data-category="trending_take" style="animation-delay:0.65s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -444,7 +467,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-664" style="animation-delay:0.7000000000000001s;">
+        <div class="card size-sm " id="card-664" data-category="trending_take" style="animation-delay:0.7000000000000001s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -462,7 +485,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-705" style="animation-delay:0.75s;">
+        <div class="card size-sm " id="card-705" data-category="reddit" style="animation-delay:0.75s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -480,7 +503,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-704" style="animation-delay:0.8s;">
+        <div class="card size-sm " id="card-704" data-category="reddit" style="animation-delay:0.8s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -498,7 +521,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-687" style="animation-delay:0.8500000000000001s;">
+        <div class="card size-sm " id="card-687" data-category="reddit" style="animation-delay:0.8500000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -516,7 +539,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-665" style="animation-delay:0.9s;">
+        <div class="card size-sm " id="card-665" data-category="trending_take" style="animation-delay:0.9s;">
             <div class="card-top">
                 <span class="badge trending-take">trending take</span>
                 <div class="meta-right">
@@ -534,7 +557,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-658" style="animation-delay:0.9500000000000001s;">
+        <div class="card size-sm " id="card-658" data-category="reddit" style="animation-delay:0.9500000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -552,7 +575,25 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-730" style="animation-delay:1.0s;">
+        <div class="card size-sm " id="card-737" data-category="reddit" style="animation-delay:1.0s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>86</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">I live in a ~1 Million population metro that does not contain a single mini-golf course. Do I have any chance of acting on this without decent startup...<br><a href="https://www.reddit.com/r/smallbusiness/comments/1s0zjh8/i_live_in_a_1_million_population_metro_that_does/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-737">1m people and zero mini golf courses is ur market research mate</div>
+            <button class="copy-btn" onclick="copyText(737, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/smallbusiness/comments/1s0zjh8/i_live_in_a_1_million_population_metro_that_does/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(737)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(737)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-730" data-category="reddit" style="animation-delay:1.05s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -570,7 +611,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-689" style="animation-delay:1.05s;">
+        <div class="card size-sm " id="card-689" data-category="reddit" style="animation-delay:1.1s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -588,7 +629,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-690" style="animation-delay:1.1500000000000001s;">
+        <div class="card size-sm " id="card-690" data-category="reddit" style="animation-delay:1.2000000000000002s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -606,7 +647,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-691" style="animation-delay:1.2000000000000002s;">
+        <div class="card size-sm " id="card-691" data-category="reddit" style="animation-delay:1.25s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -624,7 +665,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-692" style="animation-delay:1.25s;">
+        <div class="card size-sm " id="card-692" data-category="reddit" style="animation-delay:1.3s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -642,7 +683,25 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-656" style="animation-delay:1.3s;">
+        <div class="card size-sm " id="card-738" data-category="reddit" style="animation-delay:1.35s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>52</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Vp of sales doesn’t want me to reassign opportunities from AE who was let go - advice needed<br><a href="https://www.reddit.com/r/sales/comments/1s11oqo/vp_of_sales_doesnt_want_me_to_reassign/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-738">vp probably gets commission on those deals mate</div>
+            <button class="copy-btn" onclick="copyText(738, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/sales/comments/1s11oqo/vp_of_sales_doesnt_want_me_to_reassign/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(738)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(738)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-656" data-category="reddit" style="animation-delay:1.4000000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -660,7 +719,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-702" style="animation-delay:1.35s;">
+        <div class="card size-sm " id="card-702" data-category="reddit" style="animation-delay:1.4500000000000002s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -678,7 +737,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-708" style="animation-delay:1.4000000000000001s;">
+        <div class="card size-sm " id="card-708" data-category="reddit" style="animation-delay:1.5s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -696,7 +755,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-701" style="animation-delay:1.4500000000000002s;">
+        <div class="card size-sm " id="card-701" data-category="reddit" style="animation-delay:1.55s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -714,7 +773,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-695" style="animation-delay:1.5s;">
+        <div class="card size-sm " id="card-695" data-category="reddit" style="animation-delay:1.6s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -732,7 +791,7 @@
             </div>
         </div>
 
-        <div class="card size-sm " id="card-685" style="animation-delay:1.55s;">
+        <div class="card size-sm " id="card-685" data-category="reddit" style="animation-delay:1.6500000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -752,7 +811,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-694" style="animation-delay:1.6s;">
+        <div class="card size-sm " id="card-694" data-category="reddit" style="animation-delay:1.7000000000000002s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -770,7 +829,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-696" style="animation-delay:1.6500000000000001s;">
+        <div class="card size-sm " id="card-696" data-category="reddit" style="animation-delay:1.75s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -788,7 +847,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-693" style="animation-delay:1.7000000000000002s;">
+        <div class="card size-sm " id="card-693" data-category="reddit" style="animation-delay:1.8s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -806,7 +865,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-732" style="animation-delay:1.75s;">
+        <div class="card size-sm " id="card-732" data-category="reddit" style="animation-delay:1.85s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -824,7 +883,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-726" style="animation-delay:1.8s;">
+        <div class="card size-sm " id="card-726" data-category="reddit" style="animation-delay:1.9000000000000001s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -842,7 +901,25 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-710" style="animation-delay:1.85s;">
+        <div class="card size-sm " id="card-739" data-category="reddit" style="animation-delay:1.9500000000000002s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>14</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">I feel like creating something is easy part but getting customers.<br><a href="https://www.reddit.com/r/SaaS/comments/1s1euf7/i_feel_like_creating_something_is_easy_part_but/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-739">building feels easy cos code obeys u, customers dont</div>
+            <button class="copy-btn" onclick="copyText(739, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/SaaS/comments/1s1euf7/i_feel_like_creating_something_is_easy_part_but/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(739)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(739)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-710" data-category="reddit" style="animation-delay:2.0s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -860,7 +937,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-720" style="animation-delay:1.9000000000000001s;">
+        <div class="card size-sm " id="card-720" data-category="reddit" style="animation-delay:2.0500000000000003s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -878,7 +955,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-719" style="animation-delay:1.9500000000000002s;">
+        <div class="card size-sm " id="card-719" data-category="reddit" style="animation-delay:2.1s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -896,7 +973,25 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-686" style="animation-delay:2.0s;">
+        <div class="card size-sm " id="card-736" data-category="reddit" style="animation-delay:2.15s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>12</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">If you're an early-stage founder, what's the one thing you wish you had when you were starting out?<br><a href="https://www.reddit.com/r/SaaS/comments/1s1aa6w/if_youre_an_earlystage_founder_whats_the_one/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-736">asking founders what tools they need is exactly how u build tools nobody buys</div>
+            <button class="copy-btn" onclick="copyText(736, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/SaaS/comments/1s1aa6w/if_youre_an_earlystage_founder_whats_the_one/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(736)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(736)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-686" data-category="reddit" style="animation-delay:2.2s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -914,7 +1009,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-699" style="animation-delay:2.0500000000000003s;">
+        <div class="card size-sm " id="card-699" data-category="reddit" style="animation-delay:2.25s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -932,7 +1027,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-707" style="animation-delay:2.1s;">
+        <div class="card size-sm " id="card-707" data-category="reddit" style="animation-delay:2.3000000000000003s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -950,7 +1045,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-711" style="animation-delay:2.15s;">
+        <div class="card size-sm " id="card-711" data-category="reddit" style="animation-delay:2.35s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -968,7 +1063,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-706" style="animation-delay:2.2s;">
+        <div class="card size-sm " id="card-706" data-category="reddit" style="animation-delay:2.4000000000000004s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -986,7 +1081,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-709" style="animation-delay:2.25s;">
+        <div class="card size-sm " id="card-709" data-category="reddit" style="animation-delay:2.45s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -1004,7 +1099,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-718" style="animation-delay:2.3000000000000003s;">
+        <div class="card size-sm " id="card-718" data-category="reddit" style="animation-delay:2.5s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -1022,7 +1117,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-697" style="animation-delay:2.35s;">
+        <div class="card size-sm " id="card-697" data-category="reddit" style="animation-delay:2.5500000000000003s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -1040,7 +1135,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-721" style="animation-delay:2.4000000000000004s;">
+        <div class="card size-sm " id="card-721" data-category="reddit" style="animation-delay:2.6s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -1058,7 +1153,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-698" style="animation-delay:2.45s;">
+        <div class="card size-sm " id="card-698" data-category="reddit" style="animation-delay:2.6500000000000004s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -1076,7 +1171,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-700" style="animation-delay:2.5s;">
+        <div class="card size-sm " id="card-700" data-category="reddit" style="animation-delay:2.7s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -1094,7 +1189,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             </div>
         </div>
 
-        <div class="card size-sm " id="card-727" style="animation-delay:2.5500000000000003s;">
+        <div class="card size-sm " id="card-727" data-category="reddit" style="animation-delay:2.75s;">
             <div class="card-top">
                 <span class="badge reddit">reddit</span>
                 <div class="meta-right">
@@ -1119,7 +1214,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to your LinkedIn feed</div>
     </div>
 
-        <div class="card size-sm " id="card-703" style="animation-delay:1.1s;">
+        <div class="card size-sm " id="card-703" data-category="twitter" style="animation-delay:1.1500000000000001s;">
             <div class="card-top">
                 <span class="badge daily-tweet">daily tweet</span>
                 <div class="meta-right">
@@ -1155,7 +1250,7 @@ best reps realise the prospect already gets 47 pitches this week. instead they s
         <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Film These</div>
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Today's video scripts based on trending topics</div>
     </div>
-        <div class="card" style="">
+        <div class="card" data-category="scripts" style="">
             <div class="card-top">
                 <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
             </div>
@@ -1164,7 +1259,7 @@ best reps realise the prospect already gets 47 pitches this week. instead they s
             <button class="copy-btn" onclick="copyScript('script-1', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
         </div>
 
-        <div class="card" style="animation-delay:0.05s;">
+        <div class="card" data-category="scripts" style="animation-delay:0.05s;">
             <div class="card-top">
                 <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
             </div>
@@ -1173,7 +1268,7 @@ best reps realise the prospect already gets 47 pitches this week. instead they s
             <button class="copy-btn" onclick="copyScript('script-2', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
         </div>
 
-        <div class="card" style="animation-delay:0.1s;">
+        <div class="card" data-category="scripts" style="animation-delay:0.1s;">
             <div class="card-top">
                 <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
             </div>
@@ -1182,7 +1277,7 @@ best reps realise the prospect already gets 47 pitches this week. instead they s
             <button class="copy-btn" onclick="copyScript('script-3', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
         </div>
 
-        <div class="card" style="animation-delay:0.15000000000000002s;">
+        <div class="card" data-category="scripts" style="animation-delay:0.15000000000000002s;">
             <div class="card-top">
                 <span class="badge" style="background:rgba(255,0,0,0.15);color:#ff0000;">YouTube</span>
             </div>
@@ -1191,7 +1286,7 @@ best reps realise the prospect already gets 47 pitches this week. instead they s
             <button class="copy-btn" onclick="copyScript('script-4', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
         </div>
 
-        <div class="card" style="animation-delay:0.2s;">
+        <div class="card" data-category="scripts" style="animation-delay:0.2s;">
             <div class="card-top">
                 <span class="badge" style="background:rgba(255,0,0,0.15);color:#ff0000;">YouTube</span>
             </div>
@@ -1210,7 +1305,33 @@ best reps realise the prospect already gets 47 pitches this week. instead they s
     <div class="toast" id="toast" role="status" aria-live="polite"><span class="check">&#10003;</span> Copied to clipboard</div>
 
     <script>
-        var TOTAL = 52;
+        function filterCards(category, btn) {
+            var tabs = document.querySelectorAll('.tab');
+            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+            btn.classList.add('active');
+
+            var cards = document.querySelectorAll('.card');
+            for (var i = 0; i < cards.length; i++) {
+                var cat = cards[i].getAttribute('data-category') || '';
+                if (category === 'all' || cat.indexOf(category) !== -1) {
+                    cards[i].style.display = '';
+                } else {
+                    cards[i].style.display = 'none';
+                }
+            }
+
+            var sections = document.querySelectorAll('.timed-section');
+            for (var i = 0; i < sections.length; i++) {
+                var visibleCards = sections[i].querySelectorAll('.card:not([style*="display: none"])');
+                if (category === 'all' || visibleCards.length > 0) {
+                    sections[i].style.display = '';
+                } else {
+                    sections[i].style.display = 'none';
+                }
+            }
+        }
+
+        var TOTAL = 56;
         var STORAGE_KEY = 'vrb_done_henry_2026-03-23';
         var FEEDBACK_KEY = 'vrb_feedback_henry_2026-03-23';
         var PERSON = 'henry';
