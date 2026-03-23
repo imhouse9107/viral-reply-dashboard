@@ -155,6 +155,14 @@
             border-bottom: 0.5px solid var(--sep);
         }
         .countdown strong { color: var(--accent); }
+        .timed-section { display: none; }
+        .timed-section.revealed { display: block; animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .locked-notice {
+            text-align: center; padding: 24px 20px; margin: 12px 0;
+            background: var(--bg-card); border-radius: var(--r);
+            color: var(--text-3); font-size: 15px;
+        }
+        .locked-notice strong { color: var(--text-2); }
     </style>
 </head>
 <body>
@@ -178,8 +186,9 @@
 
     <div id="cards-container">
     
+    <div class="timed-section" data-reveal="8">
     <div style="padding:20px 0 8px;margin-top:8px;">
-        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Comment on These</div>
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Comment on These</div>
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
     </div>
 
@@ -272,6 +281,7 @@
                 <button class="fb-skip" onclick="markSkip(652)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
+</div><div class="timed-section" data-reveal="10">
     <div style="padding:20px 0 8px;margin-top:8px;">
         <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Film These</div>
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Today's video scripts based on trending topics</div>
@@ -301,7 +311,7 @@
             <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">SCRIPT 3: &quot;PlayStation Teacher Method&quot;</div>
             <div class="reply" id="script-8" style="font-size:15px;white-space:pre-wrap;">SCRIPT 3: &quot;PlayStation Teacher Method&quot;<br>**TRENDING HOOK:** Teacher using PlayStation 5 to teach Industrial Revolution + sales training<br><br>**HOOK (0-2 seconds):**<br>*Text overlay: &quot;This teacher used PS5 for history. I used Notion for sales training.&quot;*<br>&quot;A teacher just used Assassin's Creed to teach history. Here's how I gamified our sales training.&quot;<br><br>**BODY (15-45 seconds):**<br>&quot;Saw this teacher using PlayStation to explain the Industrial Revolution and thought, why don't we do this for sales training? So I built a Notion database that tracks every rep's progress through our methodology - discovery score, objection handling level, closing technique mastery. Added point systems, leaderboards, achievement badges. Then connected it to Slack with Zapier so the whole team sees wins in real-time. Result? Our ramp time went from 90 days to 60 days because learning became competitive, not just mandatory.&quot;<br><br>**CTA (43-48 seconds):**<br>&quot;Comment 'GAME' for the Notion template.&quot;<br><br>**Why this will perform:** Unexpected connection between viral education content and sales enablement with measurable results.<br><br>---<br><br>##</div>
             <button class="copy-btn" onclick="copyScript('script-8', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
-        </div>
+        </div></div>
     </div>
 
     <div class="celebration" id="celebration">
@@ -459,13 +469,23 @@
         updateProgress();
 
         var SCHEDULE = [
-            {hour: 8, min: 0, label: 'Reddit comments ready'},
-            {hour: 9, min: 15, label: 'Post on LinkedIn'},
-            {hour: 10, min: 0, label: 'Film script ready'},
-            {hour: 12, min: 0, label: 'Tweet'},
-            {hour: 14, min: 30, label: 'Post on LinkedIn'},
-            {hour: 17, min: 0, label: 'Tweet'},
+            {hour: 8, min: 0, label: 'Reddit comments', reveal: 8},
+            {hour: 9, min: 15, label: 'LinkedIn posts', reveal: 9},
+            {hour: 10, min: 0, label: 'Film scripts', reveal: 10},
+            {hour: 12, min: 0, label: 'Tweets', reveal: 12},
         ];
+
+        function revealSections() {
+            var h = new Date().getHours();
+            var sections = document.querySelectorAll('.timed-section');
+            for (var i = 0; i < sections.length; i++) {
+                var revealHour = parseInt(sections[i].getAttribute('data-reveal'));
+                if (h >= revealHour) {
+                    sections[i].classList.add('revealed');
+                }
+            }
+        }
+
         function updateCountdown() {
             var now = new Date();
             var h = now.getHours(), m = now.getMinutes();
@@ -478,14 +498,15 @@
             var el = document.getElementById('countdown');
             if (!el) return;
             if (!next) {
-                el.innerHTML = 'All done for today. Fresh suggestions tomorrow at 8am.';
+                el.innerHTML = 'All sections unlocked. Go post.';
             } else {
                 var mins = (next.hour - h) * 60 + (next.min - m);
                 var hh = Math.floor(mins / 60);
                 var mm = mins % 60;
                 var timeStr = hh > 0 ? hh + 'h ' + mm + 'm' : mm + 'm';
-                el.innerHTML = 'Next: <strong>' + next.label + '</strong> in ' + timeStr;
+                el.innerHTML = 'Next: <strong>' + next.label + '</strong> unlocks in ' + timeStr;
             }
+            revealSections();
         }
         setInterval(updateCountdown, 60000);
         updateCountdown();

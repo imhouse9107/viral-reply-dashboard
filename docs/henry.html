@@ -155,6 +155,14 @@
             border-bottom: 0.5px solid var(--sep);
         }
         .countdown strong { color: var(--accent); }
+        .timed-section { display: none; }
+        .timed-section.revealed { display: block; animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .locked-notice {
+            text-align: center; padding: 24px 20px; margin: 12px 0;
+            background: var(--bg-card); border-radius: var(--r);
+            color: var(--text-3); font-size: 15px;
+        }
+        .locked-notice strong { color: var(--text-2); }
     </style>
 </head>
 <body>
@@ -178,37 +186,9 @@
 
     <div id="cards-container">
     
+    <div class="timed-section" data-reveal="8">
     <div style="padding:20px 0 8px;margin-top:8px;">
-        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Post These</div>
-        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to your feed</div>
-    </div>
-
-        <div class="card size-sm " id="card-703" style="animation-delay:1.1s;">
-            <div class="card-top">
-                <span class="badge daily-tweet">daily tweet</span>
-                <div class="meta-right">
-                    <span class="done-check">&#10003; Done</span>
-                    <span class="engagement"><strong>79</strong> engagement</span>
-                </div>
-            </div>
-            <div class="context">Daily tweet #1 inspired by trending content</div>
-            <div class="reply" id="reply-703">bad outbound in 2026
-
-most reps send &quot;hey [first name], loved your recent post about [generic topic], we help companies like yours increase revenue by 300%&quot;
-
-better reps actually read the post, mention something specific, but still pitch immediately 
-
-best reps realise the prospect already gets 47 pitches this week. instead they share a 30 second insight that saves the prospect time today. no pitch. just value. the sale happens 3 months later when the prospect remembers who actually helped them</div>
-            <button class="copy-btn" onclick="copyText(703, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
-            
-            <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(703)" aria-label="Mark as posted">Posted</button>
-                <button class="fb-skip" onclick="markSkip(703)" aria-label="Skip this suggestion">Skip</button>
-            </div>
-        </div>
-
-    <div style="padding:20px 0 8px;margin-top:8px;">
-        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Comment on These</div>
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Comment on These</div>
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
     </div>
 
@@ -1113,6 +1093,46 @@ if you have a post related to small business it infrastructure, cybersecurity, s
                 <button class="fb-skip" onclick="markSkip(727)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
+</div>
+
+    <div class="timed-section" data-reveal="9">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Post on LinkedIn</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to your LinkedIn feed</div>
+    </div>
+
+        <div class="card size-sm " id="card-703" style="animation-delay:1.1s;">
+            <div class="card-top">
+                <span class="badge daily-tweet">daily tweet</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>79</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Daily tweet #1 inspired by trending content</div>
+            <div class="reply" id="reply-703">bad outbound in 2026
+
+most reps send &quot;hey [first name], loved your recent post about [generic topic], we help companies like yours increase revenue by 300%&quot;
+
+better reps actually read the post, mention something specific, but still pitch immediately 
+
+best reps realise the prospect already gets 47 pitches this week. instead they share a 30 second insight that saves the prospect time today. no pitch. just value. the sale happens 3 months later when the prospect remembers who actually helped them</div>
+            <button class="copy-btn" onclick="copyText(703, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(703)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(703)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+</div>
+
+    <div class="timed-section" data-reveal="12">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Tweet These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to Twitter</div>
+    </div>
+
+</div><div class="timed-section" data-reveal="10">
     <div style="padding:20px 0 8px;margin-top:8px;">
         <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Film These</div>
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Today's video scripts based on trending topics</div>
@@ -1160,7 +1180,7 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">YouTube Video</div>
             <div class="reply" id="script-5" style="font-size:15px;white-space:pre-wrap;">OPTION 2: &quot;The PlayStation 5 Sales Method - How a Teacher's Viral Moment Reveals the Future of Sales Training&quot;<br><br>**THUMBNAIL CONCEPT:** Henry pointing at split screen showing the viral teacher with PS5 on one side, sales training setup on other side, with &quot;GENIUS?&quot; text overlay and confused face emoji.<br><br>**OUTLINE:**<br>- **Intro Hook (0-30s):** &quot;A teacher used a PlayStation to teach history and it's accidentally the best sales training method I've ever seen&quot;<br>- **Point 1 (30s-3min):** Why traditional sales training fails - sitting in rooms talking about theory vs interactive experience<br>- **Point 2 (3-5min):** The &quot;immersion principle&quot; - how gaming psychology applies to sales skill development<br>- **Point 3 (5-7min):** Real examples of UK vs US sales training methods and why hands-on beats talking-about<br>- **Point 4 (7-9min):** How I'm stealing this teacher's method to train remote sales teams across time zones<br>- **CTA (9-10min):** The 3 interactive exercises every sales team should be doing instead of role-play sessions<br><br>**Why this topic will get views right now:** Hijacks viral Reddit story (teacher with PlayStation) to deliver fresh take on sales training with practical applications.</div>
             <button class="copy-btn" onclick="copyScript('script-5', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
-        </div>
+        </div></div>
     </div>
 
     <div class="celebration" id="celebration">
@@ -1318,13 +1338,23 @@ if you have a post related to small business it infrastructure, cybersecurity, s
         updateProgress();
 
         var SCHEDULE = [
-            {hour: 8, min: 0, label: 'Reddit comments ready'},
-            {hour: 9, min: 15, label: 'Post on LinkedIn'},
-            {hour: 10, min: 0, label: 'Film script ready'},
-            {hour: 12, min: 0, label: 'Tweet'},
-            {hour: 14, min: 30, label: 'Post on LinkedIn'},
-            {hour: 17, min: 0, label: 'Tweet'},
+            {hour: 8, min: 0, label: 'Reddit comments', reveal: 8},
+            {hour: 9, min: 15, label: 'LinkedIn posts', reveal: 9},
+            {hour: 10, min: 0, label: 'Film scripts', reveal: 10},
+            {hour: 12, min: 0, label: 'Tweets', reveal: 12},
         ];
+
+        function revealSections() {
+            var h = new Date().getHours();
+            var sections = document.querySelectorAll('.timed-section');
+            for (var i = 0; i < sections.length; i++) {
+                var revealHour = parseInt(sections[i].getAttribute('data-reveal'));
+                if (h >= revealHour) {
+                    sections[i].classList.add('revealed');
+                }
+            }
+        }
+
         function updateCountdown() {
             var now = new Date();
             var h = now.getHours(), m = now.getMinutes();
@@ -1337,14 +1367,15 @@ if you have a post related to small business it infrastructure, cybersecurity, s
             var el = document.getElementById('countdown');
             if (!el) return;
             if (!next) {
-                el.innerHTML = 'All done for today. Fresh suggestions tomorrow at 8am.';
+                el.innerHTML = 'All sections unlocked. Go post.';
             } else {
                 var mins = (next.hour - h) * 60 + (next.min - m);
                 var hh = Math.floor(mins / 60);
                 var mm = mins % 60;
                 var timeStr = hh > 0 ? hh + 'h ' + mm + 'm' : mm + 'm';
-                el.innerHTML = 'Next: <strong>' + next.label + '</strong> in ' + timeStr;
+                el.innerHTML = 'Next: <strong>' + next.label + '</strong> unlocks in ' + timeStr;
             }
+            revealSections();
         }
         setInterval(updateCountdown, 60000);
         updateCountdown();

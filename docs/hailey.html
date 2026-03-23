@@ -155,6 +155,14 @@
             border-bottom: 0.5px solid var(--sep);
         }
         .countdown strong { color: var(--accent); }
+        .timed-section { display: none; }
+        .timed-section.revealed { display: block; animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .locked-notice {
+            text-align: center; padding: 24px 20px; margin: 12px 0;
+            background: var(--bg-card); border-radius: var(--r);
+            color: var(--text-3); font-size: 15px;
+        }
+        .locked-notice strong { color: var(--text-2); }
     </style>
 </head>
 <body>
@@ -178,31 +186,9 @@
 
     <div id="cards-container">
     
+    <div class="timed-section" data-reveal="8">
     <div style="padding:20px 0 8px;margin-top:8px;">
-        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Post These</div>
-        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to your feed</div>
-    </div>
-
-        <div class="card size-xl fire" id="card-728" style="">
-            <div class="card-top">
-                <span class="badge daily-tweet">daily tweet</span>
-                <div class="meta-right">
-                    <span class="done-check">&#10003; Done</span>
-                    <span class="engagement"><strong>14989</strong> engagement</span>
-                </div>
-            </div>
-            <div class="context">Daily tweet #1 inspired by trending content</div>
-            <div class="reply" id="reply-728">theres no court on the moon but lunar mining contracts need dispute resolution. space arbitration is about to boom</div>
-            <button class="copy-btn" onclick="copyText(728, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
-            
-            <div class="feedback-row">
-                <button class="fb-posted" onclick="markPosted(728)" aria-label="Mark as posted">Posted</button>
-                <button class="fb-skip" onclick="markSkip(728)" aria-label="Skip this suggestion">Skip</button>
-            </div>
-        </div>
-
-    <div style="padding:20px 0 8px;margin-top:8px;">
-        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Comment on These</div>
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Comment on These</div>
         <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
     </div>
 
@@ -297,6 +283,40 @@ has anyone actually calculated how much climate policy is going to cost in arbit
                 <button class="fb-skip" onclick="markSkip(680)" aria-label="Skip this suggestion">Skip</button>
             </div>
         </div>
+</div>
+
+    <div class="timed-section" data-reveal="9">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Post on LinkedIn</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to your LinkedIn feed</div>
+    </div>
+
+        <div class="card size-xl fire" id="card-728" style="">
+            <div class="card-top">
+                <span class="badge daily-tweet">daily tweet</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>14989</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Daily tweet #1 inspired by trending content</div>
+            <div class="reply" id="reply-728">theres no court on the moon but lunar mining contracts need dispute resolution. space arbitration is about to boom</div>
+            <button class="copy-btn" onclick="copyText(728, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(728)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(728)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+</div>
+
+    <div class="timed-section" data-reveal="12">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Tweet These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Copy and post to Twitter</div>
+    </div>
+
+</div>
     </div>
 
     <div class="celebration" id="celebration">
@@ -454,13 +474,23 @@ has anyone actually calculated how much climate policy is going to cost in arbit
         updateProgress();
 
         var SCHEDULE = [
-            {hour: 8, min: 0, label: 'Reddit comments ready'},
-            {hour: 9, min: 15, label: 'Post on LinkedIn'},
-            {hour: 10, min: 0, label: 'Film script ready'},
-            {hour: 12, min: 0, label: 'Tweet'},
-            {hour: 14, min: 30, label: 'Post on LinkedIn'},
-            {hour: 17, min: 0, label: 'Tweet'},
+            {hour: 8, min: 0, label: 'Reddit comments', reveal: 8},
+            {hour: 9, min: 15, label: 'LinkedIn posts', reveal: 9},
+            {hour: 10, min: 0, label: 'Film scripts', reveal: 10},
+            {hour: 12, min: 0, label: 'Tweets', reveal: 12},
         ];
+
+        function revealSections() {
+            var h = new Date().getHours();
+            var sections = document.querySelectorAll('.timed-section');
+            for (var i = 0; i < sections.length; i++) {
+                var revealHour = parseInt(sections[i].getAttribute('data-reveal'));
+                if (h >= revealHour) {
+                    sections[i].classList.add('revealed');
+                }
+            }
+        }
+
         function updateCountdown() {
             var now = new Date();
             var h = now.getHours(), m = now.getMinutes();
@@ -473,14 +503,15 @@ has anyone actually calculated how much climate policy is going to cost in arbit
             var el = document.getElementById('countdown');
             if (!el) return;
             if (!next) {
-                el.innerHTML = 'All done for today. Fresh suggestions tomorrow at 8am.';
+                el.innerHTML = 'All sections unlocked. Go post.';
             } else {
                 var mins = (next.hour - h) * 60 + (next.min - m);
                 var hh = Math.floor(mins / 60);
                 var mm = mins % 60;
                 var timeStr = hh > 0 ? hh + 'h ' + mm + 'm' : mm + 'm';
-                el.innerHTML = 'Next: <strong>' + next.label + '</strong> in ' + timeStr;
+                el.innerHTML = 'Next: <strong>' + next.label + '</strong> unlocks in ' + timeStr;
             }
+            revealSections();
         }
         setInterval(updateCountdown, 60000);
         updateCountdown();
