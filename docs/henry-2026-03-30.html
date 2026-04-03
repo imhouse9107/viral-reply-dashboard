@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000">
     <link rel="manifest" href="manifest.json">
-    <title>Lewis | 2026-04-03</title>
+    <title>Henry | 2026-03-30</title>
     <style>
         :root {
             --bg: #000; --bg-card: #1c1c1e; --bg-elevated: #2c2c2e; --bg-reply: #1c1c1e;
@@ -185,8 +185,8 @@
             <a class="nav-back" href="index.html" onclick="if(history.length>1){event.preventDefault();history.back();}">
                 <svg viewBox="0 0 10 17"><polyline points="9 1 1 8.5 9 16"/></svg> Back
             </a>
-            <span class="nav-title">Lewis</span>
-            <span class="nav-done" id="progress-text">0/0</span>
+            <span class="nav-title">Henry</span>
+            <span class="nav-done" id="progress-text">0/1</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
@@ -204,11 +204,83 @@
 
     <div class="header">
         <h1>Today's Suggestions</h1>
-        <div class="date">2026-04-03</div>
+        <div class="date">2026-03-30</div>
     </div>
 
     <div id="cards-container">
-    <div class="empty">No suggestions yet today. Check back after the bot runs.</div>
+    
+    <div class="timed-section" data-reveal="8">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Comment on These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
+    </div>
+
+        <div class="card size-xl fire" id="card-1048" data-category="trending_take" style="">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>34383</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (reddit_popular): whoathatsinteresting<br><a href="https://reddit.com/r/whoathatsinteresting/comments/1s6sdq2/man_in_sombrero_poncho_and_maracas_asking_people/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-1048">most sales teams spend weeks crafting the 'perfect' pitch based on pure assumptions. sombrero guy walked up and got real market feedback in 30 seconds. why do we make validation so bloody complicated?</div>
+            <button class="copy-btn" onclick="copyText(1048, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://reddit.com/r/whoathatsinteresting/comments/1s6sdq2/man_in_sombrero_poncho_and_maracas_asking_people/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(1048)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(1048)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+</div><div class="timed-section" data-reveal="10">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Film These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Today's video scripts based on trending topics</div>
+    </div>
+        <div class="card" data-category="scripts" style="">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">Script 1: &quot;The Career Change Reality Check&quot;</div>
+            <div class="reply" id="script-47" style="font-size:15px;white-space:pre-wrap;">Script 1: &quot;The Career Change Reality Check&quot; <br>*Trending hook: Career transitions + Epic Games layoffs discussion*<br><br>**HOOK** (2 seconds)<br>- Text: &quot;Why career changes feel impossible after 30&quot;<br>- Henry says: &quot;I just hired someone who thought their career was over at 35...&quot;<br><br>**BODY** (35 seconds)<br>&quot;Here's what actually happens when you try to pivot careers later in life. Everyone says 'follow your passion' but nobody talks about the real blockers. First, you've got financial obligations you didn't have at 22. Second, you're competing against people with 10 years more experience in that field. But here's the thing nobody tells you - your previous experience IS valuable, you just need to position it right. When I transitioned from tech to recruiting, I didn't throw away my technical background. I used it to understand what founders actually need when they're scaling. The key is building bridges, not burning them.&quot;<br><br>**CTA** (5 seconds)<br>&quot;If you're thinking about a career pivot, comment 'BRIDGE' and I'll share the framework I used.&quot;<br><br>**Why this will perform:** Taps into widespread anxiety about career changes while offering a contrarian take that promises actionable advice.<br><br>---<br><br>##</div>
+            <button class="copy-btn" onclick="copyScript('script-47', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.05s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">Script 2: &quot;The Real Estate Hiring Mistake&quot;</div>
+            <div class="reply" id="script-48" style="font-size:15px;white-space:pre-wrap;">Script 2: &quot;The Real Estate Hiring Mistake&quot;<br>*Trending hook: Real estate searches + hiring expertise*<br><br>**HOOK** (2 seconds)<br>- Text: &quot;Why real estate companies can't keep good sales reps&quot;<br>- Henry says: &quot;I just turned down a £200k real estate recruiting contract...&quot;<br><br>**BODY** (40 seconds)<br>&quot;And here's exactly why. Real estate companies make the same hiring mistake over and over. They hire based on charm and confidence instead of systems thinking. They want someone who can 'work the phones' but they don't want to pay for someone who can build predictable revenue streams. I've seen this pattern across dozens of industries. The companies that scale fastest aren't hiring the loudest person in the room, they're hiring the person who asks the best questions about process. When you're scaling sales, personality gets you started but systems get you funded. The real estate industry is stuck in 1995 thinking while their best reps are leaving for tech companies that actually understand sales operations.&quot;<br><br>**CTA** (5 seconds)<br>&quot;Building a revenue team? I break down the real hiring framework in my bio.&quot;<br><br>**Why this will perform:** Controversial industry take that challenges conventional wisdom with specific, credible examples.<br><br>---<br><br>##</div>
+            <button class="copy-btn" onclick="copyScript('script-48', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.1s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">Script 3: &quot;The Apple Lesson Every Founder Misses&quot;</div>
+            <div class="reply" id="script-49" style="font-size:15px;white-space:pre-wrap;">Script 3: &quot;The Apple Lesson Every Founder Misses&quot;<br>*Trending hook: Apple trending + founder lessons*<br><br>**HOOK** (2 seconds)<br>- Text: &quot;What Apple's hiring strategy teaches about scaling&quot;<br>- Henry says: &quot;Apple doesn't hire the best people...&quot;<br><br>**BODY** (35 seconds)<br>&quot;They hire people who fit their system. And this is the biggest lesson early-stage founders miss when building sales teams. You're not looking for the best salesperson in the world, you're looking for the best salesperson for YOUR system. I see founders hiring sales superstars from Google or Salesforce and wondering why they can't close deals. It's because those reps are optimized for enterprise motion with 18-month sales cycles. If you're selling a £5k annual contract, you need someone who can move fast and handle volume. Apple figured this out decades ago - hire for fit, train for skill. Your sales process should shape your hiring decisions, not the other way around.&quot;<br><br>**CTA** (5 seconds)<br>&quot;Want to see the exact hiring framework? Link's in my bio.&quot;<br><br>**Why this will perform:** Uses recognizable brand (Apple) to deliver counterintuitive business wisdom that founders can immediately apply.<br><br>---<br><br>#</div>
+            <button class="copy-btn" onclick="copyScript('script-49', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.15000000000000002s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,0,0.15);color:#ff0000;">YouTube</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">YouTube Video</div>
+            <div class="reply" id="script-50" style="font-size:15px;white-space:pre-wrap;">Option 1: &quot;The Real Reason Career Pivots Fail After 30 (And How I Did It Anyway)&quot;<br><br>**THUMBNAIL CONCEPT:** Split screen - stressed person at computer on left, successful Henry at Alba Talent office on right, with text overlay &quot;35 → Career Change → £500K ARR&quot;<br><br>**OUTLINE:**<br>- **Intro Hook (0-30s):** &quot;I was 32, stuck in tech, and everyone said it was too late to change careers. 18 months later I'd built a £500K revenue business. Here's exactly what I wish someone had told me.&quot;<br>- **Point 1 (30s-3m):** The financial reality - why traditional career change advice doesn't work when you have bills (with specific numbers from Henry's transition)<br>- **Point 2 (3m-6m):** The bridge strategy - how to leverage existing skills instead of starting from zero (Alba Talent case study)  <br>- **Point 3 (6m-8m):** The timing myth - why 30+ is actually the perfect time if you approach it strategically<br>- **Point 4 (8m-9m):** Three specific steps to de-risk your pivot (actionable framework)<br>- **CTA (9m-10m):** &quot;If you're considering a career change, I'm documenting the entire Alba Talent journey - subscribe to see how this plays out.&quot;<br><br>**Why this will get views:** Career anxiety is universal, and the promise of a specific success story with numbers will drive clicks from anyone feeling stuck.<br><br>---<br><br>##</div>
+            <button class="copy-btn" onclick="copyScript('script-50', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.2s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,0,0.15);color:#ff0000;">YouTube</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">YouTube Video</div>
+            <div class="reply" id="script-51" style="font-size:15px;white-space:pre-wrap;">Option 2: &quot;I Analyzed 100+ Sales Hires, Here's Why Most Companies Get It Wrong&quot;<br><br>**THUMBNAIL CONCEPT:** Henry pointing at a whiteboard covered in hiring data/charts, with red X marks over common mistakes, text: &quot;97% OF SALES HIRES FAIL&quot;<br><br>**OUTLINE:**<br>- **Intro Hook (0-30s):** &quot;I've placed over 100 sales reps in the last two years. 97% of the companies made the same three mistakes. Here's the data.&quot;<br>- **Point 1 (30s-3m):** Mistake #1 - Hiring for past success instead of future fit (specific examples from Alba Talent placements)<br>- **Point 2 (3m-5m):** Mistake #2 - The interview process that predicts nothing (why role plays don't work, what does)<br>- **Point 3 (5m-7m):** Mistake #3 - Misunderstanding UK vs US sales culture (cultural differences that tank hires)<br>- **Point 4 (7m-9m):** The framework that actually works - 4-step hiring process with real results<br>- **CTA (9m-10m):** &quot;I'm building Alba Talent in public - if you're scaling a sales team, subscribe to follow the journey and grab the frameworks.&quot;<br><br>**Why this will get views:** Data-driven business content with specific numbers and contrarian takes performs well with founder audiences, especially when it challenges common hiring practices.</div>
+            <button class="copy-btn" onclick="copyScript('script-51', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div></div>
     </div>
 
     <div class="celebration" id="celebration">
@@ -246,10 +318,10 @@
             }
         }
 
-        var TOTAL = 0;
-        var STORAGE_KEY = 'vrb_done_lewis_2026-04-03';
-        var FEEDBACK_KEY = 'vrb_feedback_lewis_2026-04-03';
-        var PERSON = 'lewis';
+        var TOTAL = 1;
+        var STORAGE_KEY = 'vrb_done_henry_2026-03-30';
+        var FEEDBACK_KEY = 'vrb_feedback_henry_2026-03-30';
+        var PERSON = 'henry';
         var FEEDBACK_URL = 'https://script.google.com/macros/s/AKfycbzC5tDacKAi8JcU_aUsdOapCTMooV_krz1H2dtxHORL3egj1uWhj2FmlwzXduWsIEKm/exec';
 
         function getDone() {

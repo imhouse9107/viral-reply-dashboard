@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="manifest.json">
+    <title>Henry | 2026-03-29</title>
+    <style>
+        :root {
+            --bg: #000; --bg-card: #1c1c1e; --bg-elevated: #2c2c2e; --bg-reply: #1c1c1e;
+            --text: #fff; --text-2: rgba(235,235,245,0.60); --text-3: rgba(235,235,245,0.45);
+            --accent: #0a84ff; --success: #30d158; --warning: #ff9f0a; --danger: #ff453a;
+            --sep: rgba(84,84,88,0.35);
+            --r: 14px; --safe-top: env(safe-area-inset-top, 0px); --safe-bot: env(safe-area-inset-bottom, 0px);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            background: var(--bg); color: var(--text);
+            padding: 0 20px 100px;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            touch-action: manipulation;
+        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Sticky header */
+        .nav {
+            position: sticky; top: 0; z-index: 100;
+            padding: 12px 0 14px;
+            padding-top: calc(var(--safe-top) + 12px);
+            background: rgba(0,0,0,0.72);
+            backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 0.5px solid rgba(255,255,255,0.08);
+            margin: 0 -20px; padding-left: 20px; padding-right: 20px;
+        }
+        .nav-top {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+        }
+        .nav-back {
+            color: var(--accent); font-size: 17px; text-decoration: none; font-weight: 400;
+            display: flex; align-items: center; gap: 4px;
+            min-height: 44px; padding: 8px 4px 8px 0;
+        }
+        .nav-back svg { width: 10px; height: 17px; fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+        .nav-title { font-size: 17px; font-weight: 600; }
+        .nav-done { font-size: 15px; font-weight: 600; color: var(--success); }
+        .progress-track { height: 4px; background: var(--bg-elevated); border-radius: 2px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--success); border-radius: 2px; transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        /* Header */
+        .header { padding: 20px 0 8px; }
+        .header h1 { font-size: 28px; font-weight: 700; letter-spacing: 0.36px; }
+        .header .date { color: var(--text-2); font-size: 15px; margin-top: 4px; }
+        .empty { text-align: center; color: var(--text-3); padding: 80px 20px; font-size: 17px; }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card); border-radius: var(--r);
+            margin: 12px 0; overflow: hidden;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        /* Animation delays applied inline per card */
+        .card.fire { box-shadow: 0 0 0 1px var(--danger), 0 4px 24px rgba(255,69,58,0.15); }
+        .card.hot { box-shadow: 0 0 0 1px var(--warning), 0 4px 24px rgba(255,159,10,0.1); }
+        .card.done { opacity: 0.35; transform: scale(0.98); }
+        .card.done .copy-btn { background: var(--success); }
+
+        .card-top { padding: 14px 16px 10px; display: flex; justify-content: space-between; align-items: center; }
+        .badge {
+            font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+            padding: 4px 10px; border-radius: 8px; background: var(--bg-elevated); color: var(--text-2);
+        }
+        .badge.reddit { background: rgba(255,102,0,0.15); color: #ff6600; }
+        .badge.hackernews { background: rgba(255,102,0,0.15); color: #ff6600; }
+        .badge.twitter { background: rgba(29,155,240,0.15); color: #1d9bf0; }
+        .badge.trending-take { background: rgba(168,85,247,0.15); color: #a855f7; }
+        .badge.daily-tweet { background: rgba(48,209,88,0.15); color: #30d158; }
+        .badge.viral-spin { background: rgba(255,69,58,0.15); color: #ff453a; }
+        .badge.linkedin { background: rgba(10,102,194,0.15); color: #0a66c2; }
+        .meta-right { display: flex; align-items: center; gap: 8px; }
+        .done-check { display: none; color: var(--success); font-size: 14px; font-weight: 700; }
+        .card.done .done-check { display: flex; align-items: center; gap: 4px; }
+        .engagement { font-size: 13px; color: var(--text-3); }
+        .engagement strong { color: var(--warning); font-weight: 600; }
+
+        .context { padding: 0 16px 10px; font-size: 14px; color: var(--text-3); line-height: 1.45; }
+        .context a { color: var(--accent); text-decoration: none; }
+
+        .reply {
+            padding: 14px 16px; font-size: 17px; line-height: 1.5; letter-spacing: -0.41px;
+            color: rgba(255,255,255,0.92); background: rgba(255,255,255,0.04);
+            border-top: 0.5px solid var(--sep);
+        }
+        .card.fire .reply { font-size: 17px; padding: 16px 20px; }
+
+        .copy-btn {
+            display: flex; width: 100%; padding: 15px;
+            background: var(--accent); color: #fff; border: none;
+            font-size: 16px; font-weight: 600; cursor: pointer;
+            align-items: center; justify-content: center; gap: 8px;
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out, background 0.25s ease;
+        }
+        .copy-btn:active { transform: scale(0.96); opacity: 0.85; transition: transform 0.1s ease-out, opacity 0.1s ease-out; }
+        .copy-btn.copied { background: var(--success); }
+        .copy-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+        .post-link {
+            display: block; text-align: center; padding: 12px;
+            color: var(--accent); font-size: 14px; font-weight: 500; text-decoration: none;
+            border-top: 0.5px solid var(--sep);
+            transition: opacity 0.15s ease;
+        }
+        .post-link:active { opacity: 0.6; }
+
+        .feedback-row { display:flex; border-top: 0.5px solid var(--sep); }
+        .fb-posted { flex:1; padding:14px 12px; min-height:48px; background:transparent; border:none; color:var(--success); font-size:15px; font-weight:600; cursor:pointer; transition: opacity 0.15s; }
+        .fb-posted:active { opacity: 0.6; }
+        .fb-skip { flex:1; padding:14px 12px; min-height:48px; background:transparent; border:none; color:var(--text-3); font-size:15px; font-weight:500; cursor:pointer; border-left:0.5px solid var(--sep); transition: opacity 0.15s; }
+        .fb-skip:active { opacity: 0.6; }
+
+        /* All done celebration */
+        .celebration {
+            display: none; text-align: center; padding: 48px 20px;
+        }
+        .celebration.show { display: block; animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .celebration .emoji { font-size: 48px; margin-bottom: 16px; }
+        .celebration h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+        .celebration p { color: var(--text-2); font-size: 15px; }
+
+        /* Toast */
+        .toast {
+            position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: rgba(50,50,50,0.9);
+            backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+            color: var(--text); padding: 14px 24px;
+            border-radius: 14px; font-weight: 600; font-size: 15px;
+            opacity: 0; transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none; z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            padding-bottom: calc(14px + var(--safe-bot));
+            display: flex; align-items: center; gap: 8px;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast .check { color: var(--success); }
+        .countdown {
+            text-align: center;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: var(--text-2);
+            border-bottom: 0.5px solid var(--sep);
+        }
+        .countdown strong { color: var(--accent); }
+        .timed-section { display: none; }
+        .timed-section.revealed { display: block; animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .locked-notice {
+            text-align: center; padding: 24px 20px; margin: 12px 0;
+            background: var(--bg-card); border-radius: var(--r);
+            color: var(--text-3); font-size: 15px;
+        }
+        .locked-notice strong { color: var(--text-2); }
+
+        .filter-tabs {
+            display: flex; gap: 6px; padding: 12px 0; overflow-x: auto;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        }
+        .filter-tabs::-webkit-scrollbar { display: none; }
+        .tab {
+            padding: 8px 16px; border-radius: 20px; border: none;
+            background: var(--bg-elevated); color: var(--text-2);
+            font-size: 14px; font-weight: 500; white-space: nowrap; cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .tab.active { background: var(--accent); color: #fff; }
+        .tab:active { opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="nav-top">
+            <a class="nav-back" href="index.html" onclick="if(history.length>1){event.preventDefault();history.back();}">
+                <svg viewBox="0 0 10 17"><polyline points="9 1 1 8.5 9 16"/></svg> Back
+            </a>
+            <span class="nav-title">Henry</span>
+            <span class="nav-done" id="progress-text">0/10</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+
+    <div class="countdown" id="countdown"></div>
+
+    <div class="filter-tabs">
+        <button class="tab active" onclick="filterCards('all', this)">All</button>
+        <button class="tab" onclick="filterCards('linkedin', this)">LinkedIn</button>
+        <button class="tab" onclick="filterCards('twitter', this)">Twitter</button>
+        <button class="tab" onclick="filterCards('reddit', this)">Reddit</button>
+        <button class="tab" onclick="filterCards('hackernews', this)">HN</button>
+        <button class="tab" onclick="filterCards('scripts', this)">Scripts</button>
+    </div>
+
+    <div class="header">
+        <h1>Today's Suggestions</h1>
+        <div class="date">2026-03-29</div>
+    </div>
+
+    <div id="cards-container">
+    
+    <div class="timed-section" data-reveal="8">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Comment on These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
+    </div>
+
+        <div class="card size-xl fire" id="card-999" data-category="trending_take" style="">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>26660</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (reddit_popular): AskReddit<br><a href="https://reddit.com/r/AskReddit/comments/1s64q6k/what_is_a_buy_it_for_life_item_that_is/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-999">spent £800 on a sonicwall firewall thinking i was mad, then it caught 47 intrusion attempts in week one. turns out my old bt hub wasn't 'protecting' anything, just letting everything through silently. what's your router actually stopping?</div>
+            <button class="copy-btn" onclick="copyText(999, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://reddit.com/r/AskReddit/comments/1s64q6k/what_is_a_buy_it_for_life_item_that_is/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(999)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(999)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-xl fire" id="card-1000" data-category="trending_take" style="animation-delay:0.05s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>26378</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (reddit_popular): oddlysatisfying<br><a href="https://reddit.com/r/oddlysatisfying/comments/1s66mc9/road_work_in_japan/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-1000">japanese road crews plan every detail for a 2-hour job, test everything twice, document each step. meanwhile uk businesses deploy critical security systems friday afternoon with zero testing or rollback plan.
+
+why do we demand perfection from road repairs but accept complete chaos from the systems protecting our entire company?</div>
+            <button class="copy-btn" onclick="copyText(1000, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://reddit.com/r/oddlysatisfying/comments/1s66mc9/road_work_in_japan/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(1000)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(1000)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-xl fire" id="card-988" data-category="trending_take" style="animation-delay:0.1s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>25818</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (reddit_popular): whoathatsinteresting<br><a href="https://reddit.com/r/whoathatsinteresting/comments/1s6ahlb/judge_nathan_j_milliron_of_the_texas_215th/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-988">lost a £40k deal because our cto joked during a demo crash. that judge exploding at the it guy? same energy. the more authority someone has, the more a tiny tech glitch feels like public humiliation. anyone else noticed this pattern?</div>
+            <button class="copy-btn" onclick="copyText(988, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://reddit.com/r/whoathatsinteresting/comments/1s6ahlb/judge_nathan_j_milliron_of_the_texas_215th/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(988)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(988)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-1001" data-category="trending_take" style="animation-delay:0.15000000000000002s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>5000</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): apple tv<br><a href="https://www.google.com/search?q=apple+tv" target="_blank">View source</a></div>
+            <div class="reply" id="reply-1001">apple tv in a corporate meeting room is just a security hole with a nice interface. seen too many businesses spend enterprise budgets on consumer streaming boxes when proper wireless presentation systems cost the same and actually integrate with your network. why pay apple tv prices for something that cant be properly managed?</div>
+            <button class="copy-btn" onclick="copyText(1001, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=apple+tv" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(1001)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(1001)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-989" data-category="trending_take" style="animation-delay:0.2s;">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>2000</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (google_trends): f1tv<br><a href="https://www.google.com/search?q=f1tv" target="_blank">View source</a></div>
+            <div class="reply" id="reply-989">f1tv charges £27/year and obsesses over millisecond delays because they know fans notice everything. your enterprise software charges £27k/year and takes 4 seconds to load a dashboard. the difference? f1 actually respects their users.</div>
+            <button class="copy-btn" onclick="copyText(989, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.google.com/search?q=f1tv" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(989)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(989)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-1006" data-category="reddit" style="animation-delay:0.25s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>56</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Claude Usage<br><a href="https://www.reddit.com/r/sales/comments/1s558xg/claude_usage/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-1006">if ur emails need ai to write them the problem isnt the ai</div>
+            <button class="copy-btn" onclick="copyText(1006, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/sales/comments/1s558xg/claude_usage/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(1006)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(1006)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-997" data-category="reddit" style="animation-delay:0.30000000000000004s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>28</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">How do you trace live fiber you can't disconnect?<br><a href="https://www.reddit.com/r/networking/comments/1s67zkw/how_do_you_trace_live_fiber_you_cant_disconnect/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-997">-40db means its basically a very expensive piece of string at this point mate</div>
+            <button class="copy-btn" onclick="copyText(997, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/networking/comments/1s67zkw/how_do_you_trace_live_fiber_you_cant_disconnect/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(997)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(997)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-1008" data-category="reddit" style="animation-delay:0.35000000000000003s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>12</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Anyone familiar with Investor Signals?<br><a href="https://www.reddit.com/r/Entrepreneur/comments/1s5g32m/anyone_familiar_with_investor_signals/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-1008">if theyre paying u for feedback ur not the customer ur the product</div>
+            <button class="copy-btn" onclick="copyText(1008, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/Entrepreneur/comments/1s5g32m/anyone_familiar_with_investor_signals/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(1008)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(1008)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-1007" data-category="reddit" style="animation-delay:0.4s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>7</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">Looking for good marketing ways<br><a href="https://www.reddit.com/r/SaaS/comments/1s6f3qw/looking_for_good_marketing_ways/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-1007">20k gets you the powerpoint about why you need 200k</div>
+            <button class="copy-btn" onclick="copyText(1007, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/SaaS/comments/1s6f3qw/looking_for_good_marketing_ways/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(1007)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(1007)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-998" data-category="reddit" style="animation-delay:0.45s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>5</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">FMG and 7.6 (rant)<br><a href="https://www.reddit.com/r/fortinet/comments/1s4hknh/fmg_and_76_rant/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-998">fortinet gear is brilliant, fortinet software is not</div>
+            <button class="copy-btn" onclick="copyText(998, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/fortinet/comments/1s4hknh/fmg_and_76_rant/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(998)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(998)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+</div><div class="timed-section" data-reveal="10">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Film These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Today's video scripts based on trending topics</div>
+    </div>
+        <div class="card" data-category="scripts" style="">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">SCRIPT 1: &quot;F1 Teams vs Your Hiring Process&quot;</div>
+            <div class="reply" id="script-34" style="font-size:15px;white-space:pre-wrap;">SCRIPT 1: &quot;F1 Teams vs Your Hiring Process&quot;<br>**HOOK (2 seconds):**<br>*Text on screen: &quot;Your hiring process vs F1 pit stops&quot;*<br>*Henry says:* &quot;F1 teams change tyres in 2.3 seconds. Your company takes 3 months to hire a sales rep.&quot;<br><br>**BODY (30 seconds):**<br>&quot;Here's what F1 teams do that your startup doesn't. They practice the same process hundreds of times. They know exactly who does what. And when something goes wrong, they fix it immediately, not next quarter.<br><br>Your hiring process? Different every time. No clear roles. And when a hire doesn't work out, you blame the candidate instead of your system.<br><br>At Alba Talent, we've hired 40+ UK sales reps for US companies. Same process every time. 14 days from brief to offer. Because we treat hiring like F1 teams treat pit stops.&quot;<br><br>**CTA (5 seconds):**<br>&quot;DM me 'PIT STOP' and I'll send you our 14-day hiring playbook.&quot;<br><br>**Why this will perform:** F1 is trending at 20,000 searches, and the comparison between elite performance and broken hiring processes creates immediate tension.<br><br>---<br><br>###</div>
+            <button class="copy-btn" onclick="copyScript('script-34', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.05s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">SCRIPT 2: &quot;Why Career Changes Feel Harder After 30&quot;</div>
+            <div class="reply" id="script-35" style="font-size:15px;white-space:pre-wrap;">SCRIPT 2: &quot;Why Career Changes Feel Harder After 30&quot;<br>**HOOK (2 seconds):**<br>*Text on screen: &quot;Career changes after 30 hit different&quot;*<br>*Henry says:* &quot;Google autocomplete just told me something depressing about career changes.&quot;<br><br>**BODY (35 seconds):**<br>&quot;Top search: 'Why do career transitions feel harder later in life?' And I know why.<br><br>It's not because you're older. It's because companies hire like it's 1995. They want someone who's done the exact same job, at the exact same company size, in the exact same industry.<br><br>But here's what I've learned hiring for 50+ startups. The best sales reps aren't the ones with identical experience. They're the ones who understand your customer's pain.<br><br>I hired a teacher to sell SaaS. She's now their top performer. Why? She knows how to explain complex things simply.&quot;<br><br>**CTA (5 seconds):**<br>&quot;Follow for more hiring truths that VCs don't want you to know.&quot;<br><br>**Why this will perform:** Directly addresses a trending search query that resonates with founders making hiring decisions.<br><br>---<br><br>###</div>
+            <button class="copy-btn" onclick="copyScript('script-35', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.1s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">SCRIPT 3: &quot;Solar Is Winning, Traditional Hiring Is Losing&quot;</div>
+            <div class="reply" id="script-36" style="font-size:15px;white-space:pre-wrap;">SCRIPT 3: &quot;Solar Is Winning, Traditional Hiring Is Losing&quot;<br>**HOOK (2 seconds):**<br>*Text on screen: &quot;Solar just became the world's cheapest energy&quot;*<br>*Henry says:* &quot;Solar energy just disrupted everything. Your hiring process is next.&quot;<br><br>**BODY (40 seconds):**<br>&quot;Solar became the cheapest power source by doing things differently. While everyone else was optimizing coal plants, solar companies rebuilt from scratch.<br><br>Your hiring process? Still optimized for 2005. Job boards, 6-round interviews, waiting for the 'perfect' candidate who doesn't exist.<br><br>We rebuilt hiring from scratch. Instead of posting jobs and hoping, we actively find people who are already solving your customers' problems. Instead of 6 interviews, we do 2 plus real work samples.<br><br>Result? 14 days from brief to hire. 90% retention rate after 12 months.&quot;<br><br>**CTA (5 seconds):**<br>&quot;Comment 'SOLAR' for our hiring playbook that actually works in 2026.&quot;<br><br>**Why this will perform:** Connects the viral solar energy story to broken hiring processes, positioning Henry as the disruptor.<br><br>---<br><br>##</div>
+            <button class="copy-btn" onclick="copyScript('script-36', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.15000000000000002s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,0,0.15);color:#ff0000;">YouTube</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">** &quot;The Real Reason Career Changes Feel Harder After 30 (It's Not What You Think)&quot;</div>
+            <div class="reply" id="script-37" style="font-size:15px;white-space:pre-wrap;">OPTION 1: &quot;Why Career Changes Feel Impossible After 30 (And How Companies Can Fix This)&quot;<br><br>**TITLE:** &quot;The Real Reason Career Changes Feel Harder After 30 (It's Not What You Think)&quot;<br><br>**THUMBNAIL CONCEPT:** Split screen showing a frustrated person at 35 next to Henry pointing at a graph showing &quot;Career Change Success Rate By Age&quot;<br><br>**OUTLINE:**<br>- **Hook (0-30 seconds):** &quot;Google's top search today reveals something broken about modern hiring&quot;<br>- **Point 1 (30 seconds-2 minutes):** Why companies create artificial barriers, real examples of &quot;5 years experience in X&quot; requirements<br>- **Point 2 (2-4 minutes):** Case studies of successful career changers in sales roles, teacher-to-SaaS example<br>- **Point 3 (4-6 minutes):** How Alba Talent evaluates transferable skills instead of identical experience<br>- **Point 4 (6-8 minutes):** Framework for founders to identify high-potential career changers<br>- **CTA (8-10 minutes):** Download the transferable skills assessment tool<br><br>**Why this topic will get views right now:** Directly addresses today's trending search query while providing actionable value to both job seekers and founders.<br><br>---<br><br>###</div>
+            <button class="copy-btn" onclick="copyScript('script-37', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.2s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,0,0.15);color:#ff0000;">YouTube</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">** &quot;I Hired 40+ UK Sales Reps for US Companies, Here's What Shocked Me&quot;</div>
+            <div class="reply" id="script-38" style="font-size:15px;white-space:pre-wrap;">OPTION 2: &quot;UK Sales Reps Are Secretly Outperforming Americans (Here's Why)&quot;<br><br>**TITLE:** &quot;I Hired 40+ UK Sales Reps for US Companies, Here's What Shocked Me&quot;<br><br>**THUMBNAIL CONCEPT:** UK and US flags with sales numbers underneath, Henry looking surprised with arms crossed<br><br>**OUTLINE:**<br>- **Hook (0-45 seconds):** &quot;American founders think UK sales reps are too polite to close deals, they're wrong&quot;<br>- **Point 1 (45 seconds-2.5 minutes):** Cultural differences in sales approach, relationship building vs transactional<br>- **Point 2 (2.5-5 minutes):** Real performance data, UK vs US sales rep results across 20 companies<br>- **Point 3 (5-7 minutes):** Why UK reps cost 40% less but often deliver better results<br>- **Point 4 (7-9 minutes):** How to interview and onboard UK sales talent remotely<br>- **CTA (9-10 minutes):** Book a call to discuss UK hiring for your US startup<br><br>**Why this topic will get views right now:** Contrarian take on hiring that challenges assumptions, plus specific data and cost savings that founders care about.</div>
+            <button class="copy-btn" onclick="copyScript('script-38', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div></div>
+    </div>
+
+    <div class="celebration" id="celebration">
+        <div class="emoji">&#127881;</div>
+        <h2>All done for today</h2>
+        <p>Every suggestion posted. Consistency compounds.</p>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"><span class="check">&#10003;</span> Copied to clipboard</div>
+
+    <script>
+        function filterCards(category, btn) {
+            var tabs = document.querySelectorAll('.tab');
+            for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+            btn.classList.add('active');
+
+            var cards = document.querySelectorAll('.card');
+            for (var i = 0; i < cards.length; i++) {
+                var cat = cards[i].getAttribute('data-category') || '';
+                if (category === 'all' || cat.indexOf(category) !== -1) {
+                    cards[i].style.display = '';
+                } else {
+                    cards[i].style.display = 'none';
+                }
+            }
+
+            var sections = document.querySelectorAll('.timed-section');
+            for (var i = 0; i < sections.length; i++) {
+                var visibleCards = sections[i].querySelectorAll('.card:not([style*="display: none"])');
+                if (category === 'all' || visibleCards.length > 0) {
+                    sections[i].style.display = '';
+                } else {
+                    sections[i].style.display = 'none';
+                }
+            }
+        }
+
+        var TOTAL = 10;
+        var STORAGE_KEY = 'vrb_done_henry_2026-03-29';
+        var FEEDBACK_KEY = 'vrb_feedback_henry_2026-03-29';
+        var PERSON = 'henry';
+        var FEEDBACK_URL = 'https://script.google.com/macros/s/AKfycbzC5tDacKAi8JcU_aUsdOapCTMooV_krz1H2dtxHORL3egj1uWhj2FmlwzXduWsIEKm/exec';
+
+        function getDone() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+            catch(e) { return []; }
+        }
+        function saveDone(arr) { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+        function updateProgress() {
+            var done = getDone();
+            var pct = TOTAL > 0 ? Math.round(done.length / TOTAL * 100) : 0;
+            document.getElementById('progress-fill').style.width = pct + '%';
+            document.getElementById('progress-text').textContent = done.length + '/' + TOTAL;
+            done.forEach(function(id) {
+                var card = document.getElementById('card-' + id);
+                if (card) card.classList.add('done');
+            });
+            if (done.length >= TOTAL && TOTAL > 0) {
+                document.getElementById('celebration').classList.add('show');
+            }
+        }
+
+        function markDone(id) {
+            var done = getDone();
+            if (done.indexOf(id) === -1) { done.push(id); saveDone(done); }
+            var card = document.getElementById('card-' + id);
+            if (card) card.classList.add('done');
+            updateProgress();
+        }
+
+        function copyText(id, btn) {
+            var text = document.getElementById('reply-' + id).innerText;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() { showCopied(btn, id); })
+                .catch(function() { fallbackCopy(text, btn, id); });
+            } else { fallbackCopy(text, btn, id); }
+        }
+
+        function copyScript(elemId, btn) {
+            var text = document.getElementById(elemId).innerText;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() { showScriptCopied(btn); })
+                .catch(function() { fallbackCopyScript(text, btn); });
+            } else { fallbackCopyScript(text, btn); }
+        }
+
+        function fallbackCopyScript(text, btn) {
+            var ta = document.createElement('textarea'); ta.value = text;
+            ta.style.cssText = 'position:fixed;left:-9999px';
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); showScriptCopied(btn); } catch(e) {}
+            document.body.removeChild(ta);
+        }
+
+        function showScriptCopied(btn) {
+            btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Copied';
+            btn.classList.add('copied');
+            var toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 1800);
+        }
+
+        function fallbackCopy(text, btn, id) {
+            var ta = document.createElement('textarea'); ta.value = text;
+            ta.style.cssText = 'position:fixed;left:-9999px';
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); showCopied(btn, id); } catch(e) {}
+            document.body.removeChild(ta);
+        }
+
+        function showCopied(btn, id) {
+            markDone(id);
+            sendFeedback(id, 'copied');
+            btn.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Copied';
+            btn.classList.add('copied');
+            var toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(function() { toast.classList.remove('show'); }, 1800);
+        }
+
+        function getFeedback() {
+            try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{}'); }
+            catch(e) { return {}; }
+        }
+        function saveFeedback(obj) { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(obj)); }
+
+        function sendFeedback(id, action) {
+            if (!FEEDBACK_URL) return;
+            var reply = document.getElementById('reply-' + id);
+            var card = document.getElementById('card-' + id);
+            var platform = '';
+            if (card) {
+                var badge = card.querySelector('.badge');
+                if (badge) platform = badge.textContent.trim();
+            }
+            fetch(FEEDBACK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    person: PERSON,
+                    suggestion_id: id,
+                    action: action,
+                    platform: platform,
+                    reply_preview: reply ? reply.textContent.substring(0, 100) : ''
+                })
+            }).catch(function(err) {
+                console.warn('Feedback sync failed (will retry on next action):', err);
+            });
+        }
+
+        function markPosted(id) {
+            var fb = getFeedback();
+            fb[id] = 'posted';
+            saveFeedback(fb);
+            markDone(id);
+            sendFeedback(id, 'posted');
+        }
+        function markSkip(id) {
+            var fb = getFeedback();
+            fb[id] = 'skip';
+            saveFeedback(fb);
+            var card = document.getElementById('card-' + id);
+            if (card) { card.style.display = 'none'; }
+            updateProgress();
+            sendFeedback(id, 'skip');
+        }
+
+        // Restore feedback state on load
+        (function() {
+            var fb = getFeedback();
+            for (var id in fb) {
+                if (fb[id] === 'posted') { markDone(parseInt(id)); }
+                else if (fb[id] === 'skip') {
+                    var card = document.getElementById('card-' + id);
+                    if (card) { card.style.display = 'none'; }
+                }
+            }
+        })();
+
+        updateProgress();
+
+        var SCHEDULE = [
+            {hour: 8, min: 0, label: 'Reddit comments', reveal: 8},
+            {hour: 9, min: 15, label: 'LinkedIn posts', reveal: 9},
+            {hour: 10, min: 0, label: 'Film scripts', reveal: 10},
+            {hour: 12, min: 0, label: 'Tweets', reveal: 12},
+        ];
+
+        function revealSections() {
+            var h = new Date().getHours();
+            var sections = document.querySelectorAll('.timed-section');
+            for (var i = 0; i < sections.length; i++) {
+                var revealHour = parseInt(sections[i].getAttribute('data-reveal'));
+                if (h >= revealHour) {
+                    sections[i].classList.add('revealed');
+                }
+            }
+        }
+
+        function updateCountdown() {
+            var now = new Date();
+            var h = now.getHours(), m = now.getMinutes();
+            var next = null;
+            for (var i = 0; i < SCHEDULE.length; i++) {
+                if (h < SCHEDULE[i].hour || (h === SCHEDULE[i].hour && m < SCHEDULE[i].min)) {
+                    next = SCHEDULE[i]; break;
+                }
+            }
+            var el = document.getElementById('countdown');
+            if (!el) return;
+            if (!next) {
+                el.innerHTML = 'All sections unlocked. Go post.';
+            } else {
+                var mins = (next.hour - h) * 60 + (next.min - m);
+                var hh = Math.floor(mins / 60);
+                var mm = mins % 60;
+                var timeStr = hh > 0 ? hh + 'h ' + mm + 'm' : mm + 'm';
+                el.innerHTML = 'Next: <strong>' + next.label + '</strong> unlocks in ' + timeStr;
+            }
+            revealSections();
+        }
+        setInterval(updateCountdown, 60000);
+        updateCountdown();
+    </script>
+</body>
+</html>

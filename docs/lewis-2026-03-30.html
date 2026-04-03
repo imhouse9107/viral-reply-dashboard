@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#000000">
     <link rel="manifest" href="manifest.json">
-    <title>Lewis | 2026-04-03</title>
+    <title>Lewis | 2026-03-30</title>
     <style>
         :root {
             --bg: #000; --bg-card: #1c1c1e; --bg-elevated: #2c2c2e; --bg-reply: #1c1c1e;
@@ -186,7 +186,7 @@
                 <svg viewBox="0 0 10 17"><polyline points="9 1 1 8.5 9 16"/></svg> Back
             </a>
             <span class="nav-title">Lewis</span>
-            <span class="nav-done" id="progress-text">0/0</span>
+            <span class="nav-done" id="progress-text">0/3</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
     </div>
@@ -204,11 +204,119 @@
 
     <div class="header">
         <h1>Today's Suggestions</h1>
-        <div class="date">2026-04-03</div>
+        <div class="date">2026-03-30</div>
     </div>
 
     <div id="cards-container">
-    <div class="empty">No suggestions yet today. Check back after the bot runs.</div>
+    
+    <div class="timed-section" data-reveal="8">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.45);">Comment on These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Open the post, paste your comment</div>
+    </div>
+
+        <div class="card size-xl fire" id="card-1051" data-category="trending_take" style="">
+            <div class="card-top">
+                <span class="badge trending-take">trending take</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>77088</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">TRENDING (reddit_popular): me_irl<br><a href="https://reddit.com/r/me_irl/comments/1s6to9e/me_irl/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-1051">me_irl, watching sales teams complain about not hitting targets while they're still using excel to track leads in 2026. built a simple clay to hubspot automation last week that would've saved them 15 hours a week. why do good salespeople accept bad systems?</div>
+            <button class="copy-btn" onclick="copyText(1051, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://reddit.com/r/me_irl/comments/1s6to9e/me_irl/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(1051)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(1051)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-1050" data-category="reddit" style="animation-delay:0.05s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>21</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">replaced 8 zaps with one sentence and im not sure how to feel about it<br><a href="https://www.reddit.com/r/zapier/comments/1s6rz2j/replaced_8_zaps_with_one_sentence_and_im_not_sure/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-1050">mate if u can explain it in one sentence u never needed 8 zaps</div>
+            <button class="copy-btn" onclick="copyText(1050, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/zapier/comments/1s6rz2j/replaced_8_zaps_with_one_sentence_and_im_not_sure/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(1050)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(1050)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+
+        <div class="card size-sm " id="card-1049" data-category="reddit" style="animation-delay:0.1s;">
+            <div class="card-top">
+                <span class="badge reddit">reddit</span>
+                <div class="meta-right">
+                    <span class="done-check">&#10003; Done</span>
+                    <span class="engagement"><strong>4</strong> engagement</span>
+                </div>
+            </div>
+            <div class="context">MuleSoft / Informatica (SalesForce) selling … Does anyone know what this territory means? Looking for ideas / Suggestions.<br><a href="https://www.reddit.com/r/salesforce/comments/1s5lu97/mulesoft_informatica_salesforce_selling_does/" target="_blank">View source</a></div>
+            <div class="reply" id="reply-1049">greenfield mulesoft is just selling £500k integration software to companies still using excel for everything</div>
+            <button class="copy-btn" onclick="copyText(1049, this)" aria-label="Copy suggestion to clipboard"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+            <a class="post-link" href="https://www.reddit.com/r/salesforce/comments/1s5lu97/mulesoft_informatica_salesforce_selling_does/" target="_blank">Open post to comment</a>
+            <div class="feedback-row">
+                <button class="fb-posted" onclick="markPosted(1049)" aria-label="Mark as posted">Posted</button>
+                <button class="fb-skip" onclick="markSkip(1049)" aria-label="Skip this suggestion">Skip</button>
+            </div>
+        </div>
+</div><div class="timed-section" data-reveal="10">
+    <div style="padding:20px 0 8px;margin-top:8px;">
+        <div style="font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(235,235,245,0.30);">Film These</div>
+        <div style="font-size:14px;color:rgba(235,235,245,0.60);margin-top:4px;">Today's video scripts based on trending topics</div>
+    </div>
+        <div class="card" data-category="scripts" style="">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">SCRIPT 1: &quot;Career Change&quot; Hook</div>
+            <div class="reply" id="script-57" style="font-size:15px;white-space:pre-wrap;">SCRIPT 1: &quot;Career Change&quot; Hook<br>**HOOK:** (Text: &quot;POV: You're switching careers at 35&quot;) <br>*Lewis speaking*: &quot;Everyone told me I was too old to break into sales ops...&quot;<br><br>**BODY:** &quot;...but here's what actually happened. I mapped out every GTM tool on the market, spent 3 months learning HubSpot workflows, built a demo CRM sequence that converts at 47%, and landed my first rev ops role in 90 days. The secret? Don't just learn the theory, build actual systems. I created automations that save 15 hours per week, set up lead scoring that increased MQL quality by 60%, and documented every single process. Age doesn't matter when you can prove ROI.&quot;<br><br>**CTA:** &quot;Want my exact 90-day GTM systems roadmap? Link in bio.&quot;<br><br>**Why this will perform:** Directly addresses the trending question about career transitions feeling harder later in life while providing specific, actionable metrics.<br><br>---<br><br>###</div>
+            <button class="copy-btn" onclick="copyScript('script-57', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.05s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">SCRIPT 2: &quot;Apple Sales Machine&quot; Hook</div>
+            <div class="reply" id="script-58" style="font-size:15px;white-space:pre-wrap;">SCRIPT 2: &quot;Apple Sales Machine&quot; Hook<br>**HOOK:** (Text: &quot;How Apple's CRM actually works&quot;) <br>*Lewis speaking*: &quot;Apple doesn't use Salesforce like everyone thinks...&quot;<br><br>**BODY:** &quot;They built their own GTM system that's basically HubSpot on steroids. Every customer touchpoint feeds into one unified view, their lead scoring considers device ecosystem lock-in, and they have automated sequences for every product line. The genius part? Their CRM tracks product usage patterns, not just demographics. When your MacBook warranty expires, boom, targeted iPad Pro campaign. When you buy AirPods, automated iPhone upgrade sequence kicks in 18 months later. It's why they have 92% customer retention.&quot;<br><br>**CTA:** &quot;I reverse-engineered their system for regular businesses. Tutorial linked below.&quot;<br><br>**Why this will perform:** Leverages Apple's massive search volume while revealing insider GTM knowledge that sales ops people are hungry for.<br><br>---<br><br>###</div>
+            <button class="copy-btn" onclick="copyScript('script-58', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.1s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,80,0.15);color:#ff0050;">TikTok / Reels / Shorts</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">SCRIPT 3: &quot;Layoff Protection&quot; Hook</div>
+            <div class="reply" id="script-59" style="font-size:15px;white-space:pre-wrap;">SCRIPT 3: &quot;Layoff Protection&quot; Hook<br>**HOOK:** (Text: &quot;While everyone else got laid off...&quot;) <br>*Lewis speaking*: &quot;I actually got promoted during the tech downturn&quot;<br><br>**BODY:** &quot;Here's why: I wasn't just a sales ops person, I was the revenue machine. When budgets got cut, my HubSpot workflows were still generating 40% of pipeline. My Clay automations were finding prospects while others cold-called. My n8n sequences were nurturing leads 24/7 without human touch. Companies don't fire systems that make money. They fire people who just update spreadsheets. So I made myself unfireable by becoming the guy who builds the money-making machines.&quot;<br><br>**CTA:** &quot;Learn my layoff-proof GTM skills. Free training below.&quot;<br><br>**Why this will perform:** Taps into job security fears from the Epic Games layoffs trend while positioning GTM systems as career insurance.<br><br>---<br><br>##</div>
+            <button class="copy-btn" onclick="copyScript('script-59', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.15000000000000002s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,0,0.15);color:#ff0000;">YouTube</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">** &quot;How I Broke Into Sales Ops at 25 (From Zero GTM Experience)&quot;</div>
+            <div class="reply" id="script-60" style="font-size:15px;white-space:pre-wrap;">OPTION 1: Career Transition Strategy<br>**TITLE:** &quot;How I Broke Into Sales Ops at 25 (From Zero GTM Experience)&quot;<br><br>**THUMBNAIL CONCEPT:** Split-screen showing Lewis looking confused with &quot;ZERO EXPERIENCE&quot; text on left, confident with &quot;GTM EXPERT&quot; and salary figure on right.<br><br>**OUTLINE:**<br>- **Intro Hook** (0-30s): &quot;Six months ago I couldn't spell CRM, now I run a 7-figure pipeline&quot;<br>- **Point 1** (30s-3m): The exact tools I learned (HubSpot, Clay, n8n) and why these three matter most<br>- **Point 2** (3-5m): My 90-day learning system, specific projects I built to prove competence<br>- **Point 3** (5-7m): How I got interviews without experience (portfolio of automations, not resumes)<br>- **Point 4** (7-9m): Salary progression and what companies actually pay for GTM skills<br>- **CTA** (9-10m): &quot;My complete roadmap is free, link below&quot;<br><br>**Why this will get views:** Career change content always performs, plus specific age/timeline creates curiosity gap that demands resolution.<br><br>---<br><br>###</div>
+            <button class="copy-btn" onclick="copyScript('script-60', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div>
+
+        <div class="card" data-category="scripts" style="animation-delay:0.2s;">
+            <div class="card-top">
+                <span class="badge" style="background:rgba(255,0,0,0.15);color:#ff0000;">YouTube</span>
+            </div>
+            <div style="padding:10px 16px 0;font-size:15px;font-weight:600;color:rgba(255,255,255,0.92);">** &quot;I Reverse-Engineered Apple's $400B Sales Machine (It's Not What You Think)&quot;</div>
+            <div class="reply" id="script-61" style="font-size:15px;white-space:pre-wrap;">OPTION 2: Apple GTM Deep-Dive  <br>**TITLE:** &quot;I Reverse-Engineered Apple's $400B Sales Machine (It's Not What You Think)&quot;<br><br>**THUMBNAIL CONCEPT:** Apple logo morphing into a complex flowchart/system diagram with Lewis pointing at specific elements, &quot;$400B&quot; prominently displayed.<br><br>**OUTLINE:**<br>- **Intro Hook** (0-45s): &quot;Apple doesn't sell products, they sell systems, and their CRM proves it&quot;<br>- **Point 1** (45s-3m): How Apple's customer journey actually works (ecosystem lock-in via data)<br>- **Point 2** (3-6m): Their automated sequences I discovered (warranty, upgrade, cross-sell triggers)<br>- **Point 3** (6-8m): Three strategies any business can steal (unified customer view, usage-based scoring, timing algorithms)<br>- **Point 4** (8-10m): I built a mini-version for a client, results breakdown<br>- **CTA** (10m): &quot;Templates and workflows available below&quot;<br><br>**Why this will get views:** Apple's search volume is massive, and revealing &quot;secrets&quot; of successful companies always hooks business audiences.</div>
+            <button class="copy-btn" onclick="copyScript('script-61', this)"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button>
+        </div></div>
     </div>
 
     <div class="celebration" id="celebration">
@@ -246,9 +354,9 @@
             }
         }
 
-        var TOTAL = 0;
-        var STORAGE_KEY = 'vrb_done_lewis_2026-04-03';
-        var FEEDBACK_KEY = 'vrb_feedback_lewis_2026-04-03';
+        var TOTAL = 3;
+        var STORAGE_KEY = 'vrb_done_lewis_2026-03-30';
+        var FEEDBACK_KEY = 'vrb_feedback_lewis_2026-03-30';
         var PERSON = 'lewis';
         var FEEDBACK_URL = 'https://script.google.com/macros/s/AKfycbzC5tDacKAi8JcU_aUsdOapCTMooV_krz1H2dtxHORL3egj1uWhj2FmlwzXduWsIEKm/exec';
 
